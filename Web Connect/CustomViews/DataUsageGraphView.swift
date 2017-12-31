@@ -12,7 +12,7 @@ class DataUsageGraphView: UIView {
     
     // MARK: Properties
     
-    open var dataSet: DataSet = DataSet(0, 1) {
+    open var dataSet: DataSet = DataSet(0, 10) {
         didSet { update() }
     }
     
@@ -70,6 +70,7 @@ class DataUsageGraphView: UIView {
     private lazy var usedDataGraphView: GradientView = {
         let view = GradientView()
         view.colors = [#colorLiteral(red: 0.1019607857, green: 0.2784313858, blue: 0.400000006, alpha: 1), #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)]
+        view.locations = [0.8, 1]
         view.clipsToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -78,6 +79,7 @@ class DataUsageGraphView: UIView {
     private lazy var availableDataGraphView: GradientView = {
         let view = GradientView()
         view.colors = [#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0), #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)]
+        view.locations = [0, 0.2, 1]
         view.clipsToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -115,12 +117,15 @@ class DataUsageGraphView: UIView {
             self.usedDataGraphViewWidth.constant = (used / cap) * self.graphWidth
             self.layoutIfNeeded()
             
-            let usedDataPercentage = Int(used / cap * 100)
-            self.usedDataAmountLabel.text = "\(usedDataPercentage)%"
-            self.availableDataAmountLabel.text = "\(100 - usedDataPercentage)%"
+            self.usedDataAmountLabel.text = "\(self.dataSet.usedPercentage())%"
+            self.availableDataAmountLabel.text = "\(self.dataSet.availablePercentage())%"
             
-            self.usedDataTitleLabel.text = "Used - \(Int(used/1000000))mb"
-            self.availableDataTitleLabel.text = "Available - \(Int(cap/1000000))mb"
+            let byteToMegaByteConversionRate: Byte = 1000000
+            let usedDataInMB = Int(used/byteToMegaByteConversionRate)
+            let availableDataInMB = Int(cap/byteToMegaByteConversionRate) - usedDataInMB
+            
+            self.usedDataTitleLabel.text = "Used - \(usedDataInMB)mb"
+            self.availableDataTitleLabel.text = "Available - \(availableDataInMB)mb"
         }
     }
     

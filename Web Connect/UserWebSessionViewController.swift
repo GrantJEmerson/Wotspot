@@ -35,11 +35,8 @@ class UserWebSessionViewController: PulleyViewController {
         return session
     }()
     
-    private lazy var peerID: MCPeerID = {
-        let peerID = MCPeerID(displayName: UIDevice.current.name)
-        return peerID
-    }()
-
+    private lazy var peerID = MCPeerID.saved
+        
     // MARK: View Controller Life Cycle
     
     override func viewDidLoad() {
@@ -59,11 +56,13 @@ class UserWebSessionViewController: PulleyViewController {
         }
     }
     
-//    private func updateDataUsage(dataUsed: Byte, dataCap: Byte) {
-//        user.dataUsed = dataUsed
-//        user.dataCap = dataCap
-//        drawerDelegate?.updateDataUsageGraph(dataUsed: dataUsed, dataCap: dataCap)
-//    }
+    private func presentDisconnectedAlert() {
+        let alertController = UIAlertController(title: "Disconnected",
+                                      message: "You have been removed from the current Web Share session.",
+                                      preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alertController, animated: true)
+    }
     
 }
 
@@ -78,10 +77,14 @@ extension UserWebSessionViewController: MCSessionDelegate {
     }
     
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
-        guard let searchResult = try? PropertyListDecoder().decode(SearchResult.self, from: data) else { return }
-        webView?.loadWebPage(searchResult.webPage)
-        drawerDelegate?.updateDataUsageGraph(dataUsed: searchResult.dataSet.dataUsed,
-                                             dataCap: searchResult.dataSet.dataCap)
+        if let searchResult = try? PropertyListDecoder().decode(SearchResult.self, from: data) {
+            webView?.loadWebPage(searchResult.webPage)
+            drawerDelegate?.updateDataUsageGraph(dataSet: searchResult.dataSet)
+        } else if let disconnectMessage = String.init(data: data, encoding: .utf8) {
+            guard disconnectMessage == "disconnect" else { return }
+            session.disconnect()
+            presentDisconnectedAlert()
+        }
     }
     
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
@@ -141,6 +144,17 @@ extension UserWebSessionViewController: ContentDelegate, ParentDelegate {
         setDrawerPosition(position: PulleyPosition(rawValue: pulleyPosition)!)
         guard pulleyPosition == 0 else { return }
         drawerDelegate?.endEditing()
+    }
+    
+    func leaveSession() {
+        session.disconnect()
+        assistant.stop()
+        dismiss(animated: true)
+    }
+    
+    func setPeerIDTo(_ displayName: String) {
+        peerID = MCPeerID(displayName: displayName)
+        UserDefaults.standard.set(displayName, forKey: "displayName")
     }
     
 }

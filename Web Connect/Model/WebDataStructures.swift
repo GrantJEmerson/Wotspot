@@ -44,6 +44,18 @@ struct DataSet: Codable {
         self.dataUsed = dataUsed
         self.dataCap = dataCap
     }
+    
+    func limitReached() -> Bool {
+        return dataUsed >= dataCap
+    }
+    
+    func usedPercentage() -> Int {
+        return Int(dataUsed/dataCap * 100)
+    }
+    
+    func availablePercentage() -> Int {
+        return 100 - self.usedPercentage()
+    }
 }
 
 typealias ImageSet = (image1: UIImage, image2: UIImage)

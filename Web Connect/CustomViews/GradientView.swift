@@ -25,6 +25,10 @@ import UIKit
 	public enum Direction {
 		case vertical, horizontal
 	}
+    
+    public enum DrawDirection {
+        case left, right
+    }
 
 
 	// MARK: - Properties
@@ -76,6 +80,12 @@ import UIKit
 			setNeedsDisplay()
 		}
 	}
+    
+    open var drawDirection: DrawDirection = .right {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
 
 	/// 1px borders will be drawn instead of 1pt borders. The default is `true`.
 	@IBInspectable open var drawsThinBorders: Bool = true {
@@ -115,7 +125,7 @@ import UIKit
 
 	// MARK: - UIView
 
-	override open func draw(_ rect: CGRect) {
+    override open func draw(_ rect: CGRect) {
 		let context = UIGraphicsGetCurrentContext()
 		let size = bounds.size
 
@@ -124,8 +134,19 @@ import UIKit
 			let options: CGGradientDrawingOptions = [.drawsAfterEndLocation]
 
 			if mode == .linear {
-				let startPoint = CGPoint.zero
-				let endPoint = direction == .vertical ? CGPoint(x: 0, y: size.height) : CGPoint(x: size.width, y: 0)
+                
+                var startPoint = CGPoint()
+                var endPoint = CGPoint()
+                
+                if drawDirection == .right {
+                    startPoint = .zero
+                    endPoint = (direction == .vertical ? CGPoint(x: 0, y: size.height) :
+                                                                        CGPoint(x: size.width, y: 0))
+                } else {
+                    endPoint = .zero
+                    startPoint = (direction == .vertical ? CGPoint(x: 0, y: size.height) :
+                                                           CGPoint(x: size.width, y: 0))
+                }
 				context?.drawLinearGradient(gradient, start: startPoint, end: endPoint, options: options)
 			} else {
 				let center = CGPoint(x: bounds.midX, y: bounds.midY)

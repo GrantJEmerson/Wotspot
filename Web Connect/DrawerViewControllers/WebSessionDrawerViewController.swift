@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import MultipeerConnectivity
 
 @objc public protocol ContentDelegate {
     
@@ -18,15 +19,21 @@ import CoreData
     func reload()
     
     @objc optional func addUsers()
+    func leaveSession()
+    @objc optional func setPeerIDTo(_ displayName: String)
+    @objc optional func addDataForPeer(_ peerID: MCPeerID)
+    @objc optional func removePeer(_ peerID: MCPeerID)
+    
     func switchUserAgent()
     func switchBlurEffectStyle()
     func setPulleyPosition(_ pulleyPosition: Int)
 }
 
-public protocol WebSessionDrawerDelegate {
+protocol WebSessionDrawerDelegate {
     func endEditing()
     func updateBookmarkIconFor(_ url: URL)
-    func updateDataUsageGraph(dataUsed: CGFloat, dataCap: CGFloat)
+    func updateDataUsageGraph(dataSet: DataSet)
+    func updateUsers(_ users: [User])
 }
 
 class WebSessionDrawerViewController: UIViewController {
@@ -43,7 +50,8 @@ class WebSessionDrawerViewController: UIViewController {
     
     private var editingBookmarks = false
     
-    private let cellID = "cellID"
+    private let bookmarkCellID = "bookmarkCellID"
+    private let noBookmarksCellID = "noBookmarksCellID"
     private let baseURL = "https://www.google.com/search?q="
     
     private var bookmarks = [Bookmark]()
@@ -74,7 +82,8 @@ class WebSessionDrawerViewController: UIViewController {
         didSet {
             collectionView.dataSource = self
             collectionView.delegate = self
-            collectionView.register(BookmarkCollectionViewCell.self, forCellWithReuseIdentifier: cellID)
+            collectionView.register(BookmarkCollectionViewCell.self, forCellWithReuseIdentifier: bookmarkCellID)
+            collectionView.register(NoBookmarksCollectionViewCell.self, forCellWithReuseIdentifier: noBookmarksCellID)
             collectionView.backgroundColor = .clear
         }
     }
@@ -136,7 +145,7 @@ class WebSessionDrawerViewController: UIViewController {
     @IBAction func editButtonTapped(_ sender: UIButton) {
         editingBookmarks = !editingBookmarks
         let currentTitle = sender.titleLabel?.text
-        sender.setTitle(currentTitle == "edit" ? "done" : "edit", for: .normal)
+        sender.setTitle(currentTitle == "Edit" ? "Done" : "Edit", for: .normal)
         NotificationCenter.default.post(name: editingBookmarks ? .startEditing : .endEditing, object: self)
     }
     
@@ -175,11 +184,13 @@ class WebSessionDrawerViewController: UIViewController {
             userManagementView?.translatesAutoresizingMaskIntoConstraints = false
             customView.addSubview(userManagementView!)
             userManagementView?.constrainToParent()
+            userManagementView?.delegate = self
         } else {
             profileView = ProfileManagementView()
             profileView?.translatesAutoresizingMaskIntoConstraints = false
             customView.addSubview(profileView!)
             profileView?.constrainToParent()
+            profileView?.delegate = self
         }
     }
     
@@ -188,9 +199,13 @@ class WebSessionDrawerViewController: UIViewController {
 extension WebSessionDrawerViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! BookmarkCollectionViewCell
+        guard !bookmarks.isEmpty else {
+            return collectionView.dequeueReusableCell(withReuseIdentifier: noBookmarksCellID, for: indexPath)
+        }
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: bookmarkCellID, for: indexPath) as! BookmarkCollectionViewCell
         let bookmark = bookmarks[indexPath.item]
         cell.bookmark = bookmark
+        cell.editing = editingBookmarks
         cell.delegate = self
         return cell
     }
@@ -206,6 +221,7 @@ extension WebSessionDrawerViewController: UICollectionViewDataSource {
 extension WebSessionDrawerViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        guard !bookmarks.isEmpty else { return 1 }
         return bookmarks.count
     }
 }
@@ -248,8 +264,12 @@ extension WebSessionDrawerViewController: UISearchBarDelegate {
 
 extension WebSessionDrawerViewController: WebSessionDrawerDelegate {
     
-    func updateDataUsageGraph(dataUsed: CGFloat, dataCap: CGFloat) {
-        profileView?.updateDataUsageGraph(withDataSet: DataSet(dataUsed, dataCap))
+    func updateUsers(_ users: [User]) {
+        userManagementView?.users = users
+    }
+    
+    func updateDataUsageGraph(dataSet: DataSet) {
+        profileView?.updateDataUsageGraph(withDataSet: dataSet)
     }
     
     func updateBookmarkIconFor(_ url: URL) {
@@ -269,6 +289,55 @@ extension WebSessionDrawerViewController: BookMarkCellDelegate {
         let bookmarkToDelete = bookmarks[indexPath.row]
         bookmarks.remove(at: indexPath.row)
         moc?.delete(bookmarkToDelete)
-        collectionView.deleteItems(at: [indexPath])
+        appDelegate?.saveContext()
+        if bookmarks.isEmpty {
+            collectionView.reloadData()
+        } else {
+            collectionView.deleteItems(at: [indexPath])
+        }
+    }
+}
+
+extension WebSessionDrawerViewController: UserManagementViewDelegate {
+    
+    func addDataForPeer(_ peerID: MCPeerID) {
+        delegate?.addDataForPeer!(peerID)
+    }
+    
+    func removePeer(_ peerID: MCPeerID) {
+        delegate?.removePeer!(peerID)
+    }
+    
+    func endSession() {
+        delegate?.leaveSession()
+    }
+
+    func addUsers() {
+        delegate?.addUsers!()
+    }
+}
+
+extension WebSessionDrawerViewController: ProfileManagementViewDelegate {
+    
+    func setPeerIDTo(_ displayName: String) {
+        delegate?.setPeerIDTo!(displayName)
+    }
+    
+    func leaveSession() {
+        delegate?.leaveSession()
+    }
+    
+    func movePulleyViewControllerUp() {
+        UIView.animate(withDuration: 0.8) { [weak self] in
+            guard let strongSelf = self else { return }
+            strongSelf.view.transform = strongSelf.view.transform.translatedBy(x: 0, y: -100)
+        }
+    }
+    
+    func movePulleyViewControllerDown() {
+        UIView.animate(withDuration: 0.8) { [weak self] in
+            guard let strongSelf = self else { return }
+            strongSelf.view.transform = CGAffineTransform.identity
+        }
     }
 }

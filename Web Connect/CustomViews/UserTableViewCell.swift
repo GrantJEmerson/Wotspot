@@ -7,16 +7,24 @@
 //
 
 import UIKit
+import MultipeerConnectivity
+
+protocol ParentUserManagementViewDelegate {
+    func addDataForPeer(_ peerID: MCPeerID)
+    func removePeer(_ peerID: MCPeerID)
+}
 
 class UserTableViewCell: UITableViewCell {
     
     // MARK: Properties
     
+    public var delegate: ParentUserManagementViewDelegate?
+    
     public var user: User? {
         didSet {
             guard let user = user else { return }
             usernameLabel.text = user.peerID.displayName
-            update(dataUsed: user.dataSet.dataUsed, dataCap: user.dataSet.dataCap)
+            update(dataSet: user.dataSet)
         }
     }
     
@@ -48,18 +56,22 @@ class UserTableViewCell: UITableViewCell {
         return dataUsageGraph
     }()
     
-    private let addDataButton: UIButton = {
+    private lazy var addDataButton: UIButton = {
         let button = UIButton()
         button.setTitle("Add Data", for: .normal)
         button.setTitleColor(.defaultButtonColor, for: .normal)
+        button.setTitleColor(.lightGray, for: .highlighted)
+        button.addTarget(self, action: #selector(addData), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
-    private let removeButton: UIButton = {
+    private lazy var removeButton: UIButton = {
         let button = UIButton()
         button.setTitle("Remove", for: .normal)
         button.setTitleColor(.red, for: .normal)
+        button.setTitleColor(.lightGray, for: .highlighted)
+        button.addTarget(self, action: #selector(disconnect), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -67,6 +79,7 @@ class UserTableViewCell: UITableViewCell {
     private let backgroundBlurView: UIVisualEffectView = {
         let effect = UIBlurEffect(style: UIBlurEffectStyle.light)
         let effectView = UIVisualEffectView(effect: effect)
+        effectView.translatesAutoresizingMaskIntoConstraints = false
         return effectView
     }()
     
@@ -130,9 +143,18 @@ class UserTableViewCell: UITableViewCell {
         ])
     }
     
-    private func update(dataUsed: Byte, dataCap: Byte) {
-        dataUsageGraph.dataSet.dataUsed = dataUsed
-        dataUsageGraph.dataSet.dataCap = dataCap
-        dataUsedPercentageLabel.text = "-used \(Int(dataUsed/dataCap))%"
+    private func update(dataSet: DataSet) {
+        dataUsageGraph.dataSet = dataSet
+        dataUsedPercentageLabel.text = "-used \(dataSet.usedPercentage())%"
+    }
+    
+    @objc private func addData() {
+        guard let user = user else { return }
+        delegate?.addDataForPeer(user.peerID)
+    }
+    
+    @objc private func disconnect() {
+        guard let user = user else { return }
+        delegate?.removePeer(user.peerID)
     }
 }

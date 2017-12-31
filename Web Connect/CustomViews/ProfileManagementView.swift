@@ -7,10 +7,20 @@
 //
 
 import UIKit
+import MultipeerConnectivity
+
+public protocol ProfileManagementViewDelegate {
+    func leaveSession()
+    func setPeerIDTo(_ displayName: String)
+    func movePulleyViewControllerUp()
+    func movePulleyViewControllerDown()
+}
 
 class ProfileManagementView: UIView {
     
     // MARK: Properties
+    
+    public var delegate: ProfileManagementViewDelegate?
     
     private let buttonHeight: CGFloat = 44
     
@@ -35,13 +45,14 @@ class ProfileManagementView: UIView {
         return label
     }()
     
-    // TODO: Make sure people can't add Host as their name
     private lazy var userNameTextField: UITextField = {
         let textField = UITextField()
         textField.font = .systemFont(ofSize: 17)
         textField.placeholder = "User ID"
+        textField.text = MCPeerID.saved.displayName
         textField.textAlignment = .right
         textField.textColor = .lightGray
+        textField.backgroundColor = .clear
         textField.clearButtonMode = .whileEditing
         textField.delegate = self
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -80,7 +91,7 @@ class ProfileManagementView: UIView {
     // MARK: "IBActions"
     
     @objc private func leaveSessionButtonTapped() {
-        
+        delegate?.leaveSession()
     }
     
     // MARK: Public Functions
@@ -94,8 +105,8 @@ class ProfileManagementView: UIView {
     private func setUpSubViews() {
         
         addSubviews([
-            titleLabel, seperatorView1, userNameTitleLabel, userNameTextField, seperatorView2,
-            dataUsageGraph, seperatorView3, leaveSessionButton])
+            titleLabel, seperatorView1, userNameTitleLabel, seperatorView2,
+            dataUsageGraph, seperatorView3, leaveSessionButton, userNameTextField])
         
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
@@ -107,7 +118,7 @@ class ProfileManagementView: UIView {
             
             userNameTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8).withPriority(999),
             userNameTextField.topAnchor.constraint(equalTo: seperatorView1.bottomAnchor),
-            userNameTextField.widthAnchor.constraint(equalToConstant: 100).withPriority(999),
+            userNameTextField.widthAnchor.constraint(equalToConstant: 200).withPriority(999),
             userNameTextField.heightAnchor.constraint(equalToConstant: buttonHeight),
             
             userNameTitleLabel.topAnchor.constraint(equalTo: userNameTextField.topAnchor),
@@ -128,9 +139,9 @@ class ProfileManagementView: UIView {
             seperatorView3.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
             seperatorView3.trailingAnchor.constraint(equalTo: seperatorView1.trailingAnchor),
             
-            leaveSessionButton.bottomAnchor.constraint(equalTo: bottomAnchor),
+            leaveSessionButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20),
             leaveSessionButton.heightAnchor.constraint(equalToConstant: buttonHeight),
-            leaveSessionButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8)
+            leaveSessionButton.centerXAnchor.constraint(equalTo: centerXAnchor)
         ])
     }
 }
@@ -139,9 +150,19 @@ extension ProfileManagementView: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.textColor = .red
+        delegate?.movePulleyViewControllerUp()
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         textField.textColor = .lightGray
+        delegate?.movePulleyViewControllerDown()
+        guard let text = textField.text?.nilIfEmpty(),
+            text != "Host" else { return }
+        delegate?.setPeerIDTo(text)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }

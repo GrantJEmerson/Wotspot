@@ -9,16 +9,25 @@
 import UIKit
 import MultipeerConnectivity
 
+protocol UserManagementViewDelegate {
+    func addUsers()
+    func endSession()
+    func addDataForPeer(_ peerID: MCPeerID)
+    func removePeer(_ peerID: MCPeerID)
+}
+
 class UserManagementView: UIView {
     
     // MARK: Properties
     
-    //TODO: Remove Template Data
+    public var delegate: UserManagementViewDelegate?
+    
     public var users = [User]() {
         didSet {
             tableView.reloadData()
             userCountLabel.text = "\(users.count) of 7 Users Connected"
             addUsersButton.isEnabled = users.count < 7
+            tableView.reloadData()
         }
     }
     
@@ -38,6 +47,7 @@ class UserManagementView: UIView {
     
     private lazy var addUsersButton: UIButton = {
         let button = UIButton(type: .contactAdd)
+        button.addTarget(self, action: #selector(addUsers), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -61,6 +71,11 @@ class UserManagementView: UIView {
         tableView.contentInset = UIEdgeInsets(top: 2, left: 0, bottom: 15, right: 0)
         tableView.rowHeight = 170
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let endSessionFooterView = EndSessionFooterView(frame: CGRect(x: 0, y: 0, width: self.bounds.width, height: 35))
+        endSessionFooterView.userManagementView = self
+        tableView.tableFooterView = endSessionFooterView
+        
         return tableView
     }()
     
@@ -108,6 +123,10 @@ class UserManagementView: UIView {
             tableView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8).withPriority(999)
         ])
     }
+    
+    @objc private func addUsers() {
+        delegate?.addUsers()
+    }
 }
 
 extension UserManagementView: UITableViewDelegate {
@@ -132,6 +151,18 @@ extension UserManagementView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! UserTableViewCell
         cell.user = users[indexPath.section]
+        cell.delegate = self
         return cell
+    }
+}
+
+extension UserManagementView: ParentUserManagementViewDelegate {
+    
+    func removePeer(_ peerID: MCPeerID) {
+        delegate?.removePeer(peerID)
+    }
+    
+    func addDataForPeer(_ peerID: MCPeerID) {
+        delegate?.addDataForPeer(peerID)
     }
 }

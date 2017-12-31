@@ -42,7 +42,6 @@ class WebBrowserViewController: UIViewController {
             webView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             webView.topAnchor.constraint(equalTo: view.topAnchor, constant: UIApplication.shared.statusBarFrame.height),
             webView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -60)
-
         ])
     }
     
@@ -74,6 +73,7 @@ extension WebBrowserViewController: WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         lastOffsetY = 0
+        webView.evaluateJavaScript("document.body.style.webkitTouchCallout='none';")
     }
 }
 

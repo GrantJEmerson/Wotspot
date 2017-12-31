@@ -18,7 +18,13 @@ class HostWebSessionViewController: PulleyViewController {
     
     public var drawerDelegate: WebSessionDrawerDelegate?
     
-    private var users = [User]()
+    private var peerIDsToAdd = [MCPeerID]()
+    
+    private var users = [User]() {
+        didSet {
+            drawerDelegate?.updateUsers(users)
+        }
+    }
     
     private var appDelegate = UIApplication.shared.delegate as? AppDelegate
     private lazy var moc = appDelegate?.persistentContainer.viewContext
@@ -61,13 +67,11 @@ class HostWebSessionViewController: PulleyViewController {
     // MARK: Private Functions
     
     private func getSearchResult(forSearchRequest searchRequest: SearchRequest,
-                              completion: @escaping (WebPage?) -> ()) {
+                                 completion: @escaping (WebPage?) -> ()) {
         var urlRequest = URLRequest(url: searchRequest.url)
         urlRequest.addValue(searchRequest.userAgent.rawValue, forHTTPHeaderField: "User-Agent")
-        URLSession.shared.dataTask(with: urlRequest, completionHandler: { (data, response, error) in
-            guard let data = data else {
-                completion(nil)
-                return }
+        URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
+            guard let data = data else { completion(nil); return }
             let responseMimeType = response?.mimeType ?? ""
             let responseBaseURL = response?.url ?? URL(string: "https://www.google.com")!
             let responseCharacterEncoding = response?.textEncodingName ?? String.Encoding.utf8.description
@@ -76,7 +80,7 @@ class HostWebSessionViewController: PulleyViewController {
                                   mimeType: responseMimeType,
                                   textEncoding: responseCharacterEncoding)
             completion(webPage)
-        }).resume()
+        }.resume()
     }
     
     private func sendSearchResult(_ searchResult: SearchResult, toPeer peer: MCPeerID) {
@@ -88,16 +92,84 @@ class HostWebSessionViewController: PulleyViewController {
             print(error.localizedDescription)
         }
     }
-
+    
+    private func getDataAmountToAdd(to name: String, completion: @escaping (Byte?) -> ()) {
+        
+        let alertController = UIAlertController(title: "Add Data",
+                                                message: "How many MB of data would you like to add to \(name)?",
+                                                preferredStyle: .alert)
+        
+        alertController.addTextField { (textField) in
+            textField.placeholder = "Data to Add"
+            textField.keyboardType = .numberPad
+            textField.delegate = self
+        }
+        
+        alertController.addAction(UIAlertAction(title: "Add", style: .default) { _ in
+            let textFieldText = alertController.textFields?.first!.text?.nilIfEmpty() ?? "0"
+            let bytes = Byte(Int(textFieldText)! * 1000000)
+            completion(bytes)
+        })
+        
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel) { (_) in
+            completion(nil)
+        })
+        
+        present(alertController, animated: true)
+    }
+    
+    private func shouldAddDataToCap(for name: String, completion: @escaping (Bool) -> ()) {
+        let alertController = UIAlertController(title: "Limit Reached",
+                                                message: "\(name) has reached their data cap. Do you want to extend it?",
+                                                preferredStyle: .alert)
+        
+        alertController.addAction(UIAlertAction(title: "No", style: .default) { (_) in
+            completion(false)
+        })
+        
+        alertController.addAction(UIAlertAction(title: "No", style: .default) { (_) in
+            completion(true)
+        })
+        
+        present(alertController, animated: true)
+    }
+    
 }
 
 extension HostWebSessionViewController: MCBrowserViewControllerDelegate {
     
     func browserViewControllerDidFinish(_ browserViewController: MCBrowserViewController) {
+        
         browserViewController.dismiss(animated: true)
+        
+        guard !peerIDsToAdd.isEmpty else { return }
+        
+        let templateMessage = "How many MB of data would you like to provide "
+
+        let alertController = UIAlertController(title: "Data Cap",
+                                                message: templateMessage + "\(peerIDsToAdd.first!.displayName)?",
+                                                preferredStyle: .alert)
+        alertController.addTextField { (textField) in
+            textField.placeholder = "Data Cap"
+            textField.keyboardType = .numberPad
+            textField.delegate = self
+        }
+        
+        alertController.addAction(UIAlertAction(title: "Save", style: .default) { _ in
+            let textFieldText = alertController.textFields?.first!.text?.nilIfEmpty() ?? "10"
+            self.users.append(User(peerID: self.peerIDsToAdd.first!, dataSet: DataSet()))
+            self.users[self.users.count - 1].dataSet.dataCap = Byte(Int(textFieldText)! * 1000000)
+            self.peerIDsToAdd.removeFirst()
+            guard !self.peerIDsToAdd.isEmpty else { return }
+            alertController.message = templateMessage + "\(self.peerIDsToAdd.first!.displayName)?"
+            alertController.textFields?.first!.text = ""
+            self.present(alertController, animated: true)
+        })
+        present(alertController, animated: true)
     }
     
     func browserViewControllerWasCancelled(_ browserViewController: MCBrowserViewController) {
+        peerIDsToAdd.removeAll()
         browserViewController.dismiss(animated: true)
     }
 }
@@ -105,34 +177,39 @@ extension HostWebSessionViewController: MCBrowserViewControllerDelegate {
 extension HostWebSessionViewController: MCSessionDelegate {
     
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
-        guard let searchRequest = try? PropertyListDecoder().decode(SearchRequest.self, from: data) else { return }
-        getSearchResult(forSearchRequest: searchRequest) { (webPage) in
-            guard let webPage = webPage,
-                let userIndex = self.users.index(where: { (user) -> Bool in
-                    return user.peerID == peerID
-                }) else { return }
-            self.users[userIndex].dataSet.dataUsed += CGFloat(webPage.data.count)
-            let searchResult = SearchResult(webPage: webPage, dataSet: self.users[userIndex].dataSet)
-            self.sendSearchResult(searchResult, toPeer: peerID)
+        guard let searchRequest = try? PropertyListDecoder().decode(SearchRequest.self, from: data),
+            let userIndex = self.users.index(where: { (user) -> Bool in
+                return user.peerID == peerID
+            }) else { return }
+        if users[userIndex].dataSet.limitReached() {
+            shouldAddDataToCap(for: peerID.displayName) { (should) in
+                guard should else {
+                    self.removePeer(peerID)
+                    return
+                }
+                self.getDataAmountToAdd(to: peerID.displayName, completion: { (bytes) in
+                    guard let bytes = bytes else { return }
+                    self.users[userIndex].dataSet.dataCap += bytes
+                })
+            }
+        } else {
+            getSearchResult(forSearchRequest: searchRequest) { [weak self] (webPage) in
+                guard let webPage = webPage,
+                    let strongSelf = self else { return }
+                strongSelf.users[userIndex].dataSet.dataUsed += CGFloat(webPage.data.count)
+                let searchResult = SearchResult(webPage: webPage, dataSet: strongSelf.users[userIndex].dataSet)
+                strongSelf.sendSearchResult(searchResult, toPeer: peerID)
+            }
         }
     }
     
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
-        guard peerID.displayName != "Host" else { return }
-        let alertController = UIAlertController(title: "Data Cap",
-                                                message: "How many MB of data would you like to provide your new user?",
-                                                preferredStyle: .alert)
-        alertController.addTextField { (textField) in
-            textField.placeholder = "Data Cap"
-            textField.keyboardType = .numberPad
-            textField.delegate = self
-        }
-        alertController.addAction(UIAlertAction(title: "Save", style: .default) { _ in
-            guard let textFieldText = alertController.textFields?.first!.text else {
-                self.users.append(User(peerID: peerID, dataSet: DataSet())); return }
-            self.users[self.users.count - 1].dataSet.dataCap = Byte(Int(textFieldText)!)
-        })
-        present(alertController, animated: true)
+        guard peerID.displayName != "Host",
+            state == MCSessionState.connected,
+            !peerIDsToAdd.contains(peerID),
+            !users.contains(where: { user in
+                return user.peerID == peerID }) else { return }
+        peerIDsToAdd.append(peerID)
     }
     
     func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
@@ -205,6 +282,34 @@ extension HostWebSessionViewController: ContentDelegate, ParentDelegate {
         setDrawerPosition(position: PulleyPosition(rawValue: pulleyPosition)!)
         guard pulleyPosition == 0 else { return }
         drawerDelegate?.endEditing()
+    }
+    
+    func leaveSession() {
+        dismiss(animated: true)
+    }
+    
+    func addDataForPeer(_ peerID: MCPeerID) {
+        guard let userIndex = users.index(where: { (user) -> Bool in
+            return user.peerID == peerID
+        }) else { return }
+        getDataAmountToAdd(to: users[userIndex].peerID.displayName) { [weak self] (bytes) in
+            guard let bytes = bytes,
+                let strongSelf = self else { return }
+            strongSelf.users[userIndex].dataSet.dataCap += bytes
+        }
+    }
+    
+    func removePeer(_ peerID: MCPeerID) {
+        guard let userIndex = users.index(where: { (user) -> Bool in
+            return user.peerID == peerID
+        }) else { return }
+        users.remove(at: userIndex)
+        guard let disconnect = "disconnect".data(using: .utf8) else { return }
+        do {
+            try session.send(disconnect, toPeers: [peerID], with: .reliable)
+        } catch {
+            print(error.localizedDescription)
+        }
     }
 }
 

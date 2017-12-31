@@ -110,7 +110,7 @@ class BookmarkCollectionViewCell: UICollectionViewCell {
     
     private func startAnimating() {
         let animation = CABasicAnimation(keyPath: "cornerRadius")
-        animation.toValue = 100
+        animation.toValue = bounds.width / 2
         animation.duration = 0.5
         animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
         animation.autoreverses = true

@@ -29,8 +29,11 @@ class HomeViewController: UIViewController {
     
     private lazy var hostSessionButton: UIButton = {
         let button = UIButton()
+        button.isEnabled = Reachability.isConnectedToNetwork()
         button.setTitle("Host", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(.defaultButtonColor, for: .normal)
+        button.setTitleColor(.lightGray, for: .highlighted)
+        button.setTitleColor(.lightGray, for: .disabled)
         button.backgroundColor = .white
         button.clipsToBounds = true
         button.layer.cornerRadius = buttonHeight / 3
@@ -44,8 +47,10 @@ class HomeViewController: UIViewController {
     private lazy var joinSessionButton: UIButton = {
         let button = UIButton()
         button.setTitle("Join", for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        button.backgroundColor = .white
+        button.setTitleColor(.defaultButtonColor, for: .normal)
+        button.setTitleColor(.lightGray, for: .highlighted)
+        button.setTitleColor(.lightGray, for: .disabled)
+        button.backgroundColor = UIColor.white
         button.clipsToBounds = true
         button.layer.cornerRadius = buttonHeight / 3
         button.layer.borderColor = UIColor.black.cgColor
@@ -148,7 +153,7 @@ class HomeViewController: UIViewController {
         webSesionDrawerVC.delegate = userWebSessionVC
         webSesionDrawerVC.isHosting = false
         webBrowserVC.delegate = userWebSessionVC
-        self.present(userWebSessionVC, animated: true)
+        self.show(userWebSessionVC, sender: self)
     }
     
 }
