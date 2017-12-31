@@ -62,6 +62,9 @@ class WebSessionDrawerViewController: UIViewController {
     private var profileView: ProfileManagementView?
     private var userManagementView: UserManagementView?
     
+    
+    @IBOutlet weak var gripperTopConstraint: NSLayoutConstraint!
+    
     @IBOutlet weak var bookmarkButton: UIButton!
     @IBOutlet weak var customView: UIView!
     
@@ -85,6 +88,7 @@ class WebSessionDrawerViewController: UIViewController {
             collectionView.register(BookmarkCollectionViewCell.self, forCellWithReuseIdentifier: bookmarkCellID)
             collectionView.register(NoBookmarksCollectionViewCell.self, forCellWithReuseIdentifier: noBookmarksCellID)
             collectionView.backgroundColor = .clear
+            collectionView.autoresizesSubviews = true
         }
     }
     
@@ -98,6 +102,11 @@ class WebSessionDrawerViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         profileView?.updateDataUsageGraph(withDataSet: DataSet(0, 100))
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        collectionView.reloadData()
     }
     
     // MARK: IBActions
@@ -212,7 +221,8 @@ extension WebSessionDrawerViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.cellForItem(at: indexPath)?.isSelected = false
-        guard let urlString = bookmarks[indexPath.item].url,
+        guard !bookmarks.isEmpty,
+            let urlString = bookmarks[indexPath.item].url,
             let url = URL(string: urlString) else { return }
         searchFor(url)
     }
@@ -339,5 +349,25 @@ extension WebSessionDrawerViewController: ProfileManagementViewDelegate {
             guard let strongSelf = self else { return }
             strongSelf.view.transform = CGAffineTransform.identity
         }
+    }
+}
+
+extension WebSessionDrawerViewController: PulleyDrawerViewControllerDelegate {
+    
+    func collapsedDrawerHeight(bottomSafeArea: CGFloat) -> CGFloat {
+        return 68 + bottomSafeArea
+    }
+    
+    func partialRevealDrawerHeight(bottomSafeArea: CGFloat) -> CGFloat {
+        return 290 + bottomSafeArea
+    }
+    
+    func supportedDrawerPositions() -> [PulleyPosition] {
+        return PulleyPosition.all
+    }
+    
+    func drawerDisplayModeDidChange(drawer: PulleyViewController) {
+        guard gripperTopConstraint != nil else { return }
+        gripperTopConstraint.isActive = drawer.currentDisplayMode == .bottomDrawer
     }
 }

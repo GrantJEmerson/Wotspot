@@ -130,6 +130,7 @@ public enum PulleyDisplayMode {
 }
 
 private let kPulleyDefaultCollapsedHeight: CGFloat = 68.0
+private let kPulleyDefaultCollapsedHeightForLeft: CGFloat = 60.0
 private let kPulleyDefaultPartialRevealHeight: CGFloat = 290.0 // Initially 264
 
 open class PulleyViewController: UIViewController {
@@ -373,7 +374,7 @@ open class PulleyViewController: UIViewController {
     }
     
     /// The starting position for the drawer when it first loads
-    public var initialDrawerPosition: PulleyPosition = .collapsed
+    public var initialDrawerPosition: PulleyPosition = .open
     
     /// The display mode for Pulley. Default is 'automatic', which switches along the same rules as iOS's Maps app. The current display mode is available by using the 'currentDisplayMode' property.
     public var displayMode: PulleyDisplayMode = .automatic {
@@ -666,14 +667,8 @@ open class PulleyViewController: UIViewController {
             }
             
             // Layout container
-            var collapsedHeight:CGFloat = kPulleyDefaultCollapsedHeight
-            var partialRevealHeight:CGFloat = kPulleyDefaultPartialRevealHeight
-            
-            if let drawerVCCompliant = drawerContentViewController as? PulleyDrawerViewControllerDelegate
-            {
-                collapsedHeight = drawerVCCompliant.collapsedDrawerHeight(bottomSafeArea: safeAreaBottomInset)
-                partialRevealHeight = drawerVCCompliant.partialRevealDrawerHeight(bottomSafeArea: safeAreaBottomInset)
-            }
+            let collapsedHeight:CGFloat = kPulleyDefaultCollapsedHeight + getBottomSafeArea()
+            let partialRevealHeight:CGFloat = kPulleyDefaultPartialRevealHeight + getBottomSafeArea()
 
             let lowestStop = [(self.view.bounds.size.height - topInset - safeAreaTopInset), collapsedHeight, partialRevealHeight].min() ?? 0
             
@@ -733,14 +728,8 @@ open class PulleyViewController: UIViewController {
             }
             
             // Layout container
-            var collapsedHeight:CGFloat = kPulleyDefaultCollapsedHeight
-            var partialRevealHeight:CGFloat = kPulleyDefaultPartialRevealHeight
-            
-            if let drawerVCCompliant = drawerContentViewController as? PulleyDrawerViewControllerDelegate
-            {
-                collapsedHeight = drawerVCCompliant.collapsedDrawerHeight(bottomSafeArea: safeAreaBottomInset)
-                partialRevealHeight = drawerVCCompliant.partialRevealDrawerHeight(bottomSafeArea: safeAreaBottomInset)
-            }
+            let collapsedHeight:CGFloat = kPulleyDefaultCollapsedHeight + getBottomSafeArea()
+            let partialRevealHeight:CGFloat = kPulleyDefaultPartialRevealHeight + getBottomSafeArea()
             
             let lowestStop = [(self.view.bounds.size.height - topInset - safeAreaTopInset), collapsedHeight, partialRevealHeight].min() ?? 0
             
@@ -878,14 +867,8 @@ open class PulleyViewController: UIViewController {
             safeAreaBottomInset = self.bottomLayoutGuide.length
         }
         
-        var collapsedHeight:CGFloat = kPulleyDefaultCollapsedHeight
-        var partialRevealHeight:CGFloat = kPulleyDefaultPartialRevealHeight
-        
-        if let drawerVCCompliant = drawerContentViewController as? PulleyDrawerViewControllerDelegate
-        {
-            collapsedHeight = drawerVCCompliant.collapsedDrawerHeight(bottomSafeArea: safeAreaBottomInset)
-            partialRevealHeight = drawerVCCompliant.partialRevealDrawerHeight(bottomSafeArea: safeAreaBottomInset)
-        }
+        let collapsedHeight:CGFloat = kPulleyDefaultCollapsedHeightForLeft + safeAreaBottomInset
+        let partialRevealHeight:CGFloat = kPulleyDefaultPartialRevealHeight + safeAreaBottomInset
         
         let lowestStop = [(self.view.bounds.size.height - topInset - safeAreaTopInset), collapsedHeight, partialRevealHeight].min() ?? 0
         
@@ -927,14 +910,9 @@ open class PulleyViewController: UIViewController {
         
         drawerPosition = position
         
-        var collapsedHeight:CGFloat = kPulleyDefaultCollapsedHeight
-        var partialRevealHeight:CGFloat = kPulleyDefaultPartialRevealHeight
-        
-        if let drawerVCCompliant = drawerContentViewController as? PulleyDrawerViewControllerDelegate
-        {
-            collapsedHeight = drawerVCCompliant.collapsedDrawerHeight(bottomSafeArea: getBottomSafeArea())
-            partialRevealHeight = drawerVCCompliant.partialRevealDrawerHeight(bottomSafeArea: getBottomSafeArea())
-        }
+        let collapsedHeight:CGFloat = currentDisplayMode == .leftSide ?
+                                      kPulleyDefaultCollapsedHeightForLeft : kPulleyDefaultCollapsedHeight  + getBottomSafeArea()
+        let partialRevealHeight:CGFloat = kPulleyDefaultPartialRevealHeight  + getBottomSafeArea()
 
         let stopToMoveTo: CGFloat
         
@@ -1197,14 +1175,8 @@ extension PulleyViewController: UIScrollViewDelegate {
         if scrollView == drawerScrollView
         {
             // Find the closest anchor point and snap there.
-            var collapsedHeight:CGFloat = kPulleyDefaultCollapsedHeight
-            var partialRevealHeight:CGFloat = kPulleyDefaultPartialRevealHeight
-            
-            if let drawerVCCompliant = drawerContentViewController as? PulleyDrawerViewControllerDelegate
-            {
-                collapsedHeight = drawerVCCompliant.collapsedDrawerHeight(bottomSafeArea: getBottomSafeArea())
-                partialRevealHeight = drawerVCCompliant.partialRevealDrawerHeight(bottomSafeArea: getBottomSafeArea())
-            }
+            let collapsedHeight:CGFloat = kPulleyDefaultCollapsedHeight + getBottomSafeArea()
+            let partialRevealHeight:CGFloat = kPulleyDefaultPartialRevealHeight + getBottomSafeArea()
 
             var drawerStops: [CGFloat] = [CGFloat]()
             
@@ -1267,14 +1239,8 @@ extension PulleyViewController: UIScrollViewDelegate {
         
         if scrollView == drawerScrollView
         {
-            var partialRevealHeight:CGFloat = kPulleyDefaultPartialRevealHeight
-            var collapsedHeight:CGFloat = kPulleyDefaultCollapsedHeight
-            
-            if let drawerVCCompliant = drawerContentViewController as? PulleyDrawerViewControllerDelegate
-            {
-                collapsedHeight = drawerVCCompliant.collapsedDrawerHeight(bottomSafeArea: getBottomSafeArea())
-                partialRevealHeight = drawerVCCompliant.partialRevealDrawerHeight(bottomSafeArea: getBottomSafeArea())
-            }
+            let partialRevealHeight:CGFloat = kPulleyDefaultPartialRevealHeight + getBottomSafeArea()
+            let collapsedHeight:CGFloat = kPulleyDefaultCollapsedHeight + getBottomSafeArea()
 
             var drawerStops: [CGFloat] = [CGFloat]()
             

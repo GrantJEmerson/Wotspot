@@ -140,6 +140,7 @@ class HomeViewController: UIViewController {
         webSesionDrawerVC.delegate = hostWebSessionVC
         webSesionDrawerVC.isHosting = true
         webBrowserVC.delegate = hostWebSessionVC
+        webBrowserVC.isHost = true
         self.show(hostWebSessionVC, sender: self)
     }
     

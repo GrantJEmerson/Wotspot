@@ -39,8 +39,8 @@ class NoBookmarksCollectionViewCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             noBookmarksLabel.topAnchor.constraint(equalTo: topAnchor),
             noBookmarksLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
-            noBookmarksLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
-            noBookmarksLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8)
+            noBookmarksLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8).withPriority(999),
+            noBookmarksLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8).withPriority(999)
         ])
         
     }

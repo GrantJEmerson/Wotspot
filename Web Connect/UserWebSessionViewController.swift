@@ -51,6 +51,7 @@ class UserWebSessionViewController: PulleyViewController {
         do {
             let host = session.connectedPeers.filter({ $0.displayName == "Host" })
             try session.send(data, toPeers: host, with: .reliable)
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
         } catch {
             print(error.localizedDescription)
         }
@@ -77,6 +78,7 @@ extension UserWebSessionViewController: MCSessionDelegate {
     }
     
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
         if let searchResult = try? PropertyListDecoder().decode(SearchResult.self, from: data) {
             webView?.loadWebPage(searchResult.webPage)
             drawerDelegate?.updateDataUsageGraph(dataSet: searchResult.dataSet)

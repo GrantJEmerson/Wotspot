@@ -100,6 +100,7 @@ class BookmarkCollectionViewCell: UICollectionViewCell {
             screenshotImageView.topAnchor.constraint(equalTo: informationView.topAnchor),
             screenshotImageView.leadingAnchor.constraint(equalTo: informationView.leadingAnchor),
             screenshotImageView.trailingAnchor.constraint(equalTo: informationView.trailingAnchor),
+            
             titleLabel.heightAnchor.constraint(equalToConstant: 40),
             titleLabel.topAnchor.constraint(equalTo: screenshotImageView.bottomAnchor),
             titleLabel.bottomAnchor.constraint(equalTo: informationView.bottomAnchor),

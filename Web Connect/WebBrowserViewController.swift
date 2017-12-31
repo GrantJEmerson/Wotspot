@@ -18,6 +18,17 @@ class WebBrowserViewController: UIViewController {
     
     // MARK: Properties
     
+    public var isHost: Bool? {
+        didSet {
+            guard let isHost = isHost else { return }
+            webView.allowsBackForwardNavigationGestures = isHost
+            if !isHost {
+                view.addGestureRecognizer(leftEdgePanRecognizer)
+                view.addGestureRecognizer(rightEdgePanRecognizer)
+            }
+        }
+    }
+    
     public var delegate: ParentDelegate?
     
     private var lastOffsetY: CGFloat = 0
@@ -26,9 +37,20 @@ class WebBrowserViewController: UIViewController {
         let webView = WKWebView()
         webView.scrollView.delegate = self
         webView.navigationDelegate = self
-        webView.translatesAutoresizingMaskIntoConstraints = false    
-        webView.allowsBackForwardNavigationGestures = true
+        webView.translatesAutoresizingMaskIntoConstraints = false
         return webView
+    }()
+    
+    private lazy var leftEdgePanRecognizer: UIScreenEdgePanGestureRecognizer = {
+        let edgePan = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(leftScreenEdgeSwiped(_:)))
+        edgePan.edges = .left
+        return edgePan
+    }()
+    
+    private lazy var rightEdgePanRecognizer: UIScreenEdgePanGestureRecognizer = {
+        let edgePan = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(rightScreenEdgeSwiped(_:)))
+        edgePan.edges = .top
+        return edgePan
     }()
     
     // MARK: View Controller Life Cycle
@@ -43,6 +65,20 @@ class WebBrowserViewController: UIViewController {
             webView.topAnchor.constraint(equalTo: view.topAnchor, constant: UIApplication.shared.statusBarFrame.height),
             webView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -60)
         ])
+    }
+    
+    // MARK: Private Functions
+    
+    @objc private func leftScreenEdgeSwiped(_ recognizer: UIScreenEdgePanGestureRecognizer) {
+        if recognizer.state == .recognized {
+            print("Screen edge swiped!")
+        }
+    }
+    
+    @objc private func rightScreenEdgeSwiped(_ recognizer: UIScreenEdgePanGestureRecognizer) {
+        if recognizer.state == .recognized {
+            print("Screen edge swiped!")
+        }
     }
     
 }
@@ -73,6 +109,7 @@ extension WebBrowserViewController: WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         lastOffsetY = 0
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
         webView.evaluateJavaScript("document.body.style.webkitTouchCallout='none';")
     }
 }

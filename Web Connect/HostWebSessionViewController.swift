@@ -158,7 +158,8 @@ extension HostWebSessionViewController: MCBrowserViewControllerDelegate {
         alertController.addAction(UIAlertAction(title: "Save", style: .default) { _ in
             let textFieldText = alertController.textFields?.first!.text?.nilIfEmpty() ?? "10"
             self.users.append(User(peerID: self.peerIDsToAdd.first!, dataSet: DataSet()))
-            self.users[self.users.count - 1].dataSet.dataCap = Byte(Int(textFieldText)! * 1000000)
+            guard let numFromText = Int(textFieldText) else { return }
+            self.users[self.users.count - 1].dataSet.dataCap = Byte(numFromText * 1000000)
             self.peerIDsToAdd.removeFirst()
             guard !self.peerIDsToAdd.isEmpty else { return }
             alertController.message = templateMessage + "\(self.peerIDsToAdd.first!.displayName)?"
@@ -241,10 +242,19 @@ extension HostWebSessionViewController: ContentDelegate, ParentDelegate {
         return webView?.url
     }
     
+    // TODO: Figure out better way of managing user agents
     func searchFor(_ url: URL) {
-        var urlRequest = URLRequest(url: url)
-        urlRequest.addValue(userAgent.rawValue, forHTTPHeaderField: "User-Agent")
-        webView?.load(urlRequest)
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        if userAgent == .mobile {
+            let urlRequest = URLRequest(url: url)
+            webView?.load(urlRequest)
+        } else {
+        let searchRequest = SearchRequest(url: url, userAgent: userAgent)
+            getSearchResult(forSearchRequest: searchRequest) { (webPage) in
+                guard let webPage = webPage else { return }
+                self.webView?.loadWebPage(webPage)
+            }
+        }
         drawerDelegate?.updateBookmarkIconFor(url)
     }
     
@@ -285,6 +295,8 @@ extension HostWebSessionViewController: ContentDelegate, ParentDelegate {
     }
     
     func leaveSession() {
+        session.disconnect()
+        assistant.stop()
         dismiss(animated: true)
     }
     
@@ -312,5 +324,4 @@ extension HostWebSessionViewController: ContentDelegate, ParentDelegate {
         }
     }
 }
-
 

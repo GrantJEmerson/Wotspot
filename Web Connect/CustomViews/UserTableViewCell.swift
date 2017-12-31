@@ -76,13 +76,6 @@ class UserTableViewCell: UITableViewCell {
         return button
     }()
     
-    private let backgroundBlurView: UIVisualEffectView = {
-        let effect = UIBlurEffect(style: UIBlurEffectStyle.light)
-        let effectView = UIVisualEffectView(effect: effect)
-        effectView.translatesAutoresizingMaskIntoConstraints = false
-        return effectView
-    }()
-    
     // MARK: Init
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -92,7 +85,7 @@ class UserTableViewCell: UITableViewCell {
         layer.cornerRadius = 10
         layer.borderColor = UIColor.darkGray.cgColor
         layer.borderWidth = 3
-        backgroundColor = .clear
+        backgroundColor = UIColor.lightGray.withAlphaComponent(0.6)
         
         setUpViews()
     }
@@ -106,10 +99,8 @@ class UserTableViewCell: UITableViewCell {
     private func setUpViews() {
         
         addSubviews([
-            backgroundBlurView, usernameLabel, dataUsedPercentageLabel, seperatorView1,
-            dataUsageGraph, seperatorView2, removeButton, seperatorView3, addDataButton])
-        
-        backgroundBlurView.constrainToParent()
+            usernameLabel, dataUsedPercentageLabel, seperatorView1, dataUsageGraph,
+            seperatorView2, removeButton, seperatorView3, addDataButton])
         
         NSLayoutConstraint.activate([
             usernameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: spacing),

@@ -24,13 +24,6 @@ class EndSessionFooterView: UIView {
         return button
     }()
     
-    private lazy var backgroundBlurView: UIVisualEffectView = {
-        let effect = UIBlurEffect(style: UIBlurEffectStyle.light)
-        let effectView = UIVisualEffectView(effect: effect)
-        effectView.translatesAutoresizingMaskIntoConstraints = false
-        return effectView
-    }()
-    
     // MARK: Init
 
     override init(frame: CGRect) {
@@ -40,11 +33,9 @@ class EndSessionFooterView: UIView {
         layer.cornerRadius = 10
         layer.borderColor = UIColor.darkGray.cgColor
         layer.borderWidth = 3
-        backgroundColor = .clear
+        backgroundColor = UIColor.lightGray.withAlphaComponent(0.6)
         
-        addSubview(backgroundBlurView)
         addSubview(endSessionButton)
-        backgroundBlurView.constrainToParent()
         endSessionButton.constrainToParent()
         
     }
