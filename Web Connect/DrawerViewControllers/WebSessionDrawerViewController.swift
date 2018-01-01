@@ -34,6 +34,7 @@ protocol WebSessionDrawerDelegate {
     func updateBookmarkIconFor(_ url: URL)
     func updateDataUsageGraph(dataSet: DataSet)
     func updateUsers(_ users: [User])
+    func setProgressBarTo(_ progress: Float)
 }
 
 class WebSessionDrawerViewController: UIViewController {
@@ -62,7 +63,6 @@ class WebSessionDrawerViewController: UIViewController {
     private var profileView: ProfileManagementView?
     private var userManagementView: UserManagementView?
     
-    
     @IBOutlet weak var gripperTopConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var bookmarkButton: UIButton!
@@ -75,10 +75,14 @@ class WebSessionDrawerViewController: UIViewController {
         }
     }
     
+    private lazy var progressBar: UIProgressView = {
+        let progressBar = UIProgressView(progressViewStyle: .bar)
+        progressBar.translatesAutoresizingMaskIntoConstraints = false
+        return progressBar
+    }()
+    
     @IBOutlet weak var searchBar: UISearchBar! {
-        didSet {
-            searchBar.setImage(#imageLiteral(resourceName: "ReloadIcon"), for: .bookmark, state: .normal)
-        }
+        didSet { setUpSearchBar() }
     }
     
     @IBOutlet weak var collectionView: UICollectionView! {
@@ -162,6 +166,7 @@ class WebSessionDrawerViewController: UIViewController {
     
     private func searchFor(_ url: URL) {
         delegate?.searchFor(url)
+        progressBar.setProgress(0.15, animated: true)
     }
     
     private func getBookmarks() {
@@ -201,6 +206,22 @@ class WebSessionDrawerViewController: UIViewController {
             profileView?.constrainToParent()
             profileView?.delegate = self
         }
+    }
+    
+    private func setUpSearchBar() {
+        searchBar.setImage(#imageLiteral(resourceName: "ReloadIcon"), for: .bookmark, state: .normal)
+        searchBar.autocapitalizationType = .none
+        
+        guard let searchBarRoundedView = searchBar.subviews.first?.subviews[1].subviews[0] else { return }
+        searchBarRoundedView.addSubview(progressBar)
+        searchBarRoundedView.layer.cornerRadius = 10
+        searchBarRoundedView.clipsToBounds = true
+        
+        NSLayoutConstraint.activate([
+            progressBar.leadingAnchor.constraint(equalTo: searchBarRoundedView.leadingAnchor),
+            progressBar.trailingAnchor.constraint(equalTo: searchBarRoundedView.trailingAnchor),
+            progressBar.bottomAnchor.constraint(equalTo: searchBarRoundedView.bottomAnchor)
+        ])
     }
     
 }
@@ -290,6 +311,19 @@ extension WebSessionDrawerViewController: WebSessionDrawerDelegate {
         searchBar.setShowsCancelButton(false, animated: true)
         searchBar.endEditing(true)
     }
+    
+    func setProgressBarTo(_ progress: Float) {
+        guard progress < 1 else {
+            progressBar.progress = 1
+            UIView.animate(withDuration: 0.3, animations: {
+                self.progressBar.layoutIfNeeded()
+            }) { _ in
+                self.progressBar.setProgress(0, animated: false)
+            }
+            return
+        }
+        progressBar.setProgress(progress, animated: true)
+    }
 }
 
 extension WebSessionDrawerViewController: BookMarkCellDelegate {
@@ -368,6 +402,6 @@ extension WebSessionDrawerViewController: PulleyDrawerViewControllerDelegate {
     
     func drawerDisplayModeDidChange(drawer: PulleyViewController) {
         guard gripperTopConstraint != nil else { return }
-        gripperTopConstraint.isActive = drawer.currentDisplayMode == .bottomDrawer
+        gripperTopConstraint.isActive = drawer.currentDisplayMode != .leftSide
     }
 }

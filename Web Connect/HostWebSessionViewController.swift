@@ -14,7 +14,11 @@ class HostWebSessionViewController: PulleyViewController {
     
     // MARK: Properties
     
-    public weak var webView: WKWebView?
+    public weak var webView: WKWebView? {
+        didSet {
+            webView?.addObserver(self, forKeyPath: "estimatedProgress", options: .new, context: nil)
+        }
+    }
     
     public var drawerDelegate: WebSessionDrawerDelegate?
     
@@ -64,7 +68,45 @@ class HostWebSessionViewController: PulleyViewController {
         assistant.start()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        webView?.removeObserver(self, forKeyPath: "estimatedProgress")
+    }
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        guard keyPath == "estimatedProgress" else { return }
+        guard let estimatedProgress = webView?.estimatedProgress else { return }
+        drawerDelegate?.setProgressBarTo(Float(estimatedProgress))
+    }
+    
     // MARK: Private Functions
+    
+    private func decodeMultipeerConnectivityData(_ data: Data, from peerID: MCPeerID) {
+        guard let searchRequest = try? PropertyListDecoder().decode(SearchRequest.self, from: data),
+            let userIndex = self.users.index(where: { (user) -> Bool in
+                return user.peerID == peerID
+            }) else { return }
+        if users[userIndex].dataSet.limitReached() {
+            shouldAddDataToCap(for: peerID.displayName) { (should) in
+                guard should else {
+                    self.removePeer(peerID)
+                    return
+                }
+                self.getDataAmountToAdd(to: peerID.displayName, completion: { (bytes) in
+                    guard let bytes = bytes else { return }
+                    self.users[userIndex].dataSet.dataCap += bytes
+                })
+            }
+        } else {
+            getSearchResult(forSearchRequest: searchRequest) { [weak self] (webPage) in
+                guard let webPage = webPage,
+                    let strongSelf = self else { return }
+                strongSelf.users[userIndex].dataSet.dataUsed += CGFloat(webPage.data.count)
+                let searchResult = SearchResult(webPage: webPage, dataSet: strongSelf.users[userIndex].dataSet)
+                strongSelf.sendSearchResult(searchResult, toPeer: peerID)
+            }
+        }
+    }
     
     private func getSearchResult(forSearchRequest searchRequest: SearchRequest,
                                  completion: @escaping (WebPage?) -> ()) {
@@ -134,21 +176,14 @@ class HostWebSessionViewController: PulleyViewController {
         present(alertController, animated: true)
     }
     
-}
-
-extension HostWebSessionViewController: MCBrowserViewControllerDelegate {
-    
-    func browserViewControllerDidFinish(_ browserViewController: MCBrowserViewController) {
-        
-        browserViewController.dismiss(animated: true)
-        
+    private func presentDataCapAlertControllers() {
         guard !peerIDsToAdd.isEmpty else { return }
         
         let templateMessage = "How many MB of data would you like to provide "
-
+        
         let alertController = UIAlertController(title: "Data Cap",
                                                 message: templateMessage + "\(peerIDsToAdd.first!.displayName)?",
-                                                preferredStyle: .alert)
+            preferredStyle: .alert)
         alertController.addTextField { (textField) in
             textField.placeholder = "Data Cap"
             textField.keyboardType = .numberPad
@@ -166,7 +201,17 @@ extension HostWebSessionViewController: MCBrowserViewControllerDelegate {
             alertController.textFields?.first!.text = ""
             self.present(alertController, animated: true)
         })
+        
         present(alertController, animated: true)
+    }
+    
+}
+
+extension HostWebSessionViewController: MCBrowserViewControllerDelegate {
+    
+    func browserViewControllerDidFinish(_ browserViewController: MCBrowserViewController) {
+        browserViewController.dismiss(animated: true)
+        presentDataCapAlertControllers()
     }
     
     func browserViewControllerWasCancelled(_ browserViewController: MCBrowserViewController) {
@@ -178,30 +223,7 @@ extension HostWebSessionViewController: MCBrowserViewControllerDelegate {
 extension HostWebSessionViewController: MCSessionDelegate {
     
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
-        guard let searchRequest = try? PropertyListDecoder().decode(SearchRequest.self, from: data),
-            let userIndex = self.users.index(where: { (user) -> Bool in
-                return user.peerID == peerID
-            }) else { return }
-        if users[userIndex].dataSet.limitReached() {
-            shouldAddDataToCap(for: peerID.displayName) { (should) in
-                guard should else {
-                    self.removePeer(peerID)
-                    return
-                }
-                self.getDataAmountToAdd(to: peerID.displayName, completion: { (bytes) in
-                    guard let bytes = bytes else { return }
-                    self.users[userIndex].dataSet.dataCap += bytes
-                })
-            }
-        } else {
-            getSearchResult(forSearchRequest: searchRequest) { [weak self] (webPage) in
-                guard let webPage = webPage,
-                    let strongSelf = self else { return }
-                strongSelf.users[userIndex].dataSet.dataUsed += CGFloat(webPage.data.count)
-                let searchResult = SearchResult(webPage: webPage, dataSet: strongSelf.users[userIndex].dataSet)
-                strongSelf.sendSearchResult(searchResult, toPeer: peerID)
-            }
-        }
+        decodeMultipeerConnectivityData(data, from: peerID)
     }
     
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {

@@ -15,7 +15,11 @@ class UserWebSessionViewController: PulleyViewController {
     
     // MARK: Properties
     
-    public weak var webView: WKWebView?
+    public weak var webView: WKWebView? {
+        didSet {
+            webView?.addObserver(self, forKeyPath: "estimatedProgress", options: .new, context: nil)
+        }
+    }
     
     public var drawerDelegate: WebSessionDrawerDelegate?
         
@@ -44,16 +48,39 @@ class UserWebSessionViewController: PulleyViewController {
         assistant.start()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        webView?.removeObserver(self, forKeyPath: "estimatedProgress")
+    }
+
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        guard keyPath == "estimatedProgress" else { return }
+        guard let estimatedProgress = webView?.estimatedProgress else { return }
+        drawerDelegate?.setProgressBarTo(Float(estimatedProgress))
+    }
+    
     // MARK: Private Functions
+    
+    private func decodeMultipeerConnectivityData(_ data: Data) {
+        if let searchResult = try? PropertyListDecoder().decode(SearchResult.self, from: data) {
+            webView?.loadWebPage(searchResult.webPage)
+            drawerDelegate?.updateDataUsageGraph(dataSet: searchResult.dataSet)
+        } else if let disconnectMessage = String.init(data: data, encoding: .utf8) {
+            guard disconnectMessage == "disconnect" else { return }
+            session.disconnect()
+            presentDisconnectedAlert()
+        }
+    }
     
     private func sendSearchRequest(_ searchRequest: SearchRequest) {
         guard let data = try? PropertyListEncoder().encode(searchRequest) else { return }
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         do {
             let host = session.connectedPeers.filter({ $0.displayName == "Host" })
             try session.send(data, toPeers: host, with: .reliable)
-            UIApplication.shared.isNetworkActivityIndicatorVisible = true
         } catch {
             print(error.localizedDescription)
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
         }
     }
     
@@ -78,15 +105,7 @@ extension UserWebSessionViewController: MCSessionDelegate {
     }
     
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
-        UIApplication.shared.isNetworkActivityIndicatorVisible = false
-        if let searchResult = try? PropertyListDecoder().decode(SearchResult.self, from: data) {
-            webView?.loadWebPage(searchResult.webPage)
-            drawerDelegate?.updateDataUsageGraph(dataSet: searchResult.dataSet)
-        } else if let disconnectMessage = String.init(data: data, encoding: .utf8) {
-            guard disconnectMessage == "disconnect" else { return }
-            session.disconnect()
-            presentDisconnectedAlert()
-        }
+        decodeMultipeerConnectivityData(data)
     }
     
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {

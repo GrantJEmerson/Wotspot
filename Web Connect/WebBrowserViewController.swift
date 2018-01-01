@@ -59,6 +59,7 @@ class WebBrowserViewController: UIViewController {
         super.viewDidLoad()
         
         view.addSubview(webView)
+        
         NSLayoutConstraint.activate([
             webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             webView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -109,7 +110,9 @@ extension WebBrowserViewController: WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         lastOffsetY = 0
-        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+        DispatchQueue.main.async {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+        }
         webView.evaluateJavaScript("document.body.style.webkitTouchCallout='none';")
     }
 }

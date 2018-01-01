@@ -373,9 +373,6 @@ open class PulleyViewController: UIViewController {
         }
     }
     
-    /// The starting position for the drawer when it first loads
-    public var initialDrawerPosition: PulleyPosition = .open
-    
     /// The display mode for Pulley. Default is 'automatic', which switches along the same rules as iOS's Maps app. The current display mode is available by using the 'currentDisplayMode' property.
     public var displayMode: PulleyDisplayMode = .automatic {
         didSet {
@@ -383,13 +380,6 @@ open class PulleyViewController: UIViewController {
             {
                 self.view.setNeedsLayout()
             }
-        }
-    }
-    
-    /// This is here exclusively to support IBInspectable in Interface Builder because Interface Builder can't deal with enums. If you're doing this in code use the -initialDrawerPosition property instead. Available strings are: open, closed, partiallyRevealed, collapsed
-    @IBInspectable public var initialDrawerPositionFromIB: String? {
-        didSet {
-            initialDrawerPosition = PulleyPosition.positionFor(string: initialDrawerPositionFromIB)
         }
     }
 
@@ -459,6 +449,10 @@ open class PulleyViewController: UIViewController {
                 delegate?.drawerDisplayModeDidChange?(drawer: self)
                 (drawerContentViewController as? PulleyDrawerViewControllerDelegate)?.drawerDisplayModeDidChange?(drawer: self)
                 (primaryContentContainer as? PulleyPrimaryContentControllerDelegate)?.drawerDisplayModeDidChange?(drawer: self)
+            }
+            
+            if currentDisplayMode == .leftSide {
+                setDrawerPosition(position: .open, animated: false)
             }
         }
     }
@@ -592,7 +586,7 @@ open class PulleyViewController: UIViewController {
         }
 
         enforceCanScrollDrawer()
-        setDrawerPosition(position: initialDrawerPosition, animated: false)
+        setDrawerPosition(position: .collapsed, animated: false)
         scrollViewDidScroll(drawerScrollView)
         
         delegate?.drawerDisplayModeDidChange?(drawer: self)

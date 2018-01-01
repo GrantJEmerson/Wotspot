@@ -115,7 +115,7 @@ class BookmarkCollectionViewCell: UICollectionViewCell {
         animation.duration = 0.5
         animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
         animation.autoreverses = true
-        animation.repeatCount = Float.infinity
+        animation.repeatCount = .infinity
         informationView.layer.add(animation, forKey: "pulsing")
     }
     

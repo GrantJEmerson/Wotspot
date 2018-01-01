@@ -11,12 +11,13 @@ import UIKit
 extension UIVisualEffectView {
     
     func switchBlurEffectStyle() {
-        let isDark = (effect == UIBlurEffect.dark)
+        let isDark = UIBlurEffectStyle.current == .dark
         let newEffect = isDark ? UIBlurEffect.light : .dark
         UserDefaults.standard.set(!isDark, forKey: "prefersDark")
         UIView.animate(withDuration: 0.8) {
             self.effect = newEffect
         }
+        UIBlurEffectStyle.current = isDark ? .extraLight : .dark
     }
 }
 
@@ -25,4 +26,8 @@ extension UIBlurEffect {
     static let light = UIBlurEffect(style: .extraLight)
 }
 
+extension UIBlurEffectStyle {
+    // Work around because UIBlurEffects are not equatable!!
+    static var current: UIBlurEffectStyle = UserDefaults.standard.bool(forKey: "prefersDark") ? .dark : .extraLight
+}
 
