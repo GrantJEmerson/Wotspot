@@ -83,11 +83,10 @@ class UserManagementView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setUpSubViews()
-        
         tableView.register(UserTableViewCell.self, forCellReuseIdentifier: cellID)
+        setUpSubViews()
     }
-    
+        
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -132,7 +131,7 @@ extension UserManagementView: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let view = UIView(frame: CGRect (x:0, y: 0, width:10, height: 10))
-        view.backgroundColor = UIColor.clear
+        view.backgroundColor = .clear
         return view
     }
 }

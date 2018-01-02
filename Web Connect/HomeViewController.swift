@@ -69,7 +69,6 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
         setUpViews()
     }
     
@@ -123,26 +122,24 @@ class HomeViewController: UIViewController {
     
     private func presentHostWebSessionVC() {
         let webBrowserVC = WebBrowserViewController(isHost: true)
-        let webSesionDrawerVC = WebSessionDrawerViewController()
+        let webSesionDrawerVC = WebSessionDrawerViewController(isHost: true)
         let hostWebSessionVC = HostWebSessionViewController(contentViewController: webBrowserVC,
                                                             drawerViewController: webSesionDrawerVC)
         hostWebSessionVC.webView = webBrowserVC.webView
         hostWebSessionVC.drawerDelegate = webSesionDrawerVC
         webSesionDrawerVC.delegate = hostWebSessionVC
         webBrowserVC.delegate = hostWebSessionVC
-        webSesionDrawerVC.isHosting = true
         self.show(hostWebSessionVC, sender: self)
     }
     
     private func presentUserWebSessionVC() {
         let webBrowserVC = WebBrowserViewController(isHost: false)
-        let webSesionDrawerVC = WebSessionDrawerViewController()
+        let webSesionDrawerVC = WebSessionDrawerViewController(isHost: false)
         let userWebSessionVC = UserWebSessionViewController(contentViewController: webBrowserVC,
                                                             drawerViewController: webSesionDrawerVC)
         userWebSessionVC.webView = webBrowserVC.webView
         userWebSessionVC.drawerDelegate = webSesionDrawerVC
         webSesionDrawerVC.delegate = userWebSessionVC
-        webSesionDrawerVC.isHosting = false
         webBrowserVC.delegate = userWebSessionVC
         self.show(userWebSessionVC, sender: self)
     }

@@ -30,19 +30,15 @@ class HostWebSessionViewController: PulleyViewController {
     private lazy var moc = appDelegate?.persistentContainer.viewContext
     
     private var userAgent = UserAgent.mobile
-        
-    private let serviceType = "Web-Share"
-    private let getUrlAtDocumentStartScript = "GetUrlAtDocumentStart"
-    private let getUrlAtDocumentEndScript = "GetUrlAtDocumentEnd"
-
+    
     private lazy var browser: MCBrowserViewController = {
-        let browser = MCBrowserViewController(serviceType: serviceType, session: session)
+        let browser = MCBrowserViewController(serviceType: "Web-Share", session: session)
         browser.delegate = self
         return browser
     }()
     
     private lazy var assistant: MCAdvertiserAssistant = {
-        let assistant = MCAdvertiserAssistant(serviceType: serviceType, discoveryInfo: nil, session: session)
+        let assistant = MCAdvertiserAssistant(serviceType: "Web-Share", discoveryInfo: nil, session: session)
         return assistant
     }()
     

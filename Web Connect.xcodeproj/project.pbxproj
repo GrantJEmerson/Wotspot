@@ -15,6 +15,7 @@
 		5514517F1FEDCB5D000F74CD /* NotificationName+Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5514517E1FEDCB5D000F74CD /* NotificationName+Custom.swift */; };
 		5524A6821FEEEF4700EA7D2C /* UserManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5524A6811FEEEF4700EA7D2C /* UserManagementView.swift */; };
 		5524A6861FEEF87900EA7D2C /* ProfileManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5524A6851FEEF87900EA7D2C /* ProfileManagementView.swift */; };
+		554660561FFC4901004FE348 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 554660551FFC4901004FE348 /* LaunchScreen.storyboard */; };
 		55529BAA1FE98BBA0077A520 /* String+Links.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55529BA91FE98BBA0077A520 /* String+Links.swift */; };
 		55529BAC1FE98C160077A520 /* UIButton+SwitchImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55529BAB1FE98C160077A520 /* UIButton+SwitchImage.swift */; };
 		55529BAE1FE98C5E0077A520 /* WKWebView+Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55529BAD1FE98C5E0077A520 /* WKWebView+Loading.swift */; };
@@ -29,7 +30,6 @@
 		55CB1BF61FDA235200A1E377 /* HostWebSessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CB1BF51FDA235200A1E377 /* HostWebSessionViewController.swift */; };
 		55CB1BFC1FDA235200A1E377 /* Web_Connect.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 55CB1BFA1FDA235200A1E377 /* Web_Connect.xcdatamodeld */; };
 		55CB1BFE1FDA235200A1E377 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55CB1BFD1FDA235200A1E377 /* Assets.xcassets */; };
-		55CB1C011FDA235200A1E377 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55CB1BFF1FDA235200A1E377 /* LaunchScreen.storyboard */; };
 		55CB1C091FDA252000A1E377 /* UserWebSessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CB1C081FDA252000A1E377 /* UserWebSessionViewController.swift */; };
 		55CB1C0B1FDA257500A1E377 /* WebDataStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CB1C0A1FDA257500A1E377 /* WebDataStructures.swift */; };
 		55CB1C111FDA25E800A1E377 /* PastelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CB1C0C1FDA25E700A1E377 /* PastelView.swift */; };
@@ -44,13 +44,18 @@
 		55D208071FF49924009AF34F /* SeperatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D208061FF49924009AF34F /* SeperatorView.swift */; };
 		55D2080D1FF49A98009AF34F /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D2080C1FF49A98009AF34F /* UserTableViewCell.swift */; };
 		55D208151FF49FC2009AF34F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D208141FF49FC2009AF34F /* AppDelegate.swift */; };
-		55D208171FF49FC2009AF34F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D208161FF49FC2009AF34F /* ViewController.swift */; };
 		55D2081A1FF49FC2009AF34F /* Web_Share.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 55D208181FF49FC2009AF34F /* Web_Share.xcdatamodeld */; };
 		55D2081C1FF49FC2009AF34F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55D2081B1FF49FC2009AF34F /* Assets.xcassets */; };
 		55D2081F1FF49FC2009AF34F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55D2081D1FF49FC2009AF34F /* Main.storyboard */; };
 		55F1D6A21FDB8DD7003B223F /* UIVisualEffectView+SwitchStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F1D6A11FDB8DD7003B223F /* UIVisualEffectView+SwitchStyle.swift */; };
 		55F1D6A51FDB90F1003B223F /* WebSessionDrawerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F1D6A31FDB90F1003B223F /* WebSessionDrawerViewController.swift */; };
 		55F1D6A61FDB90F1003B223F /* WebSessionDrawerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55F1D6A41FDB90F1003B223F /* WebSessionDrawerViewController.xib */; };
+		55F6CE651FFC0AD600D7E0B4 /* MainWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F6CE641FFC0AD600D7E0B4 /* MainWebViewController.swift */; };
+		55F6CE671FFC0CBD00D7E0B4 /* URL+SearchInit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555E42901FFB266700EFE1D8 /* URL+SearchInit.swift */; };
+		55F6CE681FFC0E7800D7E0B4 /* WebDataStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CB1C0A1FDA257500A1E377 /* WebDataStructures.swift */; };
+		55F6CE6A1FFC0EBE00D7E0B4 /* WKWebView+Screenshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F6CE691FFC0EBE00D7E0B4 /* WKWebView+Screenshot.swift */; };
+		55F6CE6B1FFC0EC600D7E0B4 /* WKWebView+Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55529BAD1FE98C5E0077A520 /* WKWebView+Loading.swift */; };
+		55F6CE6D1FFC0FBB00D7E0B4 /* MCPeerID+Default.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F6CE6C1FFC0FBB00D7E0B4 /* MCPeerID+Default.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +67,7 @@
 		5514517E1FEDCB5D000F74CD /* NotificationName+Custom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+Custom.swift"; sourceTree = "<group>"; };
 		5524A6811FEEEF4700EA7D2C /* UserManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManagementView.swift; sourceTree = "<group>"; };
 		5524A6851FEEF87900EA7D2C /* ProfileManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileManagementView.swift; sourceTree = "<group>"; };
+		554660551FFC4901004FE348 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		55529BA91FE98BBA0077A520 /* String+Links.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Links.swift"; sourceTree = "<group>"; };
 		55529BAB1FE98C160077A520 /* UIButton+SwitchImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+SwitchImage.swift"; sourceTree = "<group>"; };
 		55529BAD1FE98C5E0077A520 /* WKWebView+Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WKWebView+Loading.swift"; sourceTree = "<group>"; };
@@ -77,7 +83,6 @@
 		55CB1BF51FDA235200A1E377 /* HostWebSessionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostWebSessionViewController.swift; sourceTree = "<group>"; };
 		55CB1BFB1FDA235200A1E377 /* Web_Connect.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Web_Connect.xcdatamodel; sourceTree = "<group>"; };
 		55CB1BFD1FDA235200A1E377 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		55CB1C001FDA235200A1E377 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		55CB1C021FDA235200A1E377 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		55CB1C081FDA252000A1E377 /* UserWebSessionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserWebSessionViewController.swift; sourceTree = "<group>"; };
 		55CB1C0A1FDA257500A1E377 /* WebDataStructures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebDataStructures.swift; sourceTree = "<group>"; };
@@ -94,15 +99,18 @@
 		55D2080C1FF49A98009AF34F /* UserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
 		55D208121FF49FC2009AF34F /* Web Share.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Web Share.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		55D208141FF49FC2009AF34F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		55D208161FF49FC2009AF34F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		55D208191FF49FC2009AF34F /* Web_Share.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Web_Share.xcdatamodel; sourceTree = "<group>"; };
 		55D2081B1FF49FC2009AF34F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		55D2081E1FF49FC2009AF34F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		55D208201FF49FC2009AF34F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		55D208211FF49FC2009AF34F /* Web_Share.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Web_Share.entitlements; sourceTree = "<group>"; };
+		55E4A8821FFC17790076E7AD /* Web Share.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Web Share.entitlements"; sourceTree = "<group>"; };
 		55F1D6A11FDB8DD7003B223F /* UIVisualEffectView+SwitchStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIVisualEffectView+SwitchStyle.swift"; sourceTree = "<group>"; };
 		55F1D6A31FDB90F1003B223F /* WebSessionDrawerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSessionDrawerViewController.swift; sourceTree = "<group>"; };
 		55F1D6A41FDB90F1003B223F /* WebSessionDrawerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WebSessionDrawerViewController.xib; sourceTree = "<group>"; };
+		55F6CE641FFC0AD600D7E0B4 /* MainWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWebViewController.swift; sourceTree = "<group>"; };
+		55F6CE691FFC0EBE00D7E0B4 /* WKWebView+Screenshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WKWebView+Screenshot.swift"; sourceTree = "<group>"; };
+		55F6CE6C1FFC0FBB00D7E0B4 /* MCPeerID+Default.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MCPeerID+Default.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +138,7 @@
 				55529BAB1FE98C160077A520 /* UIButton+SwitchImage.swift */,
 				55529BA91FE98BBA0077A520 /* String+Links.swift */,
 				55529BAD1FE98C5E0077A520 /* WKWebView+Loading.swift */,
+				55F6CE691FFC0EBE00D7E0B4 /* WKWebView+Screenshot.swift */,
 				5514517E1FEDCB5D000F74CD /* NotificationName+Custom.swift */,
 				557A6CCD1FF3FE290030F88A /* UIColor+ColorSet.swift */,
 				555BF0401FF59167008A095D /* NSLayoutConstraint+PrioritySetter.swift */,
@@ -153,7 +162,6 @@
 			isa = PBXGroup;
 			children = (
 				55CB1BF31FDA235100A1E377 /* AppDelegate.swift */,
-				55CB1BFF1FDA235200A1E377 /* LaunchScreen.storyboard */,
 				55CB1C021FDA235200A1E377 /* Info.plist */,
 				55CB1BFA1FDA235200A1E377 /* Web_Connect.xcdatamodeld */,
 			);
@@ -199,6 +207,7 @@
 				55529BAF1FE98CD20077A520 /* Extensions */,
 				555B0C1D1FFA0AC800D55CE3 /* Networking */,
 				55CB1C161FDA263A00A1E377 /* Pulley */,
+				554660551FFC4901004FE348 /* LaunchScreen.storyboard */,
 				55CB1BFD1FDA235200A1E377 /* Assets.xcassets */,
 				55529BB11FE98D3D0077A520 /* Supporting Files */,
 			);
@@ -219,8 +228,10 @@
 		55D208131FF49FC2009AF34F /* Web Share */ = {
 			isa = PBXGroup;
 			children = (
+				55E4A8821FFC17790076E7AD /* Web Share.entitlements */,
 				55D208141FF49FC2009AF34F /* AppDelegate.swift */,
-				55D208161FF49FC2009AF34F /* ViewController.swift */,
+				55F6CE641FFC0AD600D7E0B4 /* MainWebViewController.swift */,
+				55F6CE6C1FFC0FBB00D7E0B4 /* MCPeerID+Default.swift */,
 				55D2081B1FF49FC2009AF34F /* Assets.xcassets */,
 				55D2081D1FF49FC2009AF34F /* Main.storyboard */,
 				55D208201FF49FC2009AF34F /* Info.plist */,
@@ -312,6 +323,11 @@
 					55D208111FF49FC2009AF34F = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -339,7 +355,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				55CB1C011FDA235200A1E377 /* LaunchScreen.storyboard in Resources */,
+				554660561FFC4901004FE348 /* LaunchScreen.storyboard in Resources */,
 				55F1D6A61FDB90F1003B223F /* WebSessionDrawerViewController.xib in Resources */,
 				55CB1BFE1FDA235200A1E377 /* Assets.xcassets in Resources */,
 			);
@@ -368,6 +384,7 @@
 				555BF0431FF5A5CA008A095D /* UIView+AddingSubViews.swift in Sources */,
 				55D208071FF49924009AF34F /* SeperatorView.swift in Sources */,
 				55CB1BFC1FDA235200A1E377 /* Web_Connect.xcdatamodeld in Sources */,
+				55F6CE6A1FFC0EBE00D7E0B4 /* WKWebView+Screenshot.swift in Sources */,
 				55CB1C0B1FDA257500A1E377 /* WebDataStructures.swift in Sources */,
 				5524A6861FEEF87900EA7D2C /* ProfileManagementView.swift in Sources */,
 				550AFE701FDC48CA000CFAED /* HomeViewController.swift in Sources */,
@@ -404,8 +421,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55F6CE6D1FFC0FBB00D7E0B4 /* MCPeerID+Default.swift in Sources */,
+				55F6CE651FFC0AD600D7E0B4 /* MainWebViewController.swift in Sources */,
+				55F6CE681FFC0E7800D7E0B4 /* WebDataStructures.swift in Sources */,
+				55F6CE6B1FFC0EC600D7E0B4 /* WKWebView+Loading.swift in Sources */,
+				55F6CE671FFC0CBD00D7E0B4 /* URL+SearchInit.swift in Sources */,
 				55D2081A1FF49FC2009AF34F /* Web_Share.xcdatamodeld in Sources */,
-				55D208171FF49FC2009AF34F /* ViewController.swift in Sources */,
 				55D208151FF49FC2009AF34F /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -413,14 +434,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		55CB1BFF1FDA235200A1E377 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				55CB1C001FDA235200A1E377 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
 		55D2081D1FF49FC2009AF34F /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -575,7 +588,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "Web Share/Web_Share.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Web Share/Web Share.entitlements";
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -594,7 +607,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "Web Share/Web_Share.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Web Share/Web Share.entitlements";
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;

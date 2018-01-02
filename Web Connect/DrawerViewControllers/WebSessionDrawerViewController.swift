@@ -14,10 +14,10 @@ import MultipeerConnectivity
     
     var currentURL: URL? { get }
 
-    func bookmark()
     func searchFor(_ url: URL)
     func reload()
     func cancel()
+    func bookmark()
     
     @objc optional func addUsers()
     func leaveSession()
@@ -44,11 +44,7 @@ class WebSessionDrawerViewController: UIViewController {
     
     public var delegate: ContentDelegate?
     
-    public var isHosting: Bool! {
-        didSet {
-            setUpCustomView()
-        }
-    }
+    private let isHost: Bool
     
     private var isLoading = false
     private var editingBookmarks = false
@@ -58,11 +54,22 @@ class WebSessionDrawerViewController: UIViewController {
     
     private var bookmarks = [Bookmark]()
     
-    private var appDelegate = UIApplication.shared.delegate as? AppDelegate
+    private lazy var appDelegate = UIApplication.shared.delegate as? AppDelegate
     private lazy var moc = appDelegate?.persistentContainer.viewContext
     
-    private var profileView: ProfileManagementView?
-    private var userManagementView: UserManagementView?
+    private lazy var profileManagementView: ProfileManagementView = {
+        let view = ProfileManagementView()
+        view.delegate = self
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private lazy var userManagementView: UserManagementView = {
+        let view = UserManagementView()
+        view.delegate = self
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
     @IBOutlet weak var gripperTopConstraint: NSLayoutConstraint!
     
@@ -98,15 +105,25 @@ class WebSessionDrawerViewController: UIViewController {
     }
     
     // MARK: View Controller Life Cycle
-
+    
+    init(isHost: Bool) {
+        self.isHost = isHost
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         getBookmarks()
+        setUpCustomView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        profileView?.updateDataUsageGraph(withDataSet: DataSet(0, 100))
+        guard !isHost else { return }
+        profileManagementView.updateDataUsageGraph(withDataSet: DataSet(0, 100))
     }
     
     override func viewDidLayoutSubviews() {
@@ -125,20 +142,19 @@ class WebSessionDrawerViewController: UIViewController {
     @IBAction func bookmarkButtonTapped(_ sender: UIButton) {
         
         guard let currentURL = delegate?.currentURL else { return }
-        
-        var bookmarkToDelete: Bookmark?
-        for bookmark in bookmarks {
-            guard bookmark.url == currentURL.absoluteString else { continue }
-            bookmarkToDelete = bookmark
+
+        let existingBookmark = bookmarks.first { (bookmark) -> Bool in
+            return bookmark.url == currentURL.absoluteString
         }
         
-        if let bookmarkToDelete = bookmarkToDelete {
-            moc?.delete(bookmarkToDelete)
+        if let existingBookmark = existingBookmark {
+            moc?.delete(existingBookmark)
         } else {
             delegate?.bookmark()
         }
+        
         getBookmarks()
-    
+
         sender.switchImage(imageSet: ImageSet(image1: #imageLiteral(resourceName: "BookmarkIcon"), image2: #imageLiteral(resourceName: "FilledBookmarkIcon")),
                            transition: .transitionCrossDissolve)
     }
@@ -178,6 +194,7 @@ class WebSessionDrawerViewController: UIViewController {
     
     private func getBookmarks() {
         guard let moc = moc else { return }
+        
         let fetchRequest = Bookmark.fetchRequest() as NSFetchRequest<Bookmark>
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
         
@@ -200,36 +217,15 @@ class WebSessionDrawerViewController: UIViewController {
     }
     
     private func setUpCustomView() {
-        if isHosting {
-            userManagementView = UserManagementView()
-            userManagementView?.translatesAutoresizingMaskIntoConstraints = false
-            customView.addSubview(userManagementView!)
-            userManagementView?.constrainToParent()
-            userManagementView?.delegate = self
-        } else {
-            profileView = ProfileManagementView()
-            profileView?.translatesAutoresizingMaskIntoConstraints = false
-            customView.addSubview(profileView!)
-            profileView?.constrainToParent()
-            profileView?.delegate = self
-        }
+        let view = isHost ? userManagementView : profileManagementView
+        customView.addSubview(view)
+        view.constrainToParent()
     }
     
     private func setUpSearchBar() {
         searchBar.setImage(#imageLiteral(resourceName: "ReloadIcon"), for: .bookmark, state: .normal)
         searchBar.tintColor = UserDefaults.standard.bool(forKey: "prefersDark") ? .white : .defaultButtonColor
         searchBar.autocapitalizationType = .none
-        
-        guard let searchBarRoundedView = searchBar.subviews.first?.subviews[1].subviews.first else { return } // 0 1 2
-        searchBarRoundedView.addSubview(progressBar)
-        searchBarRoundedView.layer.cornerRadius = 10
-        searchBarRoundedView.clipsToBounds = true
-                
-        NSLayoutConstraint.activate([
-            progressBar.leadingAnchor.constraint(equalTo: searchBarRoundedView.leadingAnchor),
-            progressBar.trailingAnchor.constraint(equalTo: searchBarRoundedView.trailingAnchor),
-            progressBar.bottomAnchor.constraint(equalTo: searchBarRoundedView.bottomAnchor)
-        ])
         
         NotificationCenter.default.addObserver(forName: .lightenLabels, object: nil, queue: .main) { (_) in
             UIView.animate(withDuration: 0.8) {
@@ -242,9 +238,22 @@ class WebSessionDrawerViewController: UIViewController {
                 self.searchBar.tintColor = .defaultButtonColor
             }
         }
+        
+        guard let searchBarRoundedView = searchBar.subviews.first?.subviews[1].subviews.first else { return }
+        searchBarRoundedView.addSubview(progressBar)
+        searchBarRoundedView.layer.cornerRadius = 10
+        searchBarRoundedView.clipsToBounds = true
+                
+        NSLayoutConstraint.activate([
+            progressBar.leadingAnchor.constraint(equalTo: searchBarRoundedView.leadingAnchor),
+            progressBar.trailingAnchor.constraint(equalTo: searchBarRoundedView.trailingAnchor),
+            progressBar.bottomAnchor.constraint(equalTo: searchBarRoundedView.bottomAnchor)
+        ])
     }
     
 }
+
+// MARK: Implementation Of Delegates
 
 extension WebSessionDrawerViewController: UICollectionViewDataSource {
     
@@ -261,9 +270,10 @@ extension WebSessionDrawerViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.cellForItem(at: indexPath)?.isSelected = false
-        guard !bookmarks.isEmpty,
-            let urlString = bookmarks[indexPath.item].url,
+        let cell = collectionView.cellForItem(at: indexPath)
+        cell?.isSelected = false
+        guard let bookmarkCell = cell as? BookmarkCollectionViewCell else { return }
+        guard let urlString = bookmarkCell.bookmark?.url,
             let url = URL(string: urlString) else { return }
         searchFor(url)
     }
@@ -278,9 +288,11 @@ extension WebSessionDrawerViewController: UICollectionViewDelegate {
 }
 
 extension WebSessionDrawerViewController: UICollectionViewDelegateFlowLayout {
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let height = collectionView.bounds.height
-        let width = height * 0.592
+        let widthToHeightRatio: CGFloat = 0.592
+        let width = height * widthToHeightRatio
         return CGSize(width: width, height: height)
     }
 }
@@ -308,23 +320,27 @@ extension WebSessionDrawerViewController: UISearchBarDelegate {
     }
     
     func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
-        guard isLoading else {
+        if !isLoading && delegate?.currentURL != nil {
             prepareForSearch()
             delegate?.reload()
-            return
+        } else {
+            searchBar.setImage(#imageLiteral(resourceName: "ReloadIcon"), for: .bookmark, state: .normal)
+            progressBar.setProgress(0, animated: false)
+            delegate?.cancel()
         }
-        delegate?.cancel()
     }
 }
+
+// MARK: Implementation of Custom Delegates
 
 extension WebSessionDrawerViewController: WebSessionDrawerDelegate {
     
     func updateUsers(_ users: [User]) {
-        userManagementView?.users = users
+        userManagementView.users = users
     }
     
     func updateDataUsageGraph(dataSet: DataSet) {
-        profileView?.updateDataUsageGraph(withDataSet: dataSet)
+        profileManagementView.updateDataUsageGraph(withDataSet: dataSet)
     }
     
     func updateBookmarkIconFor(_ url: URL) {
@@ -413,18 +429,6 @@ extension WebSessionDrawerViewController: ProfileManagementViewDelegate {
 }
 
 extension WebSessionDrawerViewController: PulleyDrawerViewControllerDelegate {
-    
-    func collapsedDrawerHeight(bottomSafeArea: CGFloat) -> CGFloat {
-        return 68 + bottomSafeArea
-    }
-    
-    func partialRevealDrawerHeight(bottomSafeArea: CGFloat) -> CGFloat {
-        return 290 + bottomSafeArea
-    }
-    
-    func supportedDrawerPositions() -> [PulleyPosition] {
-        return PulleyPosition.all
-    }
     
     func drawerDisplayModeDidChange(drawer: PulleyViewController) {
         guard gripperTopConstraint != nil else { return }

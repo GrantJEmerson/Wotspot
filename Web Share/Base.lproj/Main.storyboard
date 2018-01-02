@@ -694,25 +694,25 @@
                         </connections>
                     </window>
                     <connections>
-                        <segue destination="XfG-lQ-9wD" kind="relationship" relationship="window.shadowedContentViewController" id="cq2-FE-JQM"/>
+                        <segue destination="jA0-Gk-j3o" kind="relationship" relationship="window.shadowedContentViewController" id="2kf-Yu-oya"/>
                     </connections>
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="75" y="250"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="hIz-AP-VOD">
+        <!--Main Web View Controller-->
+        <scene sceneID="by1-QA-Hvp">
             <objects>
-                <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="Web_Share" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                <viewController id="jA0-Gk-j3o" customClass="MainWebViewController" customModule="Web_Share" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="Bsh-Uf-kjU">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </view>
                 </viewController>
-                <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <customObject id="Efn-tJ-UqX" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="655"/>
+            <point key="canvasLocation" x="75" y="671"/>
         </scene>
     </scenes>
 </document>

@@ -6,7 +6,6 @@
 //  Copyright © 2017 Grant Emerson. All rights reserved.
 //
 
-import UIKit
 import MultipeerConnectivity
 
 enum UserAgent: String, Codable {
@@ -58,5 +57,4 @@ struct DataSet: Codable {
     }
 }
 
-typealias ImageSet = (image1: UIImage, image2: UIImage)
 typealias Byte = CGFloat

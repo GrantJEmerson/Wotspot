@@ -79,9 +79,7 @@ class ProfileManagementView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         backgroundColor = .clear
-        
         setUpSubViews()
     }
     

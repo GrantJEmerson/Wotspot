@@ -37,22 +37,17 @@ import UIKit
 /**
  *  View controllers in the drawer can implement this to receive changes in state or provide values for the different drawer positions.
  */
-public protocol PulleyDrawerViewControllerDelegate: PulleyDelegate {
+@objc public protocol PulleyDrawerViewControllerDelegate: PulleyDelegate {
     
     /**
      *  Provide the collapsed drawer height for Pulley. Pulley does NOT automatically handle safe areas for you, however: bottom safe area is provided for your convenience in computing a value to return.
      */
-    func collapsedDrawerHeight(bottomSafeArea: CGFloat) -> CGFloat
+    @objc optional func collapsedDrawerHeight(bottomSafeArea: CGFloat) -> CGFloat
     
     /**
      *  Provide the partialReveal drawer height for Pulley. Pulley does NOT automatically handle safe areas for you, however: bottom safe area is provided for your convenience in computing a value to return.
      */
-    func partialRevealDrawerHeight(bottomSafeArea: CGFloat) -> CGFloat
-    
-    /**
-     *  Return the support drawer positions for your drawer.
-     */
-    func supportedDrawerPositions() -> [PulleyPosition]
+    @objc optional func partialRevealDrawerHeight(bottomSafeArea: CGFloat) -> CGFloat
 }
 
 /**
@@ -777,7 +772,7 @@ open class PulleyViewController: UIViewController {
             safeAreaBottomInset = self.bottomLayoutGuide.length
         }
         
-        return safeAreaBottomInset
+        return safeAreaBottomInset == 0 ? 0 : 5
     }
 
     private func getLeftSafeArea() -> CGFloat {
@@ -905,7 +900,7 @@ open class PulleyViewController: UIViewController {
         drawerPosition = position
         
         let collapsedHeight:CGFloat = currentDisplayMode == .leftSide ?
-                                      kPulleyDefaultCollapsedHeightForLeft : kPulleyDefaultCollapsedHeight  + getBottomSafeArea()
+                                      kPulleyDefaultCollapsedHeightForLeft : kPulleyDefaultCollapsedHeight//  + getBottomSafeArea()
         let partialRevealHeight:CGFloat = kPulleyDefaultPartialRevealHeight  + getBottomSafeArea()
 
         let stopToMoveTo: CGFloat
@@ -1073,14 +1068,7 @@ open class PulleyViewController: UIViewController {
      */
     public func setNeedsSupportedDrawerPositionsUpdate()
     {
-        if let drawerVCCompliant = drawerContentViewController as? PulleyDrawerViewControllerDelegate
-        {
-            supportedPositions = drawerVCCompliant.supportedDrawerPositions()
-        }
-        else
-        {
-            supportedPositions = PulleyPosition.all
-        }
+        supportedPositions = PulleyPosition.all
     }
     
     // MARK: Actions

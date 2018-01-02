@@ -94,7 +94,7 @@ class WebBrowserViewController: UIViewController {
         view.addGestureRecognizer(rightEdgePanRecognizer)
     }
     
-    // MARK: Private Functions
+    // MARK: "IBActions"
     
     @objc private func leftScreenEdgeSwiped(_ recognizer: UIScreenEdgePanGestureRecognizer) {
         if recognizer.state == .recognized {
@@ -123,13 +123,10 @@ extension WebBrowserViewController: UIScrollViewDelegate {
 extension WebBrowserViewController: WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        decisionHandler(.allow)
         guard let url = navigationAction.request.url,
-            navigationAction.navigationType.matchesAnyOf([.linkActivated, .backForward, .reload]) else {
-            decisionHandler(WKNavigationActionPolicy.allow)
-            return
-        }
+            navigationAction.navigationType.matchesAnyOf([.linkActivated, .backForward, .reload]) else { return }
         delegate?.searchFor(url)
-        decisionHandler(WKNavigationActionPolicy.allow)
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
@@ -137,11 +134,8 @@ extension WebBrowserViewController: WKNavigationDelegate {
         DispatchQueue.main.async {
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
         }
-        webView.evaluateJavaScript("document.body.style.webkitTouchCallout='none';")
-        
-        guard webView.url?.absoluteString.hasPrefix("https://www.google.com") ?? false else { return }
-        webView.evaluateJavaScript("document.getElementById('_fZl').onclick.toString();") { (message, _) in
-        }
+        let removeLongPressPopUpScript = "document.body.style.webkitTouchCallout='none';"
+        webView.evaluateJavaScript(removeLongPressPopUpScript)
     }
 }
 

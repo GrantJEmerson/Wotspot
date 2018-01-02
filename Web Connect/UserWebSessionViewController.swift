@@ -69,7 +69,7 @@ class UserWebSessionViewController: PulleyViewController {
             awaitingURL = nil
             webView?.loadWebPage(searchResult.webPage)
             drawerDelegate?.updateDataUsageGraph(dataSet: searchResult.dataSet)
-        } else if let disconnectMessage = String.init(data: data, encoding: .utf8) {
+        } else if let disconnectMessage = String(data: data, encoding: .utf8) {
             guard disconnectMessage == "disconnect" else { return }
             session.disconnect()
             presentDisconnectedAlert()
@@ -94,9 +94,10 @@ class UserWebSessionViewController: PulleyViewController {
                                       message: "You have been removed from the current Web Share session.",
                                       preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "OK", style: .default))
-        present(alertController, animated: true)
+        DispatchQueue.main.async {
+            self.present(alertController, animated: true)
+        }
     }
-    
 }
 
 extension UserWebSessionViewController: MCSessionDelegate {
@@ -114,7 +115,9 @@ extension UserWebSessionViewController: MCSessionDelegate {
     }
     
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
-        
+        guard peerID.displayName == "Host",
+            state == .notConnected else { return }
+        presentDisconnectedAlert()
     }
     
     func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
