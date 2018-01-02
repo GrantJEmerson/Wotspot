@@ -98,13 +98,11 @@ class WebBrowserViewController: UIViewController {
     
     @objc private func leftScreenEdgeSwiped(_ recognizer: UIScreenEdgePanGestureRecognizer) {
         if recognizer.state == .recognized {
-            print(webView.backForwardList.backList)
         }
     }
     
     @objc private func rightScreenEdgeSwiped(_ recognizer: UIScreenEdgePanGestureRecognizer) {
         if recognizer.state == .recognized {
-            print(webView.backForwardList.forwardItem?.title)
         }
     }
     
