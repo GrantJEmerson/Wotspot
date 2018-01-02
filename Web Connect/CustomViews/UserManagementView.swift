@@ -103,9 +103,8 @@ class UserManagementView: UIView {
             titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: spacing),
             titleLabel.heightAnchor.constraint(equalToConstant: 40),
             
-            addUsersButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -spacing),
+            addUsersButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             addUsersButton.topAnchor.constraint(equalTo: titleLabel.topAnchor),
-            addUsersButton.widthAnchor.constraint(equalToConstant: 40),
             addUsersButton.heightAnchor.constraint(equalToConstant: 40),
             
             seperatorView1.leadingAnchor.constraint(equalTo: leadingAnchor, constant: spacing),

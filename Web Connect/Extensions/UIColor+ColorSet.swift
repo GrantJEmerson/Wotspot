@@ -11,6 +11,7 @@ import UIKit
 extension UIColor {
     
     static let defaultButtonColor = UIColor(r: 0, g: 122, b: 255)
+    static let deleteColor = UIColor(r: 249, g: 61, b: 61)
     
     convenience init(r: CGFloat, g: CGFloat, b: CGFloat) {
         self.init(red: r/255, green: g/255, blue: b/255, alpha: 1)

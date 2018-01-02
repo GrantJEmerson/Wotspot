@@ -22,6 +22,7 @@ class UserWebSessionViewController: PulleyViewController {
     private var appDelegate = UIApplication.shared.delegate as? AppDelegate
     private lazy var moc = appDelegate?.persistentContainer.viewContext
     
+    private var awaitingURL: URL?
     private var userAgent = UserAgent.mobile
     
     private lazy var assistant: MCAdvertiserAssistant = {
@@ -64,6 +65,8 @@ class UserWebSessionViewController: PulleyViewController {
     
     private func decodeMultipeerConnectivityData(_ data: Data) {
         if let searchResult = try? PropertyListDecoder().decode(SearchResult.self, from: data) {
+            guard searchResult.webPage.url == awaitingURL else { return }
+            awaitingURL = nil
             webView?.loadWebPage(searchResult.webPage)
             drawerDelegate?.updateDataUsageGraph(dataSet: searchResult.dataSet)
         } else if let disconnectMessage = String.init(data: data, encoding: .utf8) {
@@ -78,6 +81,7 @@ class UserWebSessionViewController: PulleyViewController {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         do {
             let host = session.connectedPeers.filter({ $0.displayName == "Host" })
+            awaitingURL = searchRequest.url
             try session.send(data, toPeers: host, with: .reliable)
         } catch {
             print(error.localizedDescription)
@@ -137,7 +141,14 @@ extension UserWebSessionViewController: ContentDelegate, ParentDelegate {
     }
     
     func reload() {
-        webView?.reload()
+        guard let currentUrl = webView?.url else { return }
+        let searchRequest = SearchRequest(url: currentUrl, userAgent: userAgent)
+        sendSearchRequest(searchRequest)
+    }
+    
+    func cancel() {
+        awaitingURL = nil
+        webView?.stopLoading()
     }
     
     func bookmark() {

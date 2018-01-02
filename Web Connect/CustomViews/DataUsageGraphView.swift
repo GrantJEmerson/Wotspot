@@ -16,14 +16,6 @@ class DataUsageGraphView: UIView {
         didSet { update() }
     }
     
-    open var usedColor: UIColor = .green {
-        didSet { usedDataGraphView.backgroundColor = usedColor }
-    }
-    
-    open var availableColor: UIColor = .red {
-        didSet { availableDataGraphView.backgroundColor = availableColor }
-    }
-    
     private let normalPadding: CGFloat = 8
     private let extraPadding: CGFloat = 30
     

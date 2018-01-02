@@ -27,36 +27,32 @@ class HomeViewController: UIViewController {
         return view
     }()
     
-    private lazy var hostSessionButton: UIButton = {
+    private let HomePageButton: () -> (UIButton) = {
         let button = UIButton()
-        button.isEnabled = Reachability.isConnectedToNetwork()
-        button.setTitle("Host", for: .normal)
         button.setTitleColor(.defaultButtonColor, for: .normal)
         button.setTitleColor(.lightGray, for: .highlighted)
         button.setTitleColor(.lightGray, for: .disabled)
         button.backgroundColor = .white
         button.clipsToBounds = true
-        button.layer.cornerRadius = buttonHeight / 3
+        button.layer.cornerRadius = 50 / 3
         button.layer.borderColor = UIColor.black.cgColor
         button.layer.borderWidth = 5
-        button.addTarget(self, action: #selector(startHostingSessionTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }
+    
+    private lazy var hostSessionButton: UIButton = {
+        let button = HomePageButton()
+        button.isEnabled = Reachability.isConnectedToNetwork()
+        button.setTitle("Host", for: .normal)
+        button.addTarget(self, action: #selector(startHostingSessionTapped), for: .touchUpInside)
         return button
     }()
     
     private lazy var joinSessionButton: UIButton = {
-        let button = UIButton()
+        let button = HomePageButton()
         button.setTitle("Join", for: .normal)
-        button.setTitleColor(.defaultButtonColor, for: .normal)
-        button.setTitleColor(.lightGray, for: .highlighted)
-        button.setTitleColor(.lightGray, for: .disabled)
-        button.backgroundColor = UIColor.white
-        button.clipsToBounds = true
-        button.layer.cornerRadius = buttonHeight / 3
-        button.layer.borderColor = UIColor.black.cgColor
-        button.layer.borderWidth = 5
         button.addTarget(self, action: #selector(joinAvailableSessionTapped), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
@@ -73,8 +69,8 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         setUpViews()
-        setUpConstraints()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -96,18 +92,13 @@ class HomeViewController: UIViewController {
     
     private func setUpViews() {
         
-        view.backgroundColor = .white
         view.addSubview(backgroundGradientView)
         buttonGroupingView.addSubviews([hostSessionButton, joinSessionButton, selectionOrTextLabel])
         view.addSubview(buttonGroupingView)
-    }
-    
-    private func setUpConstraints() {
         
         backgroundGradientView.constrainToParent()
         
         NSLayoutConstraint.activate([
-            
             buttonGroupingView.widthAnchor.constraint(greaterThanOrEqualToConstant: buttonWidth),
             buttonGroupingView.heightAnchor.constraint(equalToConstant: buttonHeight * 2 + 10),
             buttonGroupingView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
@@ -155,6 +146,5 @@ class HomeViewController: UIViewController {
         webBrowserVC.delegate = userWebSessionVC
         self.show(userWebSessionVC, sender: self)
     }
-    
 }
 

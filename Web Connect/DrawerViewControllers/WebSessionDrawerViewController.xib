@@ -104,7 +104,7 @@
                             </constraints>
                         </stackView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bookmarks" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ukK-BX-idU" customClass="AdaptiveLabel" customModule="Web_Connect" customModuleProvider="target">
-                            <rect key="frame" x="8" y="119" width="287" height="34"/>
+                            <rect key="frame" x="8" y="119" width="299" height="34"/>
                             <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="26"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -120,9 +120,9 @@
                             <cells/>
                         </collectionView>
                         <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kLU-el-GAL">
-                            <rect key="frame" x="303" y="119" width="64" height="34"/>
+                            <rect key="frame" x="315" y="119" width="40" height="34"/>
                             <constraints>
-                                <constraint firstAttribute="width" priority="999" constant="64" id="Frg-O1-7ku"/>
+                                <constraint firstAttribute="width" priority="999" constant="40" id="Frg-O1-7ku"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <state key="normal" title="Edit">
@@ -143,7 +143,7 @@
                     <constraints>
                         <constraint firstItem="kLU-el-GAL" firstAttribute="bottom" secondItem="ukK-BX-idU" secondAttribute="bottom" id="2od-y0-3Wd"/>
                         <constraint firstAttribute="bottom" secondItem="kXP-HN-LCE" secondAttribute="bottom" constant="8" id="4Zh-rn-YMd"/>
-                        <constraint firstAttribute="trailing" secondItem="kLU-el-GAL" secondAttribute="trailing" constant="8" id="FjT-7i-tSQ"/>
+                        <constraint firstAttribute="trailing" secondItem="kLU-el-GAL" secondAttribute="trailing" constant="20" id="FjT-7i-tSQ"/>
                         <constraint firstItem="kXP-HN-LCE" firstAttribute="top" secondItem="gJb-HF-8AT" secondAttribute="bottom" priority="999" constant="8" id="Hyp-E6-US2"/>
                         <constraint firstItem="kLU-el-GAL" firstAttribute="top" secondItem="ukK-BX-idU" secondAttribute="top" id="IO3-LI-Wgc"/>
                         <constraint firstAttribute="trailing" secondItem="kXP-HN-LCE" secondAttribute="trailing" id="Idt-WP-vis"/>

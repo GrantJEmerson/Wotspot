@@ -68,7 +68,8 @@ class ProfileManagementView: UIView {
     private lazy var leaveSessionButton: UIButton = {
         let button = UIButton()
         button.setTitle("Leave Session", for: .normal)
-        button.setTitleColor(.red, for: .normal)
+        button.setTitleColor(.deleteColor, for: .normal)
+        button.setTitleColor(.lightGray, for: .highlighted)
         button.addTarget(self, action: #selector(leaveSessionButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button

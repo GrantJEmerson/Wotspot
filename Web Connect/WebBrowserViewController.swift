@@ -77,7 +77,7 @@ class WebBrowserViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+                
         view.addSubview(webView)
         
         NSLayoutConstraint.activate([

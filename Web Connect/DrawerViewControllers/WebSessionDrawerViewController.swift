@@ -17,6 +17,7 @@ import MultipeerConnectivity
     func bookmark()
     func searchFor(_ url: URL)
     func reload()
+    func cancel()
     
     @objc optional func addUsers()
     func leaveSession()
@@ -49,6 +50,7 @@ class WebSessionDrawerViewController: UIViewController {
         }
     }
     
+    private var isLoading = false
     private var editingBookmarks = false
     
     private let bookmarkCellID = "bookmarkCellID"
@@ -165,7 +167,13 @@ class WebSessionDrawerViewController: UIViewController {
     
     private func searchFor(_ url: URL) {
         delegate?.searchFor(url)
+        prepareForSearch()
+    }
+    
+    private func prepareForSearch() {
         progressBar.setProgress(0.15, animated: true)
+        searchBar.setImage(#imageLiteral(resourceName: "CancelLoadIcon"), for: .bookmark, state: .normal)
+        isLoading = true
     }
     
     private func getBookmarks() {
@@ -209,14 +217,14 @@ class WebSessionDrawerViewController: UIViewController {
     
     private func setUpSearchBar() {
         searchBar.setImage(#imageLiteral(resourceName: "ReloadIcon"), for: .bookmark, state: .normal)
-        searchBar.tintColor = UserDefaults.standard.bool(forKey: "prefersDark") ? .white : .black
+        searchBar.tintColor = UserDefaults.standard.bool(forKey: "prefersDark") ? .white : .defaultButtonColor
         searchBar.autocapitalizationType = .none
         
-        guard let searchBarRoundedView = searchBar.subviews.first?.subviews[1].subviews[0] else { return }
+        guard let searchBarRoundedView = searchBar.subviews.first?.subviews[1].subviews.first else { return } // 0 1 2
         searchBarRoundedView.addSubview(progressBar)
         searchBarRoundedView.layer.cornerRadius = 10
         searchBarRoundedView.clipsToBounds = true
-        
+                
         NSLayoutConstraint.activate([
             progressBar.leadingAnchor.constraint(equalTo: searchBarRoundedView.leadingAnchor),
             progressBar.trailingAnchor.constraint(equalTo: searchBarRoundedView.trailingAnchor),
@@ -231,7 +239,7 @@ class WebSessionDrawerViewController: UIViewController {
         
         NotificationCenter.default.addObserver(forName: .darkenLabels, object: nil, queue: .main) { (_) in
             UIView.animate(withDuration: 0.8) {
-                self.searchBar.tintColor = .black
+                self.searchBar.tintColor = .defaultButtonColor
             }
         }
     }
@@ -300,7 +308,12 @@ extension WebSessionDrawerViewController: UISearchBarDelegate {
     }
     
     func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
-        delegate?.reload()
+        guard isLoading else {
+            prepareForSearch()
+            delegate?.reload()
+            return
+        }
+        delegate?.cancel()
     }
 }
 
@@ -326,10 +339,12 @@ extension WebSessionDrawerViewController: WebSessionDrawerDelegate {
     func setProgressBarTo(_ progress: Float) {
         guard progress < 1 else {
             progressBar.progress = 1
-            UIView.animate(withDuration: 0.3, animations: {
-                self.progressBar.layoutIfNeeded()
-            }) { _ in
-                self.progressBar.setProgress(0, animated: false)
+            UIView.animate(withDuration: 0.3, animations: { [weak self] in
+                self?.progressBar.layoutIfNeeded()
+            }) { [weak self] _ in
+                self?.progressBar.setProgress(0, animated: false)
+                self?.searchBar.setImage(#imageLiteral(resourceName: "ReloadIcon"), for: .bookmark, state: .normal)
+                self?.isLoading = false
             }
             return
         }

@@ -297,6 +297,10 @@ extension HostWebSessionViewController: ContentDelegate, ParentDelegate {
         webView?.reload()
     }
     
+    func cancel() {
+        webView?.stopLoading()
+    }
+    
     func bookmark() {
         
         guard let moc = moc else { return }
