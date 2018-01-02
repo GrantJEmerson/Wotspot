@@ -33,24 +33,24 @@ class DataUsageGraphView: UIView {
         
     private var usedDataGraphViewWidth: NSLayoutConstraint!
     
-    private lazy var usedDataTitleLabel: UILabel = {
-        let label = UILabel()
+    private lazy var usedDataTitleLabel: AdaptiveLabel = {
+        let label = AdaptiveLabel()
         label.font = .boldSystemFont(ofSize: 15)
         label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    private lazy var availableDataTitleLabel: UILabel = {
-        let label = UILabel()
+    private lazy var availableDataTitleLabel: AdaptiveLabel = {
+        let label = AdaptiveLabel()
         label.font = .boldSystemFont(ofSize: 15)
         label.textAlignment = .right
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    private lazy var usedDataAmountLabel: UILabel = {
-        let label = UILabel()
+    private lazy var usedDataAmountLabel: AdaptiveLabel = {
+        let label = AdaptiveLabel()
         label.font = .boldSystemFont(ofSize: 15)
         label.adjustsFontSizeToFitWidth = true
         label.textAlignment = .right
@@ -58,8 +58,8 @@ class DataUsageGraphView: UIView {
         return label
     }()
     
-    private lazy var availableDataAmountLabel: UILabel = {
-        let label = UILabel()
+    private lazy var availableDataAmountLabel: AdaptiveLabel = {
+        let label = AdaptiveLabel()
         label.font = .boldSystemFont(ofSize: 15)
         label.adjustsFontSizeToFitWidth = true
         label.textAlignment = .center

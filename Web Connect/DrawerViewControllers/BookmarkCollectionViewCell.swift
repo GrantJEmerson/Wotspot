@@ -49,8 +49,8 @@ class BookmarkCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
-    private lazy var titleLabel: UILabel = {
-        let label = UILabel()
+    private lazy var titleLabel: AdaptiveLabel = {
+        let label = AdaptiveLabel()
         label.font = UIFont(name: "Futura", size: 13)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.backgroundColor = .clear

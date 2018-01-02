@@ -18,6 +18,7 @@ extension UIVisualEffectView {
             self.effect = newEffect
         }
         UIBlurEffectStyle.current = isDark ? .extraLight : .dark
+        NotificationCenter.default.post(Notification(name: isDark ? .darkenLabels : .lightenLabels))
     }
 }
 

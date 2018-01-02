@@ -103,7 +103,7 @@
                                 <constraint firstAttribute="height" priority="999" constant="35" id="Bvo-18-Uje"/>
                             </constraints>
                         </stackView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bookmarks" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ukK-BX-idU">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bookmarks" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ukK-BX-idU" customClass="AdaptiveLabel" customModule="Web_Connect" customModuleProvider="target">
                             <rect key="frame" x="8" y="119" width="287" height="34"/>
                             <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="26"/>
                             <nil key="textColor"/>

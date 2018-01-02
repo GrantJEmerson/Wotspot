@@ -1,5 +1,5 @@
 //
-//  NotificationName+Editing.swift
+//  NotificationName+Custom.swift
 //  Web Connect
 //
 //  Created by Grant Emerson on 12/22/17.
@@ -11,4 +11,6 @@ import Foundation
 extension Notification.Name {
     static let startEditing = Notification.Name("startEditing")
     static let endEditing = Notification.Name("endEditing")
+    static let darkenLabels = Notification.Name("darkenLabels")
+    static let lightenLabels = Notification.Name("lightenLabels")
 }

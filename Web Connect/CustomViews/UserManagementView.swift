@@ -24,10 +24,11 @@ class UserManagementView: UIView {
     
     public var users = [User]() {
         didSet {
-            tableView.reloadData()
-            userCountLabel.text = "\(users.count) of 7 Users Connected"
-            addUsersButton.isEnabled = users.count < 7
-            tableView.reloadData()
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.userCountLabel.text = "\(self.users.count) of 7 Users Connected"
+                self.addUsersButton.isEnabled = self.users.count < 7
+            }
         }
     }
     
@@ -37,8 +38,8 @@ class UserManagementView: UIView {
     
     private let seperatorView1 = SeperatorView()
     
-    private lazy var titleLabel: UILabel = {
-        let label = UILabel()
+    private lazy var titleLabel: AdaptiveLabel = {
+        let label = AdaptiveLabel()
         label.text = "Manage Users"
         label.font = UIFont(name: "Futura", size: 26)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -52,11 +53,10 @@ class UserManagementView: UIView {
         return button
     }()
     
-    private lazy var userCountLabel: UILabel = {
-        let label = UILabel()
+    private lazy var userCountLabel: AdaptiveLabel = {
+        let label = AdaptiveLabel()
         label.text = "0 of 7 Users Connected"
         label.font = .systemFont(ofSize: 16)
-        label.textColor = UIColor.black
         label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

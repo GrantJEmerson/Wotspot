@@ -14,11 +14,7 @@ class HostWebSessionViewController: PulleyViewController {
     
     // MARK: Properties
     
-    public weak var webView: WKWebView? {
-        didSet {
-            webView?.addObserver(self, forKeyPath: "estimatedProgress", options: .new, context: nil)
-        }
-    }
+    public weak var webView: WKWebView?
     
     public var drawerDelegate: WebSessionDrawerDelegate?
     
@@ -68,6 +64,11 @@ class HostWebSessionViewController: PulleyViewController {
         assistant.start()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        webView?.addObserver(self, forKeyPath: "estimatedProgress", options: .new, context: nil)
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         webView?.removeObserver(self, forKeyPath: "estimatedProgress")
@@ -101,7 +102,9 @@ class HostWebSessionViewController: PulleyViewController {
             getSearchResult(forSearchRequest: searchRequest) { [weak self] (webPage) in
                 guard let webPage = webPage,
                     let strongSelf = self else { return }
-                strongSelf.users[userIndex].dataSet.dataUsed += CGFloat(webPage.data.count)
+                DispatchQueue.main.async {
+                    strongSelf.users[userIndex].dataSet.dataUsed += CGFloat(webPage.data.count)
+                }
                 let searchResult = SearchResult(webPage: webPage, dataSet: strongSelf.users[userIndex].dataSet)
                 strongSelf.sendSearchResult(searchResult, toPeer: peerID)
             }
@@ -169,7 +172,7 @@ class HostWebSessionViewController: PulleyViewController {
             completion(false)
         })
         
-        alertController.addAction(UIAlertAction(title: "No", style: .default) { (_) in
+        alertController.addAction(UIAlertAction(title: "Yes", style: .default) { (_) in
             completion(true)
         })
         
@@ -227,12 +230,22 @@ extension HostWebSessionViewController: MCSessionDelegate {
     }
     
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
-        guard peerID.displayName != "Host",
-            state == MCSessionState.connected,
-            !peerIDsToAdd.contains(peerID),
-            !users.contains(where: { user in
+        guard peerID.displayName != "Host" else { return }
+
+        switch state {
+        case .connected:
+            guard !peerIDsToAdd.contains(peerID),
+                !users.contains(where: { user in
                 return user.peerID == peerID }) else { return }
-        peerIDsToAdd.append(peerID)
+            peerIDsToAdd.append(peerID)
+        case .notConnected:
+            guard let userIndex = users.index(where: { (user) -> Bool in
+                return user.peerID == peerID
+            }) else { return }
+            users.remove(at: userIndex)
+        default:
+            break
+        }
     }
     
     func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {

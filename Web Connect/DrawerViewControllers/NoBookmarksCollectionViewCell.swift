@@ -12,8 +12,8 @@ class NoBookmarksCollectionViewCell: UICollectionViewCell {
     
     // MARK: Properties
     
-    private lazy var noBookmarksLabel: UILabel = {
-        let label = UILabel()
+    private lazy var noBookmarksLabel: AdaptiveLabel = {
+        let label = AdaptiveLabel()
         label.text = "No Bookmarks Available"
         label.textColor = .white
         label.numberOfLines = 2

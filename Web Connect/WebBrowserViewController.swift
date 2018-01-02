@@ -18,25 +18,36 @@ class WebBrowserViewController: UIViewController {
     
     // MARK: Properties
     
-    public var isHost: Bool? {
-        didSet {
-            guard let isHost = isHost else { return }
-            webView.allowsBackForwardNavigationGestures = isHost
-            if !isHost {
-                view.addGestureRecognizer(leftEdgePanRecognizer)
-                view.addGestureRecognizer(rightEdgePanRecognizer)
-            }
-        }
-    }
-    
     public var delegate: ParentDelegate?
+    
+    private var isHost: Bool
     
     private var lastOffsetY: CGFloat = 0
     
+    private lazy var searchButtonScript: WKUserScript = {
+        let source = """
+                        var searchButton = document.getElementById("tsbb");
+                        searchButton.addEventListener("click", function() {
+                            var searchText = document.getElementById("lst-ib").value;
+                            window.webkit.messageHandlers.iosListener.postMessage("Search: " + searchText);
+                        });
+                    """
+        let script = WKUserScript(source: source, injectionTime: .atDocumentEnd, forMainFrameOnly: false)
+        return script
+    }()
+    
+    private lazy var configuration: WKWebViewConfiguration = {
+        let configuration = WKWebViewConfiguration()
+        configuration.userContentController.addUserScript(searchButtonScript)
+        configuration.userContentController.add(self, name: "iosListener")
+        return configuration
+    }()
+    
     public lazy var webView: WKWebView = {
-        let webView = WKWebView()
+        let webView = isHost ? WKWebView() : WKWebView(frame: .zero, configuration: configuration)
         webView.scrollView.delegate = self
         webView.navigationDelegate = self
+        webView.allowsBackForwardNavigationGestures = isHost
         webView.translatesAutoresizingMaskIntoConstraints = false
         return webView
     }()
@@ -49,12 +60,21 @@ class WebBrowserViewController: UIViewController {
     
     private lazy var rightEdgePanRecognizer: UIScreenEdgePanGestureRecognizer = {
         let edgePan = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(rightScreenEdgeSwiped(_:)))
-        edgePan.edges = .top
+        edgePan.edges = .right
         return edgePan
     }()
     
-    // MARK: View Controller Life Cycle
-
+    // MARK: View Controller Life Cycle & Init
+    
+    init(isHost: Bool) {
+        self.isHost = isHost
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -63,22 +83,28 @@ class WebBrowserViewController: UIViewController {
         NSLayoutConstraint.activate([
             webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             webView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            webView.topAnchor.constraint(equalTo: view.topAnchor, constant: UIApplication.shared.statusBarFrame.height),
-            webView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -60)
+            webView.topAnchor.constraint(equalTo: view.topAnchor,
+                                         constant: UIApplication.shared.statusBarFrame.height),
+            webView.bottomAnchor.constraint(equalTo: view.bottomAnchor,
+                                            constant: UIDevice.current.userInterfaceIdiom == .pad ? 0 : -60)
         ])
+
+        guard !isHost else { return }
+        view.addGestureRecognizer(leftEdgePanRecognizer)
+        view.addGestureRecognizer(rightEdgePanRecognizer)
     }
     
     // MARK: Private Functions
     
     @objc private func leftScreenEdgeSwiped(_ recognizer: UIScreenEdgePanGestureRecognizer) {
         if recognizer.state == .recognized {
-            print("Screen edge swiped!")
+            print(webView.backForwardList.backList)
         }
     }
     
     @objc private func rightScreenEdgeSwiped(_ recognizer: UIScreenEdgePanGestureRecognizer) {
         if recognizer.state == .recognized {
-            print("Screen edge swiped!")
+            print(webView.backForwardList.forwardItem?.title)
         }
     }
     
@@ -114,6 +140,21 @@ extension WebBrowserViewController: WKNavigationDelegate {
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
         }
         webView.evaluateJavaScript("document.body.style.webkitTouchCallout='none';")
+        
+        guard webView.url?.absoluteString.hasPrefix("https://www.google.com") ?? false else { return }
+        webView.evaluateJavaScript("document.getElementById('_fZl').onclick.toString();") { (message, _) in
+        }
+    }
+}
+
+extension WebBrowserViewController: WKScriptMessageHandler {
+    
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        guard let message = message.body as? String,
+            message.hasPrefix("Search: ") else { return }
+        let search = message.replacingOccurrences(of: "Search: ", with: "")
+        guard let url = URL(search: search) else { return }
+        delegate?.searchFor(url)
     }
 }
 

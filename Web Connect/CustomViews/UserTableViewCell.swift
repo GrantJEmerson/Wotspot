@@ -34,16 +34,16 @@ class UserTableViewCell: UITableViewCell {
     private let seperatorView2 = SeperatorView()
     private let seperatorView3 = SeperatorView()
     
-    private let usernameLabel: UILabel = {
-        let label = UILabel()
+    private let usernameLabel: AdaptiveLabel = {
+        let label = AdaptiveLabel()
         label.font = .boldSystemFont(ofSize: 13)
         label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    private let dataUsedPercentageLabel: UILabel = {
-        let label = UILabel()
+    private let dataUsedPercentageLabel: AdaptiveLabel = {
+        let label = AdaptiveLabel()
         label.font = .systemFont(ofSize: 13)
         label.textAlignment = .right
         label.translatesAutoresizingMaskIntoConstraints = false

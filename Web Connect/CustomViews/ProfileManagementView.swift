@@ -28,16 +28,16 @@ class ProfileManagementView: UIView {
     private let seperatorView2 = SeperatorView()
     private let seperatorView3 = SeperatorView()
     
-    private lazy var titleLabel: UILabel = {
-        let label = UILabel()
+    private lazy var titleLabel: AdaptiveLabel = {
+        let label = AdaptiveLabel()
         label.text = "Profile"
         label.font = UIFont(name: "Futura", size: 26)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    private lazy var userNameTitleLabel: UILabel = {
-        let label = UILabel()
+    private lazy var userNameTitleLabel: AdaptiveLabel = {
+        let label = AdaptiveLabel()
         label.text = "User ID"
         label.font = .systemFont(ofSize: 17)
         label.textAlignment = .left

@@ -15,11 +15,7 @@ class UserWebSessionViewController: PulleyViewController {
     
     // MARK: Properties
     
-    public weak var webView: WKWebView? {
-        didSet {
-            webView?.addObserver(self, forKeyPath: "estimatedProgress", options: .new, context: nil)
-        }
-    }
+    public weak var webView: WKWebView?
     
     public var drawerDelegate: WebSessionDrawerDelegate?
         
@@ -46,6 +42,11 @@ class UserWebSessionViewController: PulleyViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         assistant.start()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        webView?.addObserver(self, forKeyPath: "estimatedProgress", options: .new, context: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {

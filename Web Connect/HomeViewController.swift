@@ -131,21 +131,20 @@ class HomeViewController: UIViewController {
     }
     
     private func presentHostWebSessionVC() {
-        let webBrowserVC = WebBrowserViewController()
+        let webBrowserVC = WebBrowserViewController(isHost: true)
         let webSesionDrawerVC = WebSessionDrawerViewController()
         let hostWebSessionVC = HostWebSessionViewController(contentViewController: webBrowserVC,
                                                             drawerViewController: webSesionDrawerVC)
         hostWebSessionVC.webView = webBrowserVC.webView
         hostWebSessionVC.drawerDelegate = webSesionDrawerVC
         webSesionDrawerVC.delegate = hostWebSessionVC
-        webSesionDrawerVC.isHosting = true
         webBrowserVC.delegate = hostWebSessionVC
-        webBrowserVC.isHost = true
+        webSesionDrawerVC.isHosting = true
         self.show(hostWebSessionVC, sender: self)
     }
     
     private func presentUserWebSessionVC() {
-        let webBrowserVC = WebBrowserViewController()
+        let webBrowserVC = WebBrowserViewController(isHost: false)
         let webSesionDrawerVC = WebSessionDrawerViewController()
         let userWebSessionVC = UserWebSessionViewController(contentViewController: webBrowserVC,
                                                             drawerViewController: webSesionDrawerVC)

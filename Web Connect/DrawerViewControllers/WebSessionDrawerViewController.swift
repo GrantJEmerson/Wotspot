@@ -53,7 +53,6 @@ class WebSessionDrawerViewController: UIViewController {
     
     private let bookmarkCellID = "bookmarkCellID"
     private let noBookmarksCellID = "noBookmarksCellID"
-    private let baseURL = "https://www.google.com/search?q="
     
     private var bookmarks = [Bookmark]()
     
@@ -112,7 +111,7 @@ class WebSessionDrawerViewController: UIViewController {
         super.viewDidLayoutSubviews()
         collectionView.reloadData()
     }
-    
+        
     // MARK: IBActions
     
     @IBAction func shareButtonTapped(_ sender: UIButton) {
@@ -210,6 +209,7 @@ class WebSessionDrawerViewController: UIViewController {
     
     private func setUpSearchBar() {
         searchBar.setImage(#imageLiteral(resourceName: "ReloadIcon"), for: .bookmark, state: .normal)
+        searchBar.tintColor = UserDefaults.standard.bool(forKey: "prefersDark") ? .white : .black
         searchBar.autocapitalizationType = .none
         
         guard let searchBarRoundedView = searchBar.subviews.first?.subviews[1].subviews[0] else { return }
@@ -222,6 +222,18 @@ class WebSessionDrawerViewController: UIViewController {
             progressBar.trailingAnchor.constraint(equalTo: searchBarRoundedView.trailingAnchor),
             progressBar.bottomAnchor.constraint(equalTo: searchBarRoundedView.bottomAnchor)
         ])
+        
+        NotificationCenter.default.addObserver(forName: .lightenLabels, object: nil, queue: .main) { (_) in
+            UIView.animate(withDuration: 0.8) {
+                self.searchBar.tintColor = .white
+            }
+        }
+        
+        NotificationCenter.default.addObserver(forName: .darkenLabels, object: nil, queue: .main) { (_) in
+            UIView.animate(withDuration: 0.8) {
+                self.searchBar.tintColor = .black
+            }
+        }
     }
     
 }
@@ -269,8 +281,7 @@ extension WebSessionDrawerViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let text = searchBar.text else { return }
-        let search = text.isLink ? text : baseURL + text.replacingOccurrences(of: " ", with: "+")
-        guard let url = URL(string: search) else { return }
+        guard let url = text.isLink ? URL(string: text) : URL(search: text) else { return }
         searchFor(url)
         searchBar.setShowsCancelButton(false, animated: true)
         searchBar.endEditing(true)
