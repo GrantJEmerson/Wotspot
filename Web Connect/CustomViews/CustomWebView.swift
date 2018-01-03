@@ -1,5 +1,5 @@
 //
-//  WKWebView+Loading.swift
+//  CustomWebView.swift
 //  Web Connect
 //
 //  Created by Grant Emerson on 12/19/17.
@@ -8,7 +8,10 @@
 
 import WebKit
 
-extension WKWebView {
+class CustomWebView: WKWebView {
+    
+    public var backwardURLs: [URL]?
+    public var forwardURLs: [URL]?
     
     func loadWebPage(_ webPage: WebPage) {
         DispatchQueue.main.async {

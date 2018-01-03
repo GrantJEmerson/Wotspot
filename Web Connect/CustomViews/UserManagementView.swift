@@ -70,6 +70,7 @@ class UserManagementView: UIView {
         tableView.backgroundColor = .clear
         tableView.contentInset = UIEdgeInsets(top: 2, left: 0, bottom: 15, right: 0)
         tableView.rowHeight = 170
+        tableView.register(UserTableViewCell.self, forCellReuseIdentifier: cellID)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         let endSessionFooterView = EndSessionFooterView(frame: CGRect(x: 0, y: 0, width: self.bounds.width, height: 35))
@@ -83,12 +84,17 @@ class UserManagementView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        tableView.register(UserTableViewCell.self, forCellReuseIdentifier: cellID)
         setUpSubViews()
     }
         
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: Selector Functions
+    
+    @objc private func addUsers() {
+        delegate?.addUsers()
     }
     
     // MARK: Private Functions
@@ -121,25 +127,21 @@ class UserManagementView: UIView {
             tableView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8).withPriority(999)
         ])
     }
-    
-    @objc private func addUsers() {
-        delegate?.addUsers()
-    }
 }
 
 extension UserManagementView: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let view = UIView(frame: CGRect (x:0, y: 0, width:10, height: 10))
-        view.backgroundColor = .clear
-        return view
+        let cellSpacerView = UIView(frame: CGRect (x:0, y: 0, width:10, height: 10))
+        cellSpacerView.backgroundColor = .clear
+        return cellSpacerView
     }
 }
 
 extension UserManagementView: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return users.count
+        return users.count // workaround allowing space between cells
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -154,7 +156,7 @@ extension UserManagementView: UITableViewDataSource {
     }
 }
 
-extension UserManagementView: ParentUserManagementViewDelegate {
+extension UserManagementView: UserTableViewCellDelegate {
     
     func removePeer(_ peerID: MCPeerID) {
         delegate?.removePeer(peerID)

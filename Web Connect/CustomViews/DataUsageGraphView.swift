@@ -16,6 +16,7 @@ class DataUsageGraphView: UIView {
         didSet { update() }
     }
     
+    private let fontSize: CGFloat = 15
     private let normalPadding: CGFloat = 8
     private let extraPadding: CGFloat = 30
     
@@ -27,7 +28,7 @@ class DataUsageGraphView: UIView {
     
     private lazy var usedDataTitleLabel: AdaptiveLabel = {
         let label = AdaptiveLabel()
-        label.font = .boldSystemFont(ofSize: 15)
+        label.font = .boldSystemFont(ofSize: fontSize)
         label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -35,7 +36,7 @@ class DataUsageGraphView: UIView {
     
     private lazy var availableDataTitleLabel: AdaptiveLabel = {
         let label = AdaptiveLabel()
-        label.font = .boldSystemFont(ofSize: 15)
+        label.font = .boldSystemFont(ofSize: fontSize)
         label.textAlignment = .right
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -43,7 +44,7 @@ class DataUsageGraphView: UIView {
     
     private lazy var usedDataAmountLabel: AdaptiveLabel = {
         let label = AdaptiveLabel()
-        label.font = .boldSystemFont(ofSize: 15)
+        label.font = .boldSystemFont(ofSize: fontSize)
         label.adjustsFontSizeToFitWidth = true
         label.textAlignment = .right
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -52,7 +53,7 @@ class DataUsageGraphView: UIView {
     
     private lazy var availableDataAmountLabel: AdaptiveLabel = {
         let label = AdaptiveLabel()
-        label.font = .boldSystemFont(ofSize: 15)
+        label.font = .boldSystemFont(ofSize: fontSize)
         label.adjustsFontSizeToFitWidth = true
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -89,7 +90,7 @@ class DataUsageGraphView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setUpViews()
+        setUpSubviews()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -99,7 +100,6 @@ class DataUsageGraphView: UIView {
     // MARK: Public Functions
     
     open func update() {
-        
         let cap = dataSet.dataCap
         let used = dataSet.dataUsed
         
@@ -112,9 +112,8 @@ class DataUsageGraphView: UIView {
             self.usedDataAmountLabel.text = "\(self.dataSet.usedPercentage())%"
             self.availableDataAmountLabel.text = "\(self.dataSet.availablePercentage())%"
             
-            let byteToMegaByteConversionRate: Byte = 1000000
-            let usedDataInMB = Int(used/byteToMegaByteConversionRate)
-            let availableDataInMB = Int(cap/byteToMegaByteConversionRate) - usedDataInMB
+            let usedDataInMB = used.toMegabytes()
+            let availableDataInMB = cap.toMegabytes() - usedDataInMB
             
             self.usedDataTitleLabel.text = "Used - \(usedDataInMB)mb"
             self.availableDataTitleLabel.text = "Available - \(availableDataInMB)mb"
@@ -123,9 +122,10 @@ class DataUsageGraphView: UIView {
     
     // MARK: Private Functions
     
-    private func setUpViews() {
+    private func setUpSubviews() {
         addSubviews([enclosingDataGraphView, usedDataTitleLabel, availableDataTitleLabel])
         enclosingDataGraphView.addSubviews([usedDataGraphView, availableDataGraphView])
+        
         usedDataGraphView.addSubview(usedDataAmountLabel)
         availableDataGraphView.addSubview(availableDataAmountLabel)
         

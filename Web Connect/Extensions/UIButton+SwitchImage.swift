@@ -11,6 +11,7 @@ import UIKit
 typealias ImageSet = (image1: UIImage, image2: UIImage)
 
 extension UIButton {
+    
     func switchImage(imageSet: ImageSet, transition: UIViewAnimationOptions) {
         let currentImage = self.image(for: .normal)
         let newImage = (currentImage == imageSet.image1) ? imageSet.image2 : imageSet.image1

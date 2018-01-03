@@ -9,6 +9,7 @@
 import Foundation
 
 extension String {
+    
     var isLink: Bool {
         let types: NSTextCheckingResult.CheckingType = [.link]
         let detector = try? NSDataDetector(types: types.rawValue)

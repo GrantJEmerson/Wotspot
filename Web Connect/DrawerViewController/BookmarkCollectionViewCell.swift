@@ -35,8 +35,8 @@ class BookmarkCollectionViewCell: UICollectionViewCell {
     
     private lazy var informationView: UIView = {
         let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
         view.clipsToBounds = true
+        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
@@ -52,16 +52,16 @@ class BookmarkCollectionViewCell: UICollectionViewCell {
     private lazy var titleLabel: AdaptiveLabel = {
         let label = AdaptiveLabel()
         label.font = UIFont(name: "Futura", size: 13)
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.backgroundColor = .clear
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private lazy var deleteView: DeletionView = {
         let deleteView = DeletionView()
-        deleteView.translatesAutoresizingMaskIntoConstraints = false
         deleteView.delegate = self
         deleteView.isHidden = true
+        deleteView.translatesAutoresizingMaskIntoConstraints = false
         return deleteView
     }()
     
@@ -79,7 +79,7 @@ class BookmarkCollectionViewCell: UICollectionViewCell {
             self.editing = false
         }
         
-        setUpViews()
+        setUpSubviews()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -88,7 +88,7 @@ class BookmarkCollectionViewCell: UICollectionViewCell {
     
     // MARK: Private Functions
     
-    private func setUpViews() {
+    private func setUpSubviews() {
         addSubview(informationView)
         informationView.addSubviews([screenshotImageView, titleLabel])
         addSubview(deleteView)

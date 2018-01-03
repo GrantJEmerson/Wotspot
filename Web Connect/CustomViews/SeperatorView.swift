@@ -10,15 +10,24 @@ import UIKit
 
 class SeperatorView: UIView {
     
+    // MARK: Init
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .lightGray
-        translatesAutoresizingMaskIntoConstraints = false
-        heightAnchor.constraint(equalToConstant: 1.5).isActive = true
+        setUpView()
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
+        setUpView()
+    }
+    
+    // MARK: Private Functions
+    
+    private func setUpView() {
+        backgroundColor = .lightGray
+        translatesAutoresizingMaskIntoConstraints = false
+        heightAnchor.constraint(equalToConstant: 1.5).isActive = true
     }
 }
 

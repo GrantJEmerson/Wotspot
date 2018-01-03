@@ -69,7 +69,7 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpViews()
+        setUpSubviews()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -77,7 +77,7 @@ class HomeViewController: UIViewController {
         backgroundGradientView.startAnimation()
     }
     
-    // MARK: "IBActions"
+    // MARK: Selector Functions
     
     @objc private func startHostingSessionTapped() {
         presentHostWebSessionVC()
@@ -89,7 +89,7 @@ class HomeViewController: UIViewController {
     
     // MARK: - Private Functions
     
-    private func setUpViews() {
+    private func setUpSubviews() {
         
         view.addSubview(backgroundGradientView)
         buttonGroupingView.addSubviews([hostSessionButton, joinSessionButton, selectionOrTextLabel])

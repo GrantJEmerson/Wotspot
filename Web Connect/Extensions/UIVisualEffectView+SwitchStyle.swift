@@ -11,14 +11,17 @@ import UIKit
 extension UIVisualEffectView {
     
     func switchBlurEffectStyle() {
+        
         let isDark = UIBlurEffectStyle.current == .dark
         let newEffect = isDark ? UIBlurEffect.light : .dark
+        
         UserDefaults.standard.set(!isDark, forKey: "prefersDark")
+        UIBlurEffectStyle.current = isDark ? .extraLight : .dark
+        NotificationCenter.default.post(Notification(name: isDark ? .darkenLabels : .lightenLabels))
+        
         UIView.animate(withDuration: 0.8) {
             self.effect = newEffect
         }
-        UIBlurEffectStyle.current = isDark ? .extraLight : .dark
-        NotificationCenter.default.post(Notification(name: isDark ? .darkenLabels : .lightenLabels))
     }
 }
 

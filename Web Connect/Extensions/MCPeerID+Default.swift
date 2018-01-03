@@ -10,6 +10,5 @@ import Foundation
 import MultipeerConnectivity
 
 extension MCPeerID {
-    static let saved = MCPeerID(displayName: UserDefaults.standard.object(forKey: "displayName") as? String
-                                            ?? UIDevice.current.name)
+    static let saved = MCPeerID(displayName: UserDefaults.standard.object(forKey: "displayName") as? String ?? UIDevice.current.name)
 }

@@ -28,7 +28,7 @@ class ProfileManagementView: UIView {
     private let seperatorView2 = SeperatorView()
     private let seperatorView3 = SeperatorView()
     
-    private lazy var titleLabel: AdaptiveLabel = {
+    private lazy var profileManageMentViewTitleLabel: AdaptiveLabel = {
         let label = AdaptiveLabel()
         label.text = "Profile"
         label.font = UIFont(name: "Futura", size: 26)
@@ -87,7 +87,7 @@ class ProfileManagementView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: "IBActions"
+    // MARK: Selector Functions
     
     @objc private func leaveSessionButtonTapped() {
         delegate?.leaveSession()
@@ -104,14 +104,14 @@ class ProfileManagementView: UIView {
     private func setUpSubViews() {
         
         addSubviews([
-            titleLabel, seperatorView1, userNameTitleLabel, seperatorView2,
+            profileManageMentViewTitleLabel, seperatorView1, userNameTitleLabel, seperatorView2,
             dataUsageGraph, seperatorView3, leaveSessionButton, userNameTextField])
         
         NSLayoutConstraint.activate([
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
-            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 8),
+            profileManageMentViewTitleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+            profileManageMentViewTitleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 8),
             
-            seperatorView1.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),
+            seperatorView1.topAnchor.constraint(equalTo: profileManageMentViewTitleLabel.bottomAnchor),
             seperatorView1.leadingAnchor.constraint(equalTo: leadingAnchor),
             seperatorView1.trailingAnchor.constraint(equalTo: trailingAnchor).withPriority(999),
             
@@ -121,7 +121,7 @@ class ProfileManagementView: UIView {
             userNameTextField.heightAnchor.constraint(equalToConstant: buttonHeight),
             
             userNameTitleLabel.topAnchor.constraint(equalTo: userNameTextField.topAnchor),
-            userNameTitleLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
+            userNameTitleLabel.leadingAnchor.constraint(equalTo: profileManageMentViewTitleLabel.leadingAnchor),
             userNameTitleLabel.heightAnchor.constraint(equalToConstant: buttonHeight),
             userNameTitleLabel.trailingAnchor.constraint(equalTo: userNameTextField.leadingAnchor),
             
@@ -148,7 +148,7 @@ class ProfileManagementView: UIView {
 extension ProfileManagementView: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        textField.textColor = .red
+        textField.textColor = .black
         delegate?.movePulleyViewControllerUp()
     }
     

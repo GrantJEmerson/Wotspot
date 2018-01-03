@@ -14,22 +14,38 @@ class HostWebSessionViewController: PulleyViewController {
     
     // MARK: Properties
     
-    public weak var webView: WKWebView?
+    public weak var webView: CustomWebView?
     
     public var drawerDelegate: WebSessionDrawerDelegate?
     
     private var peerIDsToAdd = [MCPeerID]()
     
     private var users = [User]() {
-        didSet {
-            drawerDelegate?.updateUsers(users)
-        }
+        didSet { drawerDelegate?.updateUsers(users) }
     }
     
-    private var appDelegate = UIApplication.shared.delegate as? AppDelegate
+    private lazy var appDelegate = UIApplication.shared.delegate as? AppDelegate
     private lazy var moc = appDelegate?.persistentContainer.viewContext
     
     private var userAgent = UserAgent.mobile
+    
+    private lazy var dataCapTextFieldConfigurtationHandler: ((UITextField) -> Void) = { textField in
+        textField.placeholder = "Data Cap"
+        textField.keyboardType = .numberPad
+        textField.textAlignment = .center
+        textField.delegate = self
+    }
+    
+    private lazy var peerID: MCPeerID = {
+        let peerID = MCPeerID(displayName: "Host")
+        return peerID
+    }()
+    
+    private lazy var session: MCSession = {
+        let session = MCSession(peer: peerID)
+        session.delegate = self
+        return session
+    }()
     
     private lazy var browser: MCBrowserViewController = {
         let browser = MCBrowserViewController(serviceType: "Web-Share", session: session)
@@ -40,17 +56,6 @@ class HostWebSessionViewController: PulleyViewController {
     private lazy var assistant: MCAdvertiserAssistant = {
         let assistant = MCAdvertiserAssistant(serviceType: "Web-Share", discoveryInfo: nil, session: session)
         return assistant
-    }()
-    
-    private lazy var session: MCSession = {
-        let session = MCSession(peer: peerID)
-        session.delegate = self
-        return session
-    }()
-    
-    private lazy var peerID: MCPeerID = {
-        let peerID = MCPeerID(displayName: "Host")
-        return peerID
     }()
     
     // MARK: View Controller Life Cycle
@@ -95,68 +100,25 @@ class HostWebSessionViewController: PulleyViewController {
                 })
             }
         } else {
-            getSearchResult(forSearchRequest: searchRequest) { [weak self] (webPage) in
+            NetworkService.getSearchResult(forSearchRequest: searchRequest) { [weak self] (webPage) in
                 guard let webPage = webPage,
                     let strongSelf = self else { return }
-                DispatchQueue.main.async {
-                    strongSelf.users[userIndex].dataSet.dataUsed += CGFloat(webPage.data.count)
-                }
+                strongSelf.users[userIndex].dataSet.dataUsed += CGFloat(webPage.data.count)
                 let searchResult = SearchResult(webPage: webPage, dataSet: strongSelf.users[userIndex].dataSet)
                 strongSelf.sendSearchResult(searchResult, toPeer: peerID)
             }
         }
     }
     
-    private func getSearchResult(forSearchRequest searchRequest: SearchRequest,
-                                 completion: @escaping (WebPage?) -> ()) {
-        var urlRequest = URLRequest(url: searchRequest.url)
-        urlRequest.addValue(searchRequest.userAgent.rawValue, forHTTPHeaderField: "User-Agent")
-        URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
-            guard let data = data else { completion(nil); return }
-            let responseMimeType = response?.mimeType ?? ""
-            let responseBaseURL = response?.url ?? URL(string: "https://www.google.com")!
-            let responseCharacterEncoding = response?.textEncodingName ?? String.Encoding.utf8.description
-            let webPage = WebPage(data: data,
-                                  url: responseBaseURL,
-                                  mimeType: responseMimeType,
-                                  textEncoding: responseCharacterEncoding)
-            completion(webPage)
-        }.resume()
-    }
-    
     private func sendSearchResult(_ searchResult: SearchResult, toPeer peer: MCPeerID) {
         
         guard let data = try? PropertyListEncoder().encode(searchResult) else { return }
+        
         do {
             try session.send(data, toPeers: [peer], with: .reliable)
         } catch {
             print(error.localizedDescription)
         }
-    }
-    
-    private func getDataAmountToAdd(to name: String, completion: @escaping (Byte?) -> ()) {
-        
-        let alertController = UIAlertController(title: "Add Data",
-                                                message: "How many MB of data would you like to add to \(name)?",
-                                                preferredStyle: .alert)
-        
-        alertController.addTextField { (textField) in
-            textField.placeholder = "Data to Add"
-            textField.keyboardType = .numberPad
-            textField.delegate = self
-        }
-        
-        alertController.addAction(UIAlertAction(title: "Add", style: .default) { _ in
-            let textFieldText = alertController.textFields?.first!.text?.nilIfEmpty() ?? "0"
-            let bytes = Byte(Int(textFieldText)! * 1000000)
-            completion(bytes)
-        })
-        
-        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel) { (_) in
-            completion(nil)
-        })
-        
-        present(alertController, animated: true)
     }
     
     private func shouldAddDataToCap(for name: String, completion: @escaping (Bool) -> ()) {
@@ -175,6 +137,28 @@ class HostWebSessionViewController: PulleyViewController {
         present(alertController, animated: true)
     }
     
+    private func getDataAmountToAdd(to name: String, completion: @escaping (Byte?) -> ()) {
+        
+        let alertController = UIAlertController(title: "Add Data",
+                                                message: "How many MB of data would you like to add to \(name)?",
+                                                preferredStyle: .alert)
+        
+        alertController.addTextField(configurationHandler: dataCapTextFieldConfigurtationHandler)
+        
+        alertController.addAction(UIAlertAction(title: "Add", style: .default) { _ in
+            let textFieldText = alertController.textFields?.first!.text?.nilIfEmpty() ?? "0"
+            guard let numFromText = Int(textFieldText) else { completion(nil); return }
+            let bytes = Byte(numFromText * 1000000)
+            completion(bytes)
+        })
+        
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel) { (_) in
+            completion(nil)
+        })
+        
+        present(alertController, animated: true)
+    }
+    
     private func presentDataCapAlertControllers() {
         guard !peerIDsToAdd.isEmpty else { return }
         
@@ -182,16 +166,14 @@ class HostWebSessionViewController: PulleyViewController {
         
         let alertController = UIAlertController(title: "Data Cap",
                                                 message: templateMessage + "\(peerIDsToAdd.first!.displayName)?",
-            preferredStyle: .alert)
-        alertController.addTextField { (textField) in
-            textField.placeholder = "Data Cap"
-            textField.keyboardType = .numberPad
-            textField.delegate = self
-        }
+                                                preferredStyle: .alert)
+        
+        alertController.addTextField(configurationHandler: dataCapTextFieldConfigurtationHandler)
         
         alertController.addAction(UIAlertAction(title: "Save", style: .default) { _ in
             let textFieldText = alertController.textFields?.first!.text?.nilIfEmpty() ?? "10"
-            self.users.append(User(peerID: self.peerIDsToAdd.first!, dataSet: DataSet()))
+            let newUser = User(peerID: self.peerIDsToAdd.first!, dataSet: DataSet())
+            self.users.append(newUser)
             guard let numFromText = Int(textFieldText) else { return }
             self.users[self.users.count - 1].dataSet.dataCap = Byte(numFromText * 1000000)
             self.peerIDsToAdd.removeFirst()
@@ -214,8 +196,8 @@ extension HostWebSessionViewController: MCBrowserViewControllerDelegate {
     }
     
     func browserViewControllerWasCancelled(_ browserViewController: MCBrowserViewController) {
-        peerIDsToAdd.removeAll()
         browserViewController.dismiss(animated: true)
+        peerIDsToAdd.removeAll()
     }
 }
 
@@ -244,17 +226,9 @@ extension HostWebSessionViewController: MCSessionDelegate {
         }
     }
     
-    func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
-        
-    }
-    
-    func session(_ session: MCSession, didStartReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, with progress: Progress) {
-        
-    }
-    
-    func session(_ session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, at localURL: URL?, withError error: Error?) {
-        
-    }
+    func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {}
+    func session(_ session: MCSession, didStartReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, with progress: Progress) {}
+    func session(_ session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, at localURL: URL?, withError error: Error?) {}
 }
 
 extension HostWebSessionViewController: UITextFieldDelegate {
@@ -263,7 +237,7 @@ extension HostWebSessionViewController: UITextFieldDelegate {
                    replacementString string: String) -> Bool {
         guard let text = textField.text else { return true }
         let newLength = text.count + string.count - range.length
-        return newLength <= 3
+        return newLength <= 3 // Makes sure data cap is below 1 GB
     }
 }
 
@@ -273,15 +247,14 @@ extension HostWebSessionViewController: ContentDelegate, ParentDelegate {
         return webView?.url
     }
     
-    // TODO: Figure out better way of managing user agents
     func searchFor(_ url: URL) {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         if userAgent == .mobile {
             let urlRequest = URLRequest(url: url)
             webView?.load(urlRequest)
         } else {
-        let searchRequest = SearchRequest(url: url, userAgent: userAgent)
-            getSearchResult(forSearchRequest: searchRequest) { (webPage) in
+            let searchRequest = SearchRequest(url: url, userAgent: userAgent)
+            NetworkService.getSearchResult(forSearchRequest: searchRequest) { (webPage) in
                 guard let webPage = webPage else { return }
                 self.webView?.loadWebPage(webPage)
             }
@@ -312,21 +285,7 @@ extension HostWebSessionViewController: ContentDelegate, ParentDelegate {
     }
     
     func addUsers() {
-        self.present(browser, animated: true)
-    }
-    
-    func switchUserAgent() {
-        userAgent = (userAgent == .mobile) ? .desktop : .mobile
-    }
-    
-    func switchBlurEffectStyle() {
-        drawerBackgroundVisualEffectView?.switchBlurEffectStyle()
-    }
-    
-    func setPulleyPosition(_ pulleyPosition: Int) {
-        setDrawerPosition(position: PulleyPosition(rawValue: pulleyPosition)!)
-        guard pulleyPosition == 0 else { return }
-        drawerDelegate?.endEditing()
+        present(browser, animated: true)
     }
     
     func leaveSession() {
@@ -351,12 +310,26 @@ extension HostWebSessionViewController: ContentDelegate, ParentDelegate {
             return user.peerID == peerID
         }) else { return }
         users.remove(at: userIndex)
-        guard let disconnect = "disconnect".data(using: .utf8) else { return }
+        guard let disconnectCommand = "disconnect".data(using: .utf8) else { return }
         do {
-            try session.send(disconnect, toPeers: [peerID], with: .reliable)
+            try session.send(disconnectCommand, toPeers: [peerID], with: .reliable)
         } catch {
             print(error.localizedDescription)
         }
+    }
+    
+    func switchUserAgent() {
+        userAgent = (userAgent == .mobile) ? .desktop : .mobile
+    }
+    
+    func switchBlurEffectStyle() {
+        drawerBackgroundVisualEffectView?.switchBlurEffectStyle()
+    }
+    
+    func setPulleyPosition(_ pulleyPosition: Int) {
+        setDrawerPosition(position: PulleyPosition(rawValue: pulleyPosition)!)
+        guard pulleyPosition == 0 else { return }
+        drawerDelegate?.endEditing()
     }
 }
 

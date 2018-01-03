@@ -36,6 +36,7 @@ protocol WebSessionDrawerDelegate {
     func updateDataUsageGraph(dataSet: DataSet)
     func updateUsers(_ users: [User])
     func setProgressBarTo(_ progress: Float)
+    func prepareForSearch()
 }
 
 class WebSessionDrawerViewController: UIViewController {
@@ -186,7 +187,7 @@ class WebSessionDrawerViewController: UIViewController {
         prepareForSearch()
     }
     
-    private func prepareForSearch() {
+    internal func prepareForSearch() {
         progressBar.setProgress(0.15, animated: true)
         searchBar.setImage(#imageLiteral(resourceName: "CancelLoadIcon"), for: .bookmark, state: .normal)
         isLoading = true

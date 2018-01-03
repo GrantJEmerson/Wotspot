@@ -13,109 +13,70 @@ import UIKit
 
 	// MARK: - Types
 
-	/// The mode of the gradient.
-	public enum Mode {
-		/// A linear gradient.
-		case linear
-
-		/// A radial gradient.
-		case radial
+    public enum Mode {
+		case linear, radial
 	}
 
 	public enum Direction {
 		case vertical, horizontal
 	}
-    
-    public enum DrawDirection {
-        case left, right
-    }
-
 
 	// MARK: - Properties
 
-	/// An optional array of `UIColor` objects used to draw the gradient. If the value is `nil`, the `backgroundColor`
-	/// will be drawn instead of a gradient. The default is `nil`.
 	open var colors: [UIColor]? {
 		didSet { updateGradient() }
 	}
-
-	/// An array of `UIColor` objects used to draw the dimmed gradient. If the value is `nil`, `colors` will be
-	/// converted to grayscale. This will use the same `locations` as `colors`. If length of arrays don't match, bad
-	/// things will happen. You must make sure the number of dimmed colors equals the number of regular colors.
-	///
-	/// The default is `nil`.
+    
 	open var dimmedColors: [UIColor]? {
 		didSet {
 			updateGradient()
 		}
 	}
-
-	/// Automatically dim gradient colors when prompted by the system (i.e. when an alert is shown).
-	///
-	/// The default is `true`.
+    
 	open var automaticallyDims: Bool = true
-
-	/// An optional array of `CGFloat`s defining the location of each gradient stop.
-	///
-	/// The gradient stops are specified as values between `0` and `1`. The values must be monotonically increasing. If
-	/// `nil`, the stops are spread uniformly across the range.
-	///
-	/// Defaults to `nil`.
+    
 	open var locations: [CGFloat]? {
 		didSet {
 			updateGradient()
 		}
 	}
 
-	/// The mode of the gradient. The default is `.Linear`.
-	open var mode: Mode = .linear {
-		didSet {
-			setNeedsDisplay()
-		}
-	}
-
-	/// The direction of the gradient. Only valid for the `Mode.Linear` mode. The default is `.Vertical`.
-	open var direction: Direction = .horizontal {
+    open var mode: Mode = .linear {
 		didSet {
 			setNeedsDisplay()
 		}
 	}
     
-    open var drawDirection: DrawDirection = .right {
-        didSet {
-            setNeedsDisplay()
-        }
-    }
+	open var direction: Direction = .horizontal {
+		didSet {
+			setNeedsDisplay()
+		}
+	}
 
-	/// 1px borders will be drawn instead of 1pt borders. The default is `true`.
 	@IBInspectable open var drawsThinBorders: Bool = true {
 		didSet {
 			setNeedsDisplay()
 		}
 	}
 
-	/// The top border color. The default is `nil`.
 	@IBInspectable open var topBorderColor: UIColor? {
 		didSet {
 			setNeedsDisplay()
 		}
 	}
 
-	/// The right border color. The default is `nil`.
 	@IBInspectable open var rightBorderColor: UIColor? {
 		didSet {
 			setNeedsDisplay()
 		}
 	}
 
-	///  The bottom border color. The default is `nil`.
 	@IBInspectable open var bottomBorderColor: UIColor? {
 		didSet {
 			setNeedsDisplay()
 		}
 	}
 
-	/// The left border color. The default is `nil`.
 	@IBInspectable open var leftBorderColor: UIColor? {
 		didSet {
 			setNeedsDisplay()
@@ -135,18 +96,10 @@ import UIKit
 
 			if mode == .linear {
                 
-                var startPoint = CGPoint()
-                var endPoint = CGPoint()
-                
-                if drawDirection == .right {
-                    startPoint = .zero
-                    endPoint = (direction == .vertical ? CGPoint(x: 0, y: size.height) :
-                                                                        CGPoint(x: size.width, y: 0))
-                } else {
-                    endPoint = .zero
-                    startPoint = (direction == .vertical ? CGPoint(x: 0, y: size.height) :
-                                                           CGPoint(x: size.width, y: 0))
-                }
+                let startPoint = CGPoint.zero
+                let endPoint = (direction == .vertical ? CGPoint(x: 0, y: size.height) :
+                    CGPoint(x: size.width, y: 0))
+ 
 				context?.drawLinearGradient(gradient, start: startPoint, end: endPoint, options: options)
 			} else {
 				let center = CGPoint(x: bounds.midX, y: bounds.midY)
@@ -157,7 +110,6 @@ import UIKit
 		let screen: UIScreen = window?.screen ?? UIScreen.main
 		let borderWidth: CGFloat = drawsThinBorders ? 1.0 / screen.scale : 1.0
 
-		// Top border
 		if let color = topBorderColor {
 			context?.setFillColor(color.cgColor)
 			context?.fill(CGRect(x: 0, y: 0, width: size.width, height: borderWidth))
@@ -166,19 +118,16 @@ import UIKit
 		let sideY: CGFloat = topBorderColor != nil ? borderWidth : 0
 		let sideHeight: CGFloat = size.height - sideY - (bottomBorderColor != nil ? borderWidth : 0)
 
-		// Right border
 		if let color = rightBorderColor {
 			context?.setFillColor(color.cgColor)
 			context?.fill(CGRect(x: size.width - borderWidth, y: sideY, width: borderWidth, height: sideHeight))
 		}
 
-		// Bottom border
 		if let color = bottomBorderColor {
 			context?.setFillColor(color.cgColor)
 			context?.fill(CGRect(x: 0, y: size.height - borderWidth, width: size.width, height: borderWidth))
 		}
 
-		// Left border
 		if let color = leftBorderColor {
 			context?.setFillColor(color.cgColor)
 			context?.fill(CGRect(x: 0, y: sideY, width: borderWidth, height: sideHeight))
@@ -216,12 +165,10 @@ import UIKit
 				let cgColor = color.cgColor
 				let cgColorSpace = cgColor.colorSpace ?? colorSpace
 
-				// The color's color space is RGB, simply add it.
 				if cgColorSpace.model == colorSpaceModel {
 					return cgColor as AnyObject!
 				}
 
-				// Convert to RGB. There may be a more efficient way to do this.
 				var red: CGFloat = 0
 				var blue: CGFloat = 0
 				var green: CGFloat = 0

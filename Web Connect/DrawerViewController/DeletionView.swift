@@ -31,10 +31,11 @@ class DeletionView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+    
         backgroundColor = UIColor.black.withAlphaComponent(0.5)
         
         addSubview(deleteButton)
+        
         NSLayoutConstraint.activate([
             deleteButton.widthAnchor.constraint(equalToConstant: 50),
             deleteButton.heightAnchor.constraint(equalToConstant: 50),
@@ -47,8 +48,8 @@ class DeletionView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: Private Functions
-    
+    // MARK: Selector Functions
+
     @objc private func deleteButtonTapped() {
         delegate?.deleteButtonTapped()
     }

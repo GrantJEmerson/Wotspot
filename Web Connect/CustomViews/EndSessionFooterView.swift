@@ -28,7 +28,22 @@ class EndSessionFooterView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+        setUpView()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: Selector Functions
+    
+    @objc private func endSessionButtonTapped() {
+        userManagementView?.delegate?.endSession()
+    }
+    
+    // MARK: Private Functions
+    
+    private func setUpView() {
         clipsToBounds = true
         layer.cornerRadius = 10
         layer.borderColor = UIColor.darkGray.cgColor
@@ -37,17 +52,5 @@ class EndSessionFooterView: UIView {
         
         addSubview(endSessionButton)
         endSessionButton.constrainToParent()
-        
     }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    // MARK: Private Functions
-    
-    @objc private func endSessionButtonTapped() {
-        userManagementView?.delegate?.endSession()
-    }
-
 }

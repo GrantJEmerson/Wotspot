@@ -58,3 +58,10 @@ struct DataSet: Codable {
 }
 
 typealias Byte = CGFloat
+
+extension Byte {
+    func toMegabytes() -> Int {
+        let byteToMegaByteConversionRate: Byte = 1000000
+        return Int(self/byteToMegaByteConversionRate)
+    }
+}

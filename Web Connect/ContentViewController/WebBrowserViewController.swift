@@ -9,9 +9,11 @@
 import UIKit
 import WebKit
 
-public protocol ParentDelegate {
+@objc public protocol ParentDelegate {
     func setPulleyPosition(_ pulleyPosition: Int)
     func searchFor(_ url: URL)
+    @objc optional func goBack()
+    @objc optional func goForward()
 }
 
 class WebBrowserViewController: UIViewController {
@@ -43,8 +45,8 @@ class WebBrowserViewController: UIViewController {
         return configuration
     }()
     
-    public lazy var webView: WKWebView = {
-        let webView = isHost ? WKWebView() : WKWebView(frame: .zero, configuration: configuration)
+    public lazy var webView: CustomWebView = {
+        let webView = isHost ? CustomWebView() : CustomWebView(frame: .zero, configuration: configuration)
         webView.scrollView.delegate = self
         webView.navigationDelegate = self
         webView.allowsBackForwardNavigationGestures = isHost
@@ -94,15 +96,17 @@ class WebBrowserViewController: UIViewController {
         view.addGestureRecognizer(rightEdgePanRecognizer)
     }
     
-    // MARK: "IBActions"
-    
+    // MARK: Selector Functions
+
     @objc private func leftScreenEdgeSwiped(_ recognizer: UIScreenEdgePanGestureRecognizer) {
         if recognizer.state == .recognized {
+            delegate?.goBack!()
         }
     }
     
     @objc private func rightScreenEdgeSwiped(_ recognizer: UIScreenEdgePanGestureRecognizer) {
         if recognizer.state == .recognized {
+            delegate?.goForward!()
         }
     }
     
@@ -127,6 +131,9 @@ extension WebBrowserViewController: WKNavigationDelegate {
         guard let url = navigationAction.request.url,
             navigationAction.navigationType.matchesAnyOf([.linkActivated, .backForward, .reload]) else { return }
         delegate?.searchFor(url)
+        guard navigationAction.navigationType == .linkActivated else { return }
+        self.webView.backwardURLs?.append(url)
+        self.webView.forwardURLs?.removeAll()
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {

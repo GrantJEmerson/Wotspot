@@ -9,6 +9,7 @@
 import Foundation
 
 extension URL {
+    
     init?(search: String) {
         let urlSearchString = search.replacingOccurrences(of: " ", with: "+")
         self.init(string: "https://www.google.com/search?q=" + urlSearchString)

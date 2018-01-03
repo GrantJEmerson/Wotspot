@@ -15,20 +15,17 @@ class UserWebSessionViewController: PulleyViewController {
     
     // MARK: Properties
     
-    public weak var webView: WKWebView?
+    public weak var webView: CustomWebView?
     
     public var drawerDelegate: WebSessionDrawerDelegate?
-        
+    
     private var appDelegate = UIApplication.shared.delegate as? AppDelegate
     private lazy var moc = appDelegate?.persistentContainer.viewContext
     
     private var awaitingURL: URL?
     private var userAgent = UserAgent.mobile
     
-    private lazy var assistant: MCAdvertiserAssistant = {
-        let assistant = MCAdvertiserAssistant(serviceType: "Web-Share", discoveryInfo: nil, session: session)
-        return assistant
-    }()
+    private lazy var peerID = MCPeerID.saved
     
     private lazy var session: MCSession = {
         let session = MCSession(peer: peerID)
@@ -36,7 +33,10 @@ class UserWebSessionViewController: PulleyViewController {
         return session
     }()
     
-    private lazy var peerID = MCPeerID.saved
+    private lazy var assistant: MCAdvertiserAssistant = {
+        let assistant = MCAdvertiserAssistant(serviceType: "Web-Share", discoveryInfo: nil, session: session)
+        return assistant
+    }()
         
     // MARK: View Controller Life Cycle
     
@@ -102,14 +102,6 @@ class UserWebSessionViewController: PulleyViewController {
 
 extension UserWebSessionViewController: MCSessionDelegate {
     
-    func browserViewControllerDidFinish(_ browserViewController: MCBrowserViewController) {
-        browserViewController.dismiss(animated: true)
-    }
-    
-    func browserViewControllerWasCancelled(_ browserViewController: MCBrowserViewController) {
-        browserViewController.dismiss(animated: true)
-    }
-    
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
         decodeMultipeerConnectivityData(data)
     }
@@ -118,19 +110,12 @@ extension UserWebSessionViewController: MCSessionDelegate {
         guard peerID.displayName == "Host",
             state == .notConnected else { return }
         presentDisconnectedAlert()
+        drawerDelegate?.updateDataUsageGraph(dataSet: DataSet(0, 1))
     }
     
-    func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
-        
-    }
-    
-    func session(_ session: MCSession, didStartReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, with progress: Progress) {
-        
-    }
-    
-    func session(_ session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, at localURL: URL?, withError error: Error?) {
-        
-    }
+    func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {}
+    func session(_ session: MCSession, didStartReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, with progress: Progress) {}
+    func session(_ session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, at localURL: URL?, withError error: Error?) {}
 }
 
 extension UserWebSessionViewController: ContentDelegate, ParentDelegate {
@@ -139,8 +124,11 @@ extension UserWebSessionViewController: ContentDelegate, ParentDelegate {
     
     func searchFor(_ url: URL) {
         let searchRequest = SearchRequest(url: url, userAgent: userAgent)
-        sendSearchRequest(searchRequest)
+        drawerDelegate?.prepareForSearch()
         drawerDelegate?.updateBookmarkIconFor(url)
+        sendSearchRequest(searchRequest)
+        webView?.backwardURLs?.append(url)
+        webView?.forwardURLs?.removeAll()
     }
     
     func reload() {
@@ -154,18 +142,48 @@ extension UserWebSessionViewController: ContentDelegate, ParentDelegate {
         webView?.stopLoading()
     }
     
+    func goBack() {
+        guard let previousURL = webView?.backwardURLs?.removeLast() else { return }
+        let searchRequest = SearchRequest(url: previousURL, userAgent: userAgent)
+        drawerDelegate?.prepareForSearch()
+        drawerDelegate?.updateBookmarkIconFor(previousURL)
+        sendSearchRequest(searchRequest)
+        webView?.forwardURLs?.append(previousURL)
+    }
+    
+    func goForward() {
+        guard let nextURL = webView?.forwardURLs?.removeLast() else { return }
+        let searchRequest = SearchRequest(url: nextURL, userAgent: userAgent)
+        drawerDelegate?.prepareForSearch()
+        drawerDelegate?.updateBookmarkIconFor(nextURL)
+        sendSearchRequest(searchRequest)
+        webView?.backwardURLs?.append(nextURL)
+    }
+    
     func bookmark() {
         
         guard let moc = moc else { return }
         
         let bookmark = Bookmark(context: moc)
         
-        bookmark.title = title
+        bookmark.title = webView?.title
         bookmark.url = webView?.url?.absoluteString
         bookmark.screenshot = webView?.screenshot
         bookmark.date = Date()
         
         appDelegate?.saveContext()
+    }
+    
+    
+    func leaveSession() {
+        session.disconnect()
+        assistant.stop()
+        dismiss(animated: true)
+    }
+    
+    func setPeerIDTo(_ displayName: String) {
+        peerID = MCPeerID(displayName: displayName)
+        UserDefaults.standard.set(displayName, forKey: "displayName")
     }
     
     func switchUserAgent() {
@@ -181,16 +199,4 @@ extension UserWebSessionViewController: ContentDelegate, ParentDelegate {
         guard pulleyPosition == 0 else { return }
         drawerDelegate?.endEditing()
     }
-    
-    func leaveSession() {
-        session.disconnect()
-        assistant.stop()
-        dismiss(animated: true)
-    }
-    
-    func setPeerIDTo(_ displayName: String) {
-        peerID = MCPeerID(displayName: displayName)
-        UserDefaults.standard.set(displayName, forKey: "displayName")
-    }
-    
 }
