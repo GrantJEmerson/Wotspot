@@ -12,8 +12,15 @@ import WebKit
 extension WKWebView {
     
     var screenshot: UIImage {
-        return UIGraphicsImageRenderer(size: bounds.size).image { _ in
-            drawHierarchy(in: CGRect(origin: .zero, size: bounds.size), afterScreenUpdates: true)
+        if #available(iOS 10.0, *) {
+            return UIGraphicsImageRenderer(size: bounds.size).image { _ in
+                drawHierarchy(in: CGRect(origin: .zero, size: bounds.size), afterScreenUpdates: true)
+            }
+        } else {
+            UIGraphicsBeginImageContext(bounds.size)
+            drawHierarchy(in: bounds, afterScreenUpdates: true)
+            let image = UIGraphicsGetImageFromCurrentImageContext()!
+            return image
         }
     }
 }

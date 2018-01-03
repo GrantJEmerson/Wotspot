@@ -56,6 +56,7 @@ class WebSessionDrawerViewController: UIViewController {
     private var bookmarks = [Bookmark]()
     
     private lazy var appDelegate = UIApplication.shared.delegate as? AppDelegate
+    @available(iOS 10.0, *)
     private lazy var moc = appDelegate?.persistentContainer.viewContext
     
     private lazy var profileManagementView: ProfileManagementView = {
@@ -72,7 +73,7 @@ class WebSessionDrawerViewController: UIViewController {
         return view
     }()
     
-    @IBOutlet weak var gripperTopConstraint: NSLayoutConstraint!
+    @IBOutlet var gripperTopConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var bookmarkButton: UIButton!
     @IBOutlet weak var customView: UIView!
@@ -149,7 +150,12 @@ class WebSessionDrawerViewController: UIViewController {
         }
         
         if let existingBookmark = existingBookmark {
-            moc?.delete(existingBookmark)
+            if #available(iOS 10.0, *) {
+                moc?.delete(existingBookmark)
+            } else {
+                guard let moc = appDelegate?.managedObjectContext else { return }
+                moc.delete(existingBookmark)
+            }
         } else {
             delegate?.bookmark()
         }
@@ -194,13 +200,19 @@ class WebSessionDrawerViewController: UIViewController {
     }
     
     private func getBookmarks() {
-        guard let moc = moc else { return }
+        var moc: NSManagedObjectContext?
+        if #available(iOS 10.0, *) {
+            moc = self.moc
+        } else {
+            moc = appDelegate?.managedObjectContext
+        }
         
         let fetchRequest = Bookmark.fetchRequest() as NSFetchRequest<Bookmark>
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
         
         do {
-            bookmarks = try moc.fetch(fetchRequest)
+            guard let bookmarks = try moc?.fetch(fetchRequest) else { return }
+            self.bookmarks = bookmarks
         } catch {
             print(error.localizedDescription)
         }
@@ -375,7 +387,12 @@ extension WebSessionDrawerViewController: BookMarkCellDelegate {
         guard let indexPath = collectionView.indexPath(for: cell) else { return }
         let bookmarkToDelete = bookmarks[indexPath.row]
         bookmarks.remove(at: indexPath.row)
-        moc?.delete(bookmarkToDelete)
+        if #available(iOS 10.0, *) {
+            moc?.delete(bookmarkToDelete)
+        } else {
+            guard let moc = appDelegate?.managedObjectContext else { return }
+            moc.delete(bookmarkToDelete)
+        }
         appDelegate?.saveContext()
         if bookmarks.isEmpty {
             collectionView.reloadData()
@@ -424,7 +441,7 @@ extension WebSessionDrawerViewController: ProfileManagementViewDelegate {
     func movePulleyViewControllerDown() {
         UIView.animate(withDuration: 0.8) { [weak self] in
             guard let strongSelf = self else { return }
-            strongSelf.view.transform = CGAffineTransform.identity
+            strongSelf.view.transform = .identity
         }
     }
 }
@@ -432,7 +449,6 @@ extension WebSessionDrawerViewController: ProfileManagementViewDelegate {
 extension WebSessionDrawerViewController: PulleyDrawerViewControllerDelegate {
     
     func drawerDisplayModeDidChange(drawer: PulleyViewController) {
-        guard gripperTopConstraint != nil else { return }
         gripperTopConstraint.isActive = drawer.currentDisplayMode != .leftSide
     }
 }

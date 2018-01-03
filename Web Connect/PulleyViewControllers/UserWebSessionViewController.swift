@@ -20,6 +20,7 @@ class UserWebSessionViewController: PulleyViewController {
     public var drawerDelegate: WebSessionDrawerDelegate?
     
     private var appDelegate = UIApplication.shared.delegate as? AppDelegate
+    @available(iOS 10.0, *)
     private lazy var moc = appDelegate?.persistentContainer.viewContext
     
     private var awaitingURL: URL?
@@ -28,7 +29,7 @@ class UserWebSessionViewController: PulleyViewController {
     private lazy var peerID = MCPeerID.saved
     
     private lazy var session: MCSession = {
-        let session = MCSession(peer: peerID)
+        let session = MCSession(peer: peerID, securityIdentity: nil, encryptionPreference: .optional)
         session.delegate = self
         return session
     }()
@@ -162,9 +163,16 @@ extension UserWebSessionViewController: ContentDelegate, ParentDelegate {
     
     func bookmark() {
         
-        guard let moc = moc else { return }
+        var bookmark = Bookmark()
         
-        let bookmark = Bookmark(context: moc)
+        if #available(iOS 10.0, *) {
+            guard let moc = moc else { return }
+            bookmark = Bookmark(context: moc)
+        } else {
+            guard let moc = appDelegate?.managedObjectContext,
+                let entityDescription = NSEntityDescription.entity(forEntityName: "Bookmark", in: moc) else { return }
+            bookmark = Bookmark(entity: entityDescription, insertInto: moc)
+        }
         
         bookmark.title = webView?.title
         bookmark.url = webView?.url?.absoluteString
