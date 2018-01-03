@@ -24,7 +24,14 @@ class WebBrowserViewController: UIViewController {
     
     private var isHost: Bool
     
+    private let isPad = UIDevice.current.userInterfaceIdiom == .pad
+    
     private var lastOffsetY: CGFloat = 0
+    private let bottomSpacing: CGFloat = -60
+    private let statusBarHeight = UIApplication.shared.statusBarFrame.height
+    
+    private var webViewTopConstraint: NSLayoutConstraint?
+    private var webViewBottomConstraint: NSLayoutConstraint?
     
     private lazy var searchButtonScript: WKUserScript = {
         let source = """
@@ -79,21 +86,39 @@ class WebBrowserViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                
+        
         view.addSubview(webView)
         
+        webViewBottomConstraint = webView.bottomAnchor.constraint(equalTo: view.bottomAnchor,
+                                                                  constant: isPad ? 0 : bottomSpacing)
+        webViewTopConstraint = webView.topAnchor.constraint(equalTo: view.topAnchor,
+                                                            constant: statusBarHeight)
         NSLayoutConstraint.activate([
             webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             webView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            webView.topAnchor.constraint(equalTo: view.topAnchor,
-                                         constant: UIApplication.shared.statusBarFrame.height),
-            webView.bottomAnchor.constraint(equalTo: view.bottomAnchor,
-                                            constant: UIDevice.current.userInterfaceIdiom == .pad ? 0 : -60)
+            webViewTopConstraint!,
+            webViewBottomConstraint!
         ])
+        
+        loadHomePage()
 
         guard !isHost else { return }
         view.addGestureRecognizer(leftEdgePanRecognizer)
         view.addGestureRecognizer(rightEdgePanRecognizer)
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        let isLeftSideActivated = (size.width >= 600.0 || self.traitCollection.horizontalSizeClass == .regular)
+        if isLeftSideActivated {
+            webViewBottomConstraint?.constant = 0
+            guard !isPad else { return }
+            webViewTopConstraint?.constant = 0
+        } else {
+            webViewBottomConstraint?.constant = bottomSpacing
+            webViewTopConstraint?.constant = statusBarHeight
+        }
+        self.view.layoutIfNeeded()
     }
     
     // MARK: Selector Functions
@@ -107,6 +132,16 @@ class WebBrowserViewController: UIViewController {
     @objc private func rightScreenEdgeSwiped(_ recognizer: UIScreenEdgePanGestureRecognizer) {
         if recognizer.state == .recognized {
             delegate?.goForward!()
+        }
+    }
+    
+    // MARK: Private Functions
+    
+    private func loadHomePage() {
+        if isHost {
+            webView.load(URLRequest(url: URL(string: "https://www.google.com")!))
+        } else {
+            webView.loadHTMLString(OfflineErrorPage.html, baseURL: nil)
         }
     }
     

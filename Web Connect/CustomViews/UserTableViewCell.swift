@@ -51,7 +51,7 @@ class UserTableViewCell: UITableViewCell {
     }()
     
     private let dataUsageGraph: DataUsageGraphView = {
-        let dataUsageGraph = DataUsageGraphView(frame: CGRect(x: 0, y: 0, width: 100, height: 150)) // Frame needed for constraintset up to work properly
+        let dataUsageGraph = DataUsageGraphView(frame: CGRect(x: 0, y: 0, width: 100, height: 150)) // Frame needed for constraint set up to work properly
         dataUsageGraph.translatesAutoresizingMaskIntoConstraints = false
         return dataUsageGraph
     }()
