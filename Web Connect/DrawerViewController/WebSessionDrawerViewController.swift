@@ -138,6 +138,8 @@ class WebSessionDrawerViewController: UIViewController {
     @IBAction func shareButtonTapped(_ sender: UIButton) {
         guard let url = delegate?.currentURL else { return }
         let shareView = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+        shareView.popoverPresentationController?.sourceView = sender
+        shareView.popoverPresentationController?.sourceRect = CGRect(x: 35, y: 20, width: 0, height: 0)
         self.present(shareView, animated: true)
     }
     
