@@ -21,32 +21,40 @@ public class NetworkService {
             let responseCharacterEncoding = response?.textEncodingName ?? String.Encoding.utf8.description
             guard let html = String(data: data, encoding: .utf8) else { return }
             let htmlURLs = HTMLParser.imageSourcesIn(html)
-            NetworkService.getImagesFor(htmlURLs) { (urlImageDictionary) in
-                print(urlImageDictionary)
+            NetworkService.getImageDataFor(htmlURLs) { (urlImageDictionary) in
+                let webPage = WebPage(data: data,
+                                      url: responseBaseURL,
+                                      mimeType: responseMimeType,
+                                      textEncoding: responseCharacterEncoding,
+                                      images: urlImageDictionary)
+                completion(webPage)
             }
-            let webPage = WebPage(data: data,
-                                  url: responseBaseURL,
-                                  mimeType: responseMimeType,
-                                  textEncoding: responseCharacterEncoding)
-            completion(webPage)
         }.resume()
     }
     
-    class func getImagesFor(_ urls: [URL], completion: @escaping (([String: UIImage]) -> ())) {
-        var urlImageDictionary = [String: UIImage]()
+    class func getImageDataFor(_ urls: [URL], completion: @escaping ([String: Data]) -> ()) {
+        var urlImageDictionary = [String: Data]()
+        var urlsCompleted = 0
         for url in urls {
             getImageFor(url) { (image) in
-                guard let image = image else { return }
+                urlsCompleted += 1
+                guard let image = image else {
+                    if urlsCompleted == urls.count { completion(urlImageDictionary) }
+                    return
+                }
                 urlImageDictionary[url.absoluteString] = image
+                if urlsCompleted == urls.count { completion(urlImageDictionary) }
             }
         }
-        completion(urlImageDictionary)
     }
     
-    class func getImageFor(_ url: URL, completion: @escaping (UIImage?) -> ()) {
+    class func getImageFor(_ url: URL, completion: @escaping (Data?) -> ()) {
         URLSession.shared.dataTask(with: url) { (data, response, error) in
-            guard let data = data else { completion(nil); return }
-            completion(UIImage(data: data))
+            if let data = data {
+                completion(data)
+            } else {
+                completion(nil)
+            }
         }.resume()
     }
 }

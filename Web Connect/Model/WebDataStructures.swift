@@ -18,6 +18,7 @@ struct WebPage: Codable {
     let url: URL
     let mimeType: String
     let textEncoding: String
+    let images: [String: Data]
 }
 
 struct SearchRequest: Codable {

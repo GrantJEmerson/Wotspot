@@ -49,8 +49,8 @@
                             <constraint firstItem="h5r-jS-Ubv" firstAttribute="width" secondItem="hG0-Zh-DoH" secondAttribute="width" multiplier="1:2" id="DJm-yl-C5t"/>
                             <constraint firstItem="h5r-jS-Ubv" firstAttribute="top" secondItem="a0s-WT-b2f" secondAttribute="bottom" id="JAn-MZ-4w0"/>
                             <constraint firstItem="h5r-jS-Ubv" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="O95-nB-0y4"/>
-                            <constraint firstItem="hG0-Zh-DoH" firstAttribute="leading" secondItem="Bcu-3y-fUS" secondAttribute="leading" id="jLH-7x-sgk"/>
-                            <constraint firstItem="Bcu-3y-fUS" firstAttribute="trailing" secondItem="hG0-Zh-DoH" secondAttribute="trailing" id="tcR-RY-udb"/>
+                            <constraint firstItem="hG0-Zh-DoH" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="jLH-7x-sgk"/>
+                            <constraint firstAttribute="trailing" secondItem="hG0-Zh-DoH" secondAttribute="trailing" id="tcR-RY-udb"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Bcu-3y-fUS"/>
                     </view>
