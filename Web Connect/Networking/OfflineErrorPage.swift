@@ -8,10 +8,16 @@
 
 import Foundation
 
-class OfflineErrorPage {
+class WebErrorPage {
     
-    static let html =
-    """
+    static let offline = htmlWith(title: "You Are Not Connected to a Web Share Session",
+                                  message: "Have a host add you to a Web Share session in order to surf the web.")
+    static let notFound = htmlWith(title: "404 Page Not Found",
+                                   message: "The page you are looking for either doesn't exist or is not here anymore.")
+
+    internal class func htmlWith(title: String, message: String) -> String {
+        
+    return """
     <html class="gr__"><head>
     <style>
         body {font-family:'-apple-system-font';}
@@ -79,14 +85,15 @@ class OfflineErrorPage {
         <div class="error-container">
             <div class="text-container">
                 <!-- Main title here. -->
-                <p class="error-title">You Are Not Connected to a Web Share Session</p>
+                <p class="error-title">\(title)</p>
             </div>
             <div class="text-container">
                 <!-- Error message here. -->
-                <p class="error-message">Have a host add you to a Web Share session in order to surf the web.&nbsp;</p>
+                <p class="error-message">\(message)&nbsp;</p>
             </div>
         </div>
     </div>
     <div class="grammarly-disable-indicator"></div></body></html>
     """
+    }
 }

@@ -21,7 +21,9 @@ class CustomWebView: WKWebView {
         
         print("Before Process Byte Count:", webPage.data.count)
 
-        let imageEncodedData = webPage.data.dataEncodedWithLocalUrlsFrom(webPage.images)
+        let imageEncodedHTMLResponse = webPage.data.dataEncodedWithLocalUrlsFrom(webPage.images)
+        let imageEncodedData = imageEncodedHTMLResponse.htmlData
+        let imageURLs = imageEncodedHTMLResponse.imageURLs
 
         print("After Process Byte Count:", imageEncodedData.count)
 
@@ -39,18 +41,29 @@ class CustomWebView: WKWebView {
             let urlRequest = URLRequest(url: cachedHTMLURL)
             self.load(urlRequest)
         }
+        
+        // Clean Up
+        
+        do {
+            try FileManager.default.removeItem(at: cachedHTMLURL)
+            try imageURLs.forEach({ try FileManager.default.removeItem(at: $0) })
+        } catch {
+            print(error.localizedDescription)
+        }
     }
 }
 
 private extension Data {
     
-    func dataEncodedWithLocalUrlsFrom(_ urlImageDataDictionary: [String: Data]) -> Data {
+    func dataEncodedWithLocalUrlsFrom(_ urlImageDataDictionary: [String: Data]) -> (htmlData: Data, imageURLs: [URL]) {
         
         var html = String(data: self, encoding: .utf8)!
+        var imageURLs = [URL]()
         
         for (internetURLString, image) in urlImageDataDictionary {
             let imageUUID = UUID().uuidString
             let imageURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(imageUUID)
+            imageURLs.append(imageURL)
             do {
                 try image.write(to: imageURL)
             } catch {
@@ -58,6 +71,6 @@ private extension Data {
             }
             html = html.replacingOccurrences(of: internetURLString, with: imageURL.absoluteString)
         }
-        return html.data(using: .utf8)!
+        return (html.data(using: .utf8)!, imageURLs)
     }
 }

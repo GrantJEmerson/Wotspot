@@ -91,35 +91,54 @@ class HostWebSessionViewController: PulleyViewController {
                 return user.peerID == peerID
             }) else { return }
         if users[userIndex].dataSet.limitReached() {
-            shouldAddDataToCap(for: peerID.displayName) { (should) in
-                guard should else {
-                    self.removePeer(peerID)
-                    return
-                }
-                self.getDataAmountToAdd(to: peerID.displayName, completion: { (bytes) in
-                    guard let bytes = bytes else { return }
-                    self.users[userIndex].dataSet.dataCap += bytes
-                })
-            }
+            manageDataLimitReachedFor(peerID, at: userIndex)
         } else {
             NetworkService.getSearchResult(forSearchRequest: searchRequest) { [weak self] (webPage) in
-                guard let webPage = webPage,
-                    let strongSelf = self else { return }
-                strongSelf.users[userIndex].dataSet.dataUsed += CGFloat(webPage.data.count)
-                let searchResult = SearchResult(webPage: webPage, dataSet: strongSelf.users[userIndex].dataSet)
-                strongSelf.sendSearchResult(searchResult, toPeer: peerID)
+                guard let strongSelf = self else { return }
+                
+                if let webPage = webPage {
+                    let imageDataCount = webPage.images.values.reduce(0) { (count, data) in
+                        return count + data.count
+                    }
+                    let totalDataCount = webPage.data.count + imageDataCount
+                    strongSelf.users[userIndex].dataSet.dataUsed += CGFloat(totalDataCount)
+                    let searchResult = SearchResult(webPage: webPage, dataSet: strongSelf.users[userIndex].dataSet)
+                    strongSelf.sendSearchResult(searchResult, toPeer: peerID)
+                } else {
+                    self?.send("Not-Found", toPeer: peerID)
+                }
             }
         }
     }
     
     private func sendSearchResult(_ searchResult: SearchResult, toPeer peer: MCPeerID) {
-        
         guard let data = try? PropertyListEncoder().encode(searchResult) else { return }
-        
         do {
             try session.send(data, toPeers: [peer], with: .reliable)
         } catch {
             print(error.localizedDescription)
+        }
+    }
+    
+    private func send(_ message: String, toPeer peer: MCPeerID) {
+        guard let command = message.data(using: .utf8) else { return }
+        do {
+            try session.send(command, toPeers: [peerID], with: .reliable)
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    private func manageDataLimitReachedFor(_ peerID: MCPeerID, at userIndex: Int) {
+        shouldAddDataToCap(for: peerID.displayName) { (should) in
+            guard should else {
+                self.removePeer(peerID)
+                return
+            }
+            self.getDataAmountToAdd(to: peerID.displayName, completion: { (bytes) in
+                guard let bytes = bytes else { return }
+                self.users[userIndex].dataSet.dataCap += bytes
+            })
         }
     }
     
@@ -319,12 +338,7 @@ extension HostWebSessionViewController: ContentDelegate, ParentDelegate {
             return user.peerID == peerID
         }) else { return }
         users.remove(at: userIndex)
-        guard let disconnectCommand = "disconnect".data(using: .utf8) else { return }
-        do {
-            try session.send(disconnectCommand, toPeers: [peerID], with: .reliable)
-        } catch {
-            print(error.localizedDescription)
-        }
+        send("disconnect", toPeer: peerID)
     }
     
     func switchUserAgent() {

@@ -2,14 +2,13 @@
 //  String+Links.swift
 //  Web Connect
 //
-//  Created by Grant Emerson on 12/19/17.
-//  Copyright © 2017 Grant Emerson. All rights reserved.
+//  Created by Grant Emerson on 1/4/18.
+//  Copyright © 2018 Grant Emerson. All rights reserved.
 //
 
 import Foundation
 
 extension String {
-    
     var isLink: Bool {
         let types: NSTextCheckingResult.CheckingType = [.link]
         let detector = try? NSDataDetector(types: types.rawValue)

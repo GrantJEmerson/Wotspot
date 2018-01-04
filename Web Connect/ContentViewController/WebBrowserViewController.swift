@@ -109,7 +109,7 @@ class WebBrowserViewController: UIViewController {
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        let isLeftSideActivated = (size.width >= 600.0 || self.traitCollection.horizontalSizeClass == .regular)
+        let isLeftSideActivated = (size.width >= 600.0)
         if isLeftSideActivated {
             webViewBottomConstraint?.constant = 0
             guard !isPad else { return }
@@ -141,7 +141,7 @@ class WebBrowserViewController: UIViewController {
         if isHost {
             webView.load(URLRequest(url: URL(string: "https://www.google.com")!))
         } else {
-            webView.loadHTMLString(OfflineErrorPage.html, baseURL: nil)
+            webView.loadHTMLString(WebErrorPage.offline, baseURL: nil)
         }
     }
     
@@ -178,6 +178,10 @@ extension WebBrowserViewController: WKNavigationDelegate {
         }
         let removeLongPressPopUpScript = "document.body.style.webkitTouchCallout='none';"
         webView.evaluateJavaScript(removeLongPressPopUpScript)
+    }
+    
+    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+        print("Web view failed to load webPage due to error: ", error.localizedDescription)
     }
 }
 

@@ -15,9 +15,9 @@
 		5514517F1FEDCB5D000F74CD /* NotificationName+Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5514517E1FEDCB5D000F74CD /* NotificationName+Custom.swift */; };
 		5524A6821FEEEF4700EA7D2C /* UserManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5524A6811FEEEF4700EA7D2C /* UserManagementView.swift */; };
 		5524A6861FEEF87900EA7D2C /* ProfileManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5524A6851FEEF87900EA7D2C /* ProfileManagementView.swift */; };
+		553DF69B1FFE9C3A00B3EF04 /* String+isLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553DF69A1FFE9C3A00B3EF04 /* String+isLink.swift */; };
 		554660561FFC4901004FE348 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 554660551FFC4901004FE348 /* LaunchScreen.storyboard */; };
 		5546605C1FFC6C3F004FE348 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5546605B1FFC6C3F004FE348 /* NetworkService.swift */; };
-		55529BAA1FE98BBA0077A520 /* String+Links.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55529BA91FE98BBA0077A520 /* String+Links.swift */; };
 		55529BAC1FE98C160077A520 /* UIButton+SwitchImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55529BAB1FE98C160077A520 /* UIButton+SwitchImage.swift */; };
 		55529BAE1FE98C5E0077A520 /* CustomWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55529BAD1FE98C5E0077A520 /* CustomWebView.swift */; };
 		555BF0411FF59167008A095D /* NSLayoutConstraint+PrioritySetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555BF0401FF59167008A095D /* NSLayoutConstraint+PrioritySetter.swift */; };
@@ -69,9 +69,9 @@
 		5514517E1FEDCB5D000F74CD /* NotificationName+Custom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+Custom.swift"; sourceTree = "<group>"; };
 		5524A6811FEEEF4700EA7D2C /* UserManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManagementView.swift; sourceTree = "<group>"; };
 		5524A6851FEEF87900EA7D2C /* ProfileManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileManagementView.swift; sourceTree = "<group>"; };
+		553DF69A1FFE9C3A00B3EF04 /* String+isLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+isLink.swift"; sourceTree = "<group>"; };
 		554660551FFC4901004FE348 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5546605B1FFC6C3F004FE348 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
-		55529BA91FE98BBA0077A520 /* String+Links.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Links.swift"; sourceTree = "<group>"; };
 		55529BAB1FE98C160077A520 /* UIButton+SwitchImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+SwitchImage.swift"; sourceTree = "<group>"; };
 		55529BAD1FE98C5E0077A520 /* CustomWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWebView.swift; sourceTree = "<group>"; };
 		555BF0401FF59167008A095D /* NSLayoutConstraint+PrioritySetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSLayoutConstraint+PrioritySetter.swift"; sourceTree = "<group>"; };
@@ -166,7 +166,6 @@
 			children = (
 				55F1D6A11FDB8DD7003B223F /* UIVisualEffectView+SwitchStyle.swift */,
 				55529BAB1FE98C160077A520 /* UIButton+SwitchImage.swift */,
-				55529BA91FE98BBA0077A520 /* String+Links.swift */,
 				55F6CE691FFC0EBE00D7E0B4 /* WKWebView+Screenshot.swift */,
 				5514517E1FEDCB5D000F74CD /* NotificationName+Custom.swift */,
 				557A6CCD1FF3FE290030F88A /* UIColor+ColorSet.swift */,
@@ -175,6 +174,7 @@
 				559872AD1FF6BEC900A726D9 /* String+NilIfEmpty.swift */,
 				550DF51B1FF82400000268A5 /* MCPeerID+Default.swift */,
 				555E42901FFB266700EFE1D8 /* URL+SearchInit.swift */,
+				553DF69A1FFE9C3A00B3EF04 /* String+isLink.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -425,8 +425,8 @@
 				55F1D6A51FDB90F1003B223F /* WebSessionDrawerViewController.swift in Sources */,
 				55CB1C131FDA25E800A1E377 /* PulleyViewController+Nested.swift in Sources */,
 				5514517D1FEDB010000F74CD /* DeletionView.swift in Sources */,
+				553DF69B1FFE9C3A00B3EF04 /* String+isLink.swift in Sources */,
 				55CB1C151FDA25E800A1E377 /* PulleyPassthroughScrollView.swift in Sources */,
-				55529BAA1FE98BBA0077A520 /* String+Links.swift in Sources */,
 				55529BAC1FE98C160077A520 /* UIButton+SwitchImage.swift in Sources */,
 				557A6CCE1FF3FE290030F88A /* UIColor+ColorSet.swift in Sources */,
 				55D016A91FF841F4001D71D3 /* NoBookmarksCollectionViewCell.swift in Sources */,

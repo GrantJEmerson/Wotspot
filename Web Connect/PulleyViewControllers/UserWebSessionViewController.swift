@@ -70,10 +70,16 @@ class UserWebSessionViewController: PulleyViewController {
             awaitingURL = nil
             webView?.loadWebPage(searchResult.webPage)
             drawerDelegate?.updateDataUsageGraph(dataSet: searchResult.dataSet)
-        } else if let disconnectMessage = String(data: data, encoding: .utf8) {
-            guard disconnectMessage == "disconnect" else { return }
-            session.disconnect()
-            presentDisconnectedAlert()
+        } else if let command = String(data: data, encoding: .utf8) {
+            switch command {
+            case "disconnect":
+                session.disconnect()
+                presentDisconnectedAlert()
+            case "Not-Found":
+                webView?.loadHTMLString(WebErrorPage.notFound, baseURL: nil)
+            default:
+                break
+            }
         }
     }
     
@@ -97,6 +103,7 @@ class UserWebSessionViewController: PulleyViewController {
         alertController.addAction(UIAlertAction(title: "OK", style: .default))
         DispatchQueue.main.async {
             self.present(alertController, animated: true)
+            self.webView?.loadHTMLString(WebErrorPage.offline, baseURL: nil)
         }
     }
 }

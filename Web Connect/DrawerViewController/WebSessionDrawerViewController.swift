@@ -314,7 +314,7 @@ extension WebSessionDrawerViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let text = searchBar.text else { return }
-        guard let url = text.isLink ? URL(string: text) : URL(search: text) else { return }
+        guard let url = URL(search: text) else { return }
         searchFor(url)
         searchBar.setShowsCancelButton(false, animated: true)
         searchBar.endEditing(true)

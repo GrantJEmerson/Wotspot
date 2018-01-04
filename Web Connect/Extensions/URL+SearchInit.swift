@@ -11,7 +11,15 @@ import Foundation
 extension URL {
     
     init?(search: String) {
-        let urlSearchString = search.replacingOccurrences(of: " ", with: "+")
-        self.init(string: "https://www.google.com/search?q=" + urlSearchString)
+        guard search.isLink else {
+            let urlSearchString = search.replacingOccurrences(of: " ", with: "+")
+            self.init(string: "https://www.google.com/search?q=" + urlSearchString)
+            return
+        }
+        var search = search
+        if !(search.hasPrefix("https://www.") || search.hasPrefix("http://www.")) {
+            search = "https://www." + search
+        }
+        self.init(string: search)
     }
 }
