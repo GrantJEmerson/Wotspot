@@ -18,11 +18,26 @@ class CustomWebView: WKWebView {
     // MARK: Public Functions
     
     func loadWebPage(_ webPage: WebPage) {
-    
+        
+        print("Before Process Byte Count:", webPage.data.count)
+
         let imageEncodedData = webPage.data.dataEncodedWithLocalUrlsFrom(webPage.images)
+
+        print("After Process Byte Count:", imageEncodedData.count)
+
+        let cachedHTMLURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(UUID().uuidString).appendingPathExtension(".html")
+
+        do {
+            try imageEncodedData.write(to: cachedHTMLURL, options: .atomic)
+        } catch {
+            print(error.localizedDescription)
+            return
+        }
         
         DispatchQueue.main.async {
-            self.load(imageEncodedData, mimeType: webPage.mimeType, characterEncodingName: webPage.textEncoding, baseURL: webPage.url)
+//            self.load(webPage.data, mimeType: webPage.mimeType, characterEncodingName: webPage.textEncoding, baseURL: webPage.url)
+            let urlRequest = URLRequest(url: cachedHTMLURL)
+            self.load(urlRequest)
         }
     }
 }
@@ -43,7 +58,6 @@ private extension Data {
             }
             html = html.replacingOccurrences(of: internetURLString, with: imageURL.absoluteString)
         }
-        
         return html.data(using: .utf8)!
     }
 }
