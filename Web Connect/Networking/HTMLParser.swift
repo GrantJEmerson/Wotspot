@@ -23,4 +23,18 @@ public class HTMLParser {
         }
         return sources
     }
+    
+    class func linkTagSourcesIn(_ html: String) -> [URL] {
+        let htmlSeperatedByLinkTags = html.components(separatedBy: "<link")
+        var sources = [URL]()
+        for htmlBlock in htmlSeperatedByLinkTags {
+            let htmlSeperatedBySourceTag = htmlBlock.components(separatedBy: "href=\"")
+            guard htmlSeperatedBySourceTag.count > 1,
+                let source = htmlSeperatedBySourceTag[1].components(separatedBy: "\"").first,
+                source.isLink,
+                let url = URL(string: source) else { continue }
+            sources.append(url)
+        }
+        return sources
+    }
 }

@@ -14,11 +14,16 @@ enum UserAgent: String, Codable {
 }
 
 struct WebPage: Codable {
-    let data: Data
+    let html: Data
+    let resources: [Resource]
     let url: URL
     let mimeType: String
     let textEncoding: String
-    let images: [String: Data]
+}
+
+struct Resource: Codable {
+    let internetURL: String
+    let data: Data
 }
 
 struct SearchRequest: Codable {

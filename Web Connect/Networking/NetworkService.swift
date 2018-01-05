@@ -17,38 +17,36 @@ public class NetworkService {
         URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
             guard let data = data else { completion(nil); return }
             let responseMimeType = response?.mimeType ?? ""
-            let responseBaseURL = response?.url ?? URL(string: "https://www.google.com")!
             let responseCharacterEncoding = response?.textEncodingName ?? String.Encoding.utf8.description
-            guard let html = String(data: data, encoding: .utf8) else { return }
-            let htmlURLs = HTMLParser.imageSourcesIn(html)
-            NetworkService.getImageDataFor(htmlURLs) { (urlImageDictionary) in
-                let webPage = WebPage(data: data,
-                                      url: responseBaseURL,
-                                      mimeType: responseMimeType,
-                                      textEncoding: responseCharacterEncoding,
-                                      images: urlImageDictionary)
+            guard let html = String(data: data, encoding: .utf8) else { completion(nil); return }
+            let resourceURLs = HTMLParser.imageSourcesIn(html) + HTMLParser.linkTagSourcesIn(html)
+            NetworkService.getResourcesFor(resourceURLs) { (resources) in
+                let webPage = WebPage(html: data, resources: resources, url: searchRequest.url,
+                                      mimeType: responseMimeType, textEncoding: responseCharacterEncoding)
                 completion(webPage)
             }
         }.resume()
     }
     
-    class func getImageDataFor(_ urls: [URL], completion: @escaping ([String: Data]) -> ()) {
-        var urlImageDictionary = [String: Data]()
+    class func getResourcesFor(_ urls: [URL], completion: @escaping ([Resource]) -> ()) {
+        var resources = [Resource]()
         var urlsCompleted = 0
+        guard !urls.isEmpty else { completion([]); return }
         for url in urls {
-            getImageFor(url) { (image) in
+            getDataFor(url) { data in
                 urlsCompleted += 1
-                guard let image = image else {
-                    if urlsCompleted == urls.count { completion(urlImageDictionary) }
+                guard let data = data else {
+                    if urlsCompleted == urls.count { completion(resources) }
                     return
                 }
-                urlImageDictionary[url.absoluteString] = image
-                if urlsCompleted == urls.count { completion(urlImageDictionary) }
+                let newResource = Resource(internetURL: url.absoluteString, data: data)
+                resources.append(newResource)
+                if urlsCompleted == urls.count { completion(resources) }
             }
         }
     }
     
-    class func getImageFor(_ url: URL, completion: @escaping (Data?) -> ()) {
+    class func getDataFor(_ url: URL, completion: @escaping (Data?) -> ()) {
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             if let data = data {
                 completion(data)

@@ -95,12 +95,11 @@ class HostWebSessionViewController: PulleyViewController {
         } else {
             NetworkService.getSearchResult(forSearchRequest: searchRequest) { [weak self] (webPage) in
                 guard let strongSelf = self else { return }
-                
                 if let webPage = webPage {
-                    let imageDataCount = webPage.images.values.reduce(0) { (count, data) in
-                        return count + data.count
-                    }
-                    let totalDataCount = webPage.data.count + imageDataCount
+                    let resourceDataCount = webPage.resources.reduce(0, { (dataCount, resource) in
+                        return dataCount + resource.data.count
+                    })
+                    let totalDataCount = webPage.html.count + resourceDataCount
                     strongSelf.users[userIndex].dataSet.dataUsed += CGFloat(totalDataCount)
                     let searchResult = SearchResult(webPage: webPage, dataSet: strongSelf.users[userIndex].dataSet)
                     strongSelf.sendSearchResult(searchResult, toPeer: peerID)

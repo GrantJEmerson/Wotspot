@@ -19,18 +19,14 @@ class CustomWebView: WKWebView {
     
     func loadWebPage(_ webPage: WebPage) {
         
-        print("Before Process Byte Count:", webPage.data.count)
-
-        let imageEncodedHTMLResponse = webPage.data.dataEncodedWithLocalUrlsFrom(webPage.images)
-        let imageEncodedData = imageEncodedHTMLResponse.htmlData
-        let imageURLs = imageEncodedHTMLResponse.imageURLs
-
-        print("After Process Byte Count:", imageEncodedData.count)
+        let resourceEncodedHTMLResponse = webPage.html.dataEncodedWithLocalUrlsFrom(webPage.resources)
+        let resourceEncodedData = resourceEncodedHTMLResponse.htmlData
+        let resourceURLs = resourceEncodedHTMLResponse.resourceURLs
 
         let cachedHTMLURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(UUID().uuidString).appendingPathExtension(".html")
 
         do {
-            try imageEncodedData.write(to: cachedHTMLURL, options: .atomic)
+            try resourceEncodedData.write(to: cachedHTMLURL, options: .atomic)
         } catch {
             print(error.localizedDescription)
             return
@@ -42,11 +38,11 @@ class CustomWebView: WKWebView {
             self.load(urlRequest)
         }
         
-        // Clean Up
+        // NSTemporary Directory: Clean Up
         
         do {
             try FileManager.default.removeItem(at: cachedHTMLURL)
-            try imageURLs.forEach({ try FileManager.default.removeItem(at: $0) })
+            try resourceURLs.forEach({ try FileManager.default.removeItem(at: $0) })
         } catch {
             print(error.localizedDescription)
         }
@@ -55,22 +51,23 @@ class CustomWebView: WKWebView {
 
 private extension Data {
     
-    func dataEncodedWithLocalUrlsFrom(_ urlImageDataDictionary: [String: Data]) -> (htmlData: Data, imageURLs: [URL]) {
+    func dataEncodedWithLocalUrlsFrom(_ resources: [Resource]) -> (htmlData: Data, resourceURLs: [URL]) {
         
         var html = String(data: self, encoding: .utf8)!
-        var imageURLs = [URL]()
+        var resourceURLs = [URL]()
         
-        for (internetURLString, image) in urlImageDataDictionary {
-            let imageUUID = UUID().uuidString
-            let imageURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(imageUUID)
-            imageURLs.append(imageURL)
+        for resource in resources {
+            let resourceUUID = UUID().uuidString
+            let resourceURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(resourceUUID)
+            resourceURLs.append(resourceURL)
             do {
-                try image.write(to: imageURL)
+                try resource.data.write(to: resourceURL)
             } catch {
                 print(error.localizedDescription)
             }
-            html = html.replacingOccurrences(of: internetURLString, with: imageURL.absoluteString)
+            html = html.replacingOccurrences(of: resource.internetURL, with: resourceURL.absoluteString)
         }
-        return (html.data(using: .utf8)!, imageURLs)
+        
+        return (html.data(using: .utf8)!, resourceURLs)
     }
 }
