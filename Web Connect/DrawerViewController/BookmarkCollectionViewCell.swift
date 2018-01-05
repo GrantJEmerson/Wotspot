@@ -69,7 +69,13 @@ class BookmarkCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         
         backgroundColor = .clear
-        clipsToBounds = true
+        //clipsToBounds = true
+        layer.shadowRadius = 3
+        layer.shadowOpacity = 0.6
+        layer.shadowColor = UserDefaults.standard.bool(forKey: "prefersDark") ? UIColor.white.cgColor : UIColor.black.cgColor
+        layer.shadowOffset = .zero
+        layer.shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height - 40)).cgPath
+        layer.masksToBounds = false
         
         NotificationCenter.default.addObserver(forName: .startEditing, object: nil, queue: .main) { (_) in
             self.editing = true
@@ -77,6 +83,18 @@ class BookmarkCollectionViewCell: UICollectionViewCell {
         
         NotificationCenter.default.addObserver(forName: .endEditing, object: nil, queue: .main) { (_) in
             self.editing = false
+        }
+        
+        NotificationCenter.default.addObserver(forName: .lightenLabels, object: nil, queue: .main) { (_) in
+            UIView.animate(withDuration: 0.8) {
+                self.layer.shadowColor = UIColor.white.cgColor
+            }
+        }
+        
+        NotificationCenter.default.addObserver(forName: .darkenLabels, object: nil, queue: .main) { (_) in
+            UIView.animate(withDuration: 0.8) {
+                self.layer.shadowColor = UIColor.black.cgColor
+            }
         }
         
         setUpSubviews()
