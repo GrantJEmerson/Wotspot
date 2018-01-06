@@ -271,7 +271,7 @@ extension HostWebSessionViewController: ContentDelegate, ParentDelegate {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         if userAgent == .mobile {
             let urlRequest = URLRequest(url: url)
-            webView?.load(urlRequest)
+            let _ = webView?.load(urlRequest)
         } else {
             let searchRequest = SearchRequest(url: url, userAgent: userAgent)
             NetworkService.getSearchResult(forSearchRequest: searchRequest) { (webPage) in

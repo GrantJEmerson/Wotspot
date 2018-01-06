@@ -67,7 +67,6 @@ class UserWebSessionViewController: PulleyViewController {
     private func decodeMultipeerConnectivityData(_ data: Data) {
         if let searchResult = try? PropertyListDecoder().decode(SearchResult.self, from: data) {
             //guard searchResult.webPage.url == awaitingURL else { return }
-            print(searchResult.webPage.url)
             awaitingURL = nil
             webView?.loadWebPage(searchResult.webPage)
             drawerDelegate?.updateDataUsageGraph(dataSet: searchResult.dataSet)

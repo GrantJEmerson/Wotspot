@@ -10,6 +10,12 @@ import Foundation
 
 public class HTMLParser {
     
+    class func removeLocalURLInstancesFrom(_ html: String, with baseURString: String) -> String {
+        let revisedHTML = html.replacingOccurrences(of: "href=\"/", with: "href=\"\(baseURString)/")
+                              .replacingOccurrences(of: "src=\"/", with: "src=\"\(baseURString)/")
+        return revisedHTML
+    }
+    
     class func imageSourcesIn(_ html: String) -> [URL] {
         let htmlSeperatedByImageTags = html.components(separatedBy: "<img")
         var sources = [URL]()
@@ -28,6 +34,10 @@ public class HTMLParser {
         let htmlSeperatedByLinkTags = html.components(separatedBy: "<link")
         var sources = [URL]()
         for htmlBlock in htmlSeperatedByLinkTags {
+            let htmlSeperatedByRelationsTag = htmlBlock.components(separatedBy: "rel=\"")
+            guard htmlSeperatedByRelationsTag.count > 1,
+                let relation = htmlSeperatedByRelationsTag[1].components(separatedBy: "\"").first,
+                relation == "stylesheet" else { continue }
             let htmlSeperatedBySourceTag = htmlBlock.components(separatedBy: "href=\"")
             guard htmlSeperatedBySourceTag.count > 1,
                 let source = htmlSeperatedBySourceTag[1].components(separatedBy: "\"").first,

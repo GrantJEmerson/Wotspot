@@ -15,6 +15,7 @@
 		5514517F1FEDCB5D000F74CD /* NotificationName+Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5514517E1FEDCB5D000F74CD /* NotificationName+Custom.swift */; };
 		5524A6821FEEEF4700EA7D2C /* UserManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5524A6811FEEEF4700EA7D2C /* UserManagementView.swift */; };
 		5524A6861FEEF87900EA7D2C /* ProfileManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5524A6851FEEF87900EA7D2C /* ProfileManagementView.swift */; };
+		553A061E20008BEF00FADC0F /* URL+DomainNameURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553A061D20008BEF00FADC0F /* URL+DomainNameURL.swift */; };
 		553DF69B1FFE9C3A00B3EF04 /* String+isLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553DF69A1FFE9C3A00B3EF04 /* String+isLink.swift */; };
 		554660561FFC4901004FE348 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 554660551FFC4901004FE348 /* LaunchScreen.storyboard */; };
 		5546605C1FFC6C3F004FE348 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5546605B1FFC6C3F004FE348 /* NetworkService.swift */; };
@@ -69,6 +70,7 @@
 		5514517E1FEDCB5D000F74CD /* NotificationName+Custom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+Custom.swift"; sourceTree = "<group>"; };
 		5524A6811FEEEF4700EA7D2C /* UserManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManagementView.swift; sourceTree = "<group>"; };
 		5524A6851FEEF87900EA7D2C /* ProfileManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileManagementView.swift; sourceTree = "<group>"; };
+		553A061D20008BEF00FADC0F /* URL+DomainNameURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+DomainNameURL.swift"; sourceTree = "<group>"; };
 		553DF69A1FFE9C3A00B3EF04 /* String+isLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+isLink.swift"; sourceTree = "<group>"; };
 		554660551FFC4901004FE348 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5546605B1FFC6C3F004FE348 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
@@ -174,6 +176,7 @@
 				559872AD1FF6BEC900A726D9 /* String+NilIfEmpty.swift */,
 				550DF51B1FF82400000268A5 /* MCPeerID+Default.swift */,
 				555E42901FFB266700EFE1D8 /* URL+SearchInit.swift */,
+				553A061D20008BEF00FADC0F /* URL+DomainNameURL.swift */,
 				553DF69A1FFE9C3A00B3EF04 /* String+isLink.swift */,
 			);
 			path = Extensions;
@@ -442,6 +445,7 @@
 				55CB1C141FDA25E800A1E377 /* UIView+constrainToParent.swift in Sources */,
 				555E42931FFB2F0000EFE1D8 /* AdaptiveLabel.swift in Sources */,
 				555BF0411FF59167008A095D /* NSLayoutConstraint+PrioritySetter.swift in Sources */,
+				553A061E20008BEF00FADC0F /* URL+DomainNameURL.swift in Sources */,
 				550DF5181FF81698000268A5 /* EndSessionFooterView.swift in Sources */,
 				55529BAE1FE98C5E0077A520 /* CustomWebView.swift in Sources */,
 				550AFE721FDC522B000CFAED /* BookmarkCollectionViewCell.swift in Sources */,

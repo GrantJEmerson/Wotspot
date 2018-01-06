@@ -18,7 +18,8 @@ public class NetworkService {
             guard let data = data else { completion(nil); return }
             let responseMimeType = response?.mimeType ?? ""
             let responseCharacterEncoding = response?.textEncodingName ?? String.Encoding.utf8.description
-            guard let html = String(data: data, encoding: .utf8) else { completion(nil); return }
+            guard var html = String(data: data, encoding: .utf8) else { completion(nil); return }
+            html = HTMLParser.removeLocalURLInstancesFrom(html, with: searchRequest.url.domainNameURL.absoluteString)
             let resourceURLs = HTMLParser.imageSourcesIn(html) + HTMLParser.linkTagSourcesIn(html)
             NetworkService.getResourcesFor(resourceURLs) { (resources) in
                 let webPage = WebPage(html: data, resources: resources, url: searchRequest.url,

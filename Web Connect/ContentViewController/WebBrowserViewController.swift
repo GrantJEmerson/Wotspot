@@ -139,9 +139,9 @@ class WebBrowserViewController: UIViewController {
     
     private func loadHomePage() {
         if isHost {
-            webView.load(URLRequest(url: URL(string: "https://www.google.com")!))
+            let _ = webView.load(URLRequest(url: URL(string: "https://www.google.com")!))
         } else {
-            webView.loadHTMLString(WebErrorPage.offline, baseURL: nil)
+            let _ = webView.loadHTMLString(WebErrorPage.offline, baseURL: nil)
         }
     }
     
