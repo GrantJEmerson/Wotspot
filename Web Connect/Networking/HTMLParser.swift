@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class HTMLParser {
+final public class HTMLParser {
     
     class func removeLocalURLInstancesFrom(_ html: String, with baseURString: String) -> String {
         let revisedHTML = html.replacingOccurrences(of: "href=\"/", with: "href=\"\(baseURString)/")

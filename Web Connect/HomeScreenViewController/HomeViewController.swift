@@ -44,14 +44,16 @@ class HomeViewController: UIViewController {
     private lazy var hostSessionButton: UIButton = {
         let button = HomePageButton()
         button.isEnabled = Reachability.isConnectedToNetwork()
-        button.setTitle("Host", for: .normal)
+        let host = NSLocalizedString("Host", comment: "Title of Button to host a new Web Share Session")
+        button.setTitle(host, for: .normal)
         button.addTarget(self, action: #selector(startHostingSessionTapped), for: .touchUpInside)
         return button
     }()
     
     private lazy var joinSessionButton: UIButton = {
         let button = HomePageButton()
-        button.setTitle("Join", for: .normal)
+        let join = NSLocalizedString("Join", comment: "Title of Button to join a Web Share Session")
+        button.setTitle(join, for: .normal)
         button.addTarget(self, action: #selector(joinAvailableSessionTapped), for: .touchUpInside)
         return button
     }()
@@ -59,7 +61,7 @@ class HomeViewController: UIViewController {
     private let selectionOrTextLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Futura", size: 18)
-        label.text = "or"
+        label.text = NSLocalizedString("or", comment: "Label text between Join and Host Options on the Home Screen")
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

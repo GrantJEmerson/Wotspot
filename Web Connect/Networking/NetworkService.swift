@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class NetworkService {
+final public class NetworkService {
     
     class func getSearchResult(forSearchRequest searchRequest: SearchRequest,
                                completion: @escaping (WebPage?) -> ()) {
@@ -22,7 +22,7 @@ public class NetworkService {
             html = HTMLParser.removeLocalURLInstancesFrom(html, with: searchRequest.url.domainNameURL.absoluteString)
             let resourceURLs = HTMLParser.imageSourcesIn(html) + HTMLParser.linkTagSourcesIn(html)
             NetworkService.getResourcesFor(resourceURLs) { (resources) in
-                let webPage = WebPage(html: data, resources: resources, url: searchRequest.url,
+                let webPage = WebPage(html: html.data(using: .utf8)!, resources: resources, url: searchRequest.url,
                                       mimeType: responseMimeType, textEncoding: responseCharacterEncoding)
                 completion(webPage)
             }

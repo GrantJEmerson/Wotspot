@@ -18,8 +18,8 @@ class CustomWebView: WKWebView {
         return loadedHTMLURL
     }
     
-    public var backwardURLs: [URL]?
-    public var forwardURLs: [URL]?
+    public var backwardURLs = [URL]()
+    public var forwardURLs = [URL]()
     
     private var currentCachedHTMLUrl: URL?
     private var currentCachedResourcesUrls = [URL]()
@@ -108,7 +108,6 @@ private extension Data {
             }
             html = html.replacingOccurrences(of: resource.internetURL, with: resourceURL.absoluteString)
         }
-        
         return (html.data(using: .utf8)!, resourceURLs)
     }
 }

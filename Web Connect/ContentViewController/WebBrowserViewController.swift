@@ -166,9 +166,6 @@ extension WebBrowserViewController: WKNavigationDelegate {
         guard let url = navigationAction.request.url,
             navigationAction.navigationType.matchesAnyOf([.linkActivated, .backForward, .reload]) else { return }
         delegate?.searchFor(url)
-        guard navigationAction.navigationType == .linkActivated else { return }
-        self.webView.backwardURLs?.append(url)
-        self.webView.forwardURLs?.removeAll()
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {

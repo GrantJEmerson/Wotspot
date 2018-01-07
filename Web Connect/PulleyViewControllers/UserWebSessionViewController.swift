@@ -106,6 +106,15 @@ class UserWebSessionViewController: PulleyViewController {
             self.webView?.loadHTMLString(WebErrorPage.offline, baseURL: nil)
         }
     }
+    
+    private func preformNavigationalOperationWith(_ url: URL) {
+        let searchRequest = SearchRequest(url: url, userAgent: userAgent)
+        drawerDelegate?.prepareForSearch()
+        drawerDelegate?.updateBookmarkIconFor(url)
+        sendSearchRequest(searchRequest)
+        guard let currentURL = webView?.url else { return }
+        webView?.forwardURLs.append(currentURL)
+    }
 }
 
 extension UserWebSessionViewController: MCSessionDelegate {
@@ -134,9 +143,10 @@ extension UserWebSessionViewController: ContentDelegate, ParentDelegate {
         let searchRequest = SearchRequest(url: url, userAgent: userAgent)
         drawerDelegate?.prepareForSearch()
         drawerDelegate?.updateBookmarkIconFor(url)
+        webView?.forwardURLs.removeAll()
         sendSearchRequest(searchRequest)
-        webView?.backwardURLs?.append(url)
-        webView?.forwardURLs?.removeAll()
+        guard let currentURL = webView?.url else { return }
+        webView?.backwardURLs.append(currentURL)
     }
     
     func reload() {
@@ -151,21 +161,15 @@ extension UserWebSessionViewController: ContentDelegate, ParentDelegate {
     }
     
     func goBack() {
-        guard let previousURL = webView?.backwardURLs?.removeLast() else { return }
-        let searchRequest = SearchRequest(url: previousURL, userAgent: userAgent)
-        drawerDelegate?.prepareForSearch()
-        drawerDelegate?.updateBookmarkIconFor(previousURL)
-        sendSearchRequest(searchRequest)
-        webView?.forwardURLs?.append(previousURL)
+        guard !(webView?.backwardURLs.isEmpty ?? true),
+            let previousURL = webView?.backwardURLs.removeLast() else { return }
+        preformNavigationalOperationWith(previousURL)
     }
     
     func goForward() {
-        guard let nextURL = webView?.forwardURLs?.removeLast() else { return }
-        let searchRequest = SearchRequest(url: nextURL, userAgent: userAgent)
-        drawerDelegate?.prepareForSearch()
-        drawerDelegate?.updateBookmarkIconFor(nextURL)
-        sendSearchRequest(searchRequest)
-        webView?.backwardURLs?.append(nextURL)
+        guard !(webView?.forwardURLs.isEmpty ?? true),
+            let nextURL = webView?.forwardURLs.removeLast() else { return }
+        preformNavigationalOperationWith(nextURL)
     }
     
     func bookmark() {
