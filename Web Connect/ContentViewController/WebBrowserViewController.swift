@@ -61,6 +61,20 @@ class WebBrowserViewController: UIViewController {
         return webView
     }()
     
+    private lazy var backwardsNavigationView: NavigationNotifierView = {
+        let view = NavigationNotifierView(frame: .zero, drawDirection: .backwards)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.alpha = 0
+        return view
+    }()
+    
+    private lazy var forwardNavigationView: NavigationNotifierView = {
+        let view = NavigationNotifierView(frame: .zero, drawDirection: .forwards)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.alpha = 0
+        return view
+    }()
+    
     private lazy var leftEdgePanRecognizer: UIScreenEdgePanGestureRecognizer = {
         let edgePan = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(leftScreenEdgeSwiped(_:)))
         edgePan.edges = .left
@@ -87,19 +101,7 @@ class WebBrowserViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.addSubview(webView)
-        
-        webViewBottomConstraint = webView.bottomAnchor.constraint(equalTo: view.bottomAnchor,
-                                                                  constant: isPad ? 0 : bottomSpacing)
-        webViewTopConstraint = webView.topAnchor.constraint(equalTo: view.topAnchor,
-                                                            constant: statusBarHeight)
-        NSLayoutConstraint.activate([
-            webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            webView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            webViewTopConstraint!,
-            webViewBottomConstraint!
-        ])
-        
+        setUpSubviews()
         loadHomePage()
 
         guard !isHost else { return }
@@ -126,16 +128,52 @@ class WebBrowserViewController: UIViewController {
     @objc private func leftScreenEdgeSwiped(_ recognizer: UIScreenEdgePanGestureRecognizer) {
         if recognizer.state == .recognized {
             delegate?.goBack!()
+            backwardsNavigationView.show()
         }
     }
     
     @objc private func rightScreenEdgeSwiped(_ recognizer: UIScreenEdgePanGestureRecognizer) {
         if recognizer.state == .recognized {
             delegate?.goForward!()
+            forwardNavigationView.show()
         }
     }
     
     // MARK: Private Functions
+    
+    private func setUpSubviews() {
+        view.add(webView)
+        
+        webViewBottomConstraint = webView.bottomAnchor.constraint(equalTo: view.bottomAnchor,
+                                                                  constant: isPad ? 0 : bottomSpacing)
+        webViewTopConstraint = webView.topAnchor.constraint(equalTo: view.topAnchor,
+                                                            constant: statusBarHeight)
+        NSLayoutConstraint.activate([
+            webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            webView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            webViewTopConstraint!,
+            webViewBottomConstraint!
+        ])
+        
+        guard !isHost else { return }
+        
+        view.add(backwardsNavigationView, forwardNavigationView)
+        
+        NSLayoutConstraint.activate([
+            backwardsNavigationView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            backwardsNavigationView.topAnchor.constraint(equalTo: webView.topAnchor),
+            backwardsNavigationView.bottomAnchor.constraint(equalTo: webView.bottomAnchor),
+            backwardsNavigationView.widthAnchor.constraint(equalToConstant: 100),
+            
+            forwardNavigationView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            forwardNavigationView.topAnchor.constraint(equalTo: webView.topAnchor),
+            forwardNavigationView.bottomAnchor.constraint(equalTo: webView.bottomAnchor),
+            forwardNavigationView.widthAnchor.constraint(equalToConstant: 100),
+        ])
+        
+        backwardsNavigationView.setNeedsDisplay()
+        forwardNavigationView.setNeedsDisplay()
+    }
     
     private func loadHomePage() {
         if isHost {

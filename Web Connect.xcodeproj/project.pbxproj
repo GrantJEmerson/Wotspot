@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		55054CBF2001DEDE00829308 /* NavigationNotifierView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55054CBE2001DEDE00829308 /* NavigationNotifierView.swift */; };
 		550AFE701FDC48CA000CFAED /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550AFE6F1FDC48CA000CFAED /* HomeViewController.swift */; };
 		550AFE721FDC522B000CFAED /* BookmarkCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550AFE711FDC522B000CFAED /* BookmarkCollectionViewCell.swift */; };
 		550DF5181FF81698000268A5 /* EndSessionFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550DF5171FF81698000268A5 /* EndSessionFooterView.swift */; };
@@ -25,6 +26,9 @@
 		555BF0431FF5A5CA008A095D /* UIView+AddingSubViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555BF0421FF5A5CA008A095D /* UIView+AddingSubViews.swift */; };
 		555E42911FFB266700EFE1D8 /* URL+SearchInit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555E42901FFB266700EFE1D8 /* URL+SearchInit.swift */; };
 		555E42931FFB2F0000EFE1D8 /* AdaptiveLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555E42921FFB2F0000EFE1D8 /* AdaptiveLabel.swift */; };
+		55654C6F2002F65700090797 /* PiChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55654C6E2002F65700090797 /* PiChartView.swift */; };
+		556CBFE42002BDD100FBAF7D /* String+isLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553DF69A1FFE9C3A00B3EF04 /* String+isLink.swift */; };
+		556CBFE52002BE0200FBAF7D /* CustomWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55529BAD1FE98C5E0077A520 /* CustomWebView.swift */; };
 		557A6CCE1FF3FE290030F88A /* UIColor+ColorSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557A6CCD1FF3FE290030F88A /* UIColor+ColorSet.swift */; };
 		559872AE1FF6BEC900A726D9 /* String+NilIfEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559872AD1FF6BEC900A726D9 /* String+NilIfEmpty.swift */; };
 		55C0DFE61FFD7C5B00A03B91 /* OfflineErrorPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C0DFE51FFD7C5B00A03B91 /* OfflineErrorPage.swift */; };
@@ -51,6 +55,8 @@
 		55D2081A1FF49FC2009AF34F /* Web_Share.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 55D208181FF49FC2009AF34F /* Web_Share.xcdatamodeld */; };
 		55D2081C1FF49FC2009AF34F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55D2081B1FF49FC2009AF34F /* Assets.xcassets */; };
 		55D2081F1FF49FC2009AF34F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55D2081D1FF49FC2009AF34F /* Main.storyboard */; };
+		55EFC84A20042E80009620A4 /* WebShareWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EFC84920042E80009620A4 /* WebShareWindowController.swift */; };
+		55EFC84B2004311B009620A4 /* String+NilIfEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559872AD1FF6BEC900A726D9 /* String+NilIfEmpty.swift */; };
 		55F1D6A21FDB8DD7003B223F /* UIVisualEffectView+SwitchStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F1D6A11FDB8DD7003B223F /* UIVisualEffectView+SwitchStyle.swift */; };
 		55F1D6A51FDB90F1003B223F /* WebSessionDrawerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F1D6A31FDB90F1003B223F /* WebSessionDrawerViewController.swift */; };
 		55F1D6A61FDB90F1003B223F /* WebSessionDrawerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55F1D6A41FDB90F1003B223F /* WebSessionDrawerViewController.xib */; };
@@ -62,6 +68,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		55054CBE2001DEDE00829308 /* NavigationNotifierView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationNotifierView.swift; sourceTree = "<group>"; };
 		550AFE6F1FDC48CA000CFAED /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		550AFE711FDC522B000CFAED /* BookmarkCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkCollectionViewCell.swift; sourceTree = "<group>"; };
 		550DF5171FF81698000268A5 /* EndSessionFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndSessionFooterView.swift; sourceTree = "<group>"; };
@@ -80,6 +87,7 @@
 		555BF0421FF5A5CA008A095D /* UIView+AddingSubViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+AddingSubViews.swift"; sourceTree = "<group>"; };
 		555E42901FFB266700EFE1D8 /* URL+SearchInit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+SearchInit.swift"; sourceTree = "<group>"; };
 		555E42921FFB2F0000EFE1D8 /* AdaptiveLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveLabel.swift; sourceTree = "<group>"; };
+		55654C6E2002F65700090797 /* PiChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PiChartView.swift; sourceTree = "<group>"; };
 		557A6CCD1FF3FE290030F88A /* UIColor+ColorSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+ColorSet.swift"; sourceTree = "<group>"; };
 		559872AD1FF6BEC900A726D9 /* String+NilIfEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+NilIfEmpty.swift"; sourceTree = "<group>"; };
 		55C0DFE51FFD7C5B00A03B91 /* OfflineErrorPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineErrorPage.swift; sourceTree = "<group>"; };
@@ -112,6 +120,7 @@
 		55D208201FF49FC2009AF34F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		55D208211FF49FC2009AF34F /* Web_Share.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Web_Share.entitlements; sourceTree = "<group>"; };
 		55E4A8821FFC17790076E7AD /* Web Share.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Web Share.entitlements"; sourceTree = "<group>"; };
+		55EFC84920042E80009620A4 /* WebShareWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebShareWindowController.swift; sourceTree = "<group>"; };
 		55F1D6A11FDB8DD7003B223F /* UIVisualEffectView+SwitchStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIVisualEffectView+SwitchStyle.swift"; sourceTree = "<group>"; };
 		55F1D6A31FDB90F1003B223F /* WebSessionDrawerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSessionDrawerViewController.swift; sourceTree = "<group>"; };
 		55F1D6A41FDB90F1003B223F /* WebSessionDrawerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WebSessionDrawerViewController.xib; sourceTree = "<group>"; };
@@ -264,8 +273,10 @@
 			children = (
 				55E4A8821FFC17790076E7AD /* Web Share.entitlements */,
 				55D208141FF49FC2009AF34F /* AppDelegate.swift */,
+				55EFC84920042E80009620A4 /* WebShareWindowController.swift */,
 				55F6CE641FFC0AD600D7E0B4 /* MainWebViewController.swift */,
 				55F6CE6C1FFC0FBB00D7E0B4 /* MCPeerID+Default.swift */,
+				55654C6E2002F65700090797 /* PiChartView.swift */,
 				55D2081B1FF49FC2009AF34F /* Assets.xcassets */,
 				55D2081D1FF49FC2009AF34F /* Main.storyboard */,
 				55D208201FF49FC2009AF34F /* Info.plist */,
@@ -300,6 +311,7 @@
 				55CB1C0C1FDA25E700A1E377 /* PastelView.swift */,
 				555E42921FFB2F0000EFE1D8 /* AdaptiveLabel.swift */,
 				55529BAD1FE98C5E0077A520 /* CustomWebView.swift */,
+				55054CBE2001DEDE00829308 /* NavigationNotifierView.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -440,6 +452,7 @@
 				559872AE1FF6BEC900A726D9 /* String+NilIfEmpty.swift in Sources */,
 				55D1B7691FF18E4000379E34 /* DataUsageGraphView.swift in Sources */,
 				55CB1BF41FDA235100A1E377 /* AppDelegate.swift in Sources */,
+				55054CBF2001DEDE00829308 /* NavigationNotifierView.swift in Sources */,
 				55F1D6A21FDB8DD7003B223F /* UIVisualEffectView+SwitchStyle.swift in Sources */,
 				55C0DFE81FFD8ED700A03B91 /* HTMLParser.swift in Sources */,
 				55CB1C141FDA25E800A1E377 /* UIView+constrainToParent.swift in Sources */,
@@ -460,11 +473,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55EFC84A20042E80009620A4 /* WebShareWindowController.swift in Sources */,
+				55654C6F2002F65700090797 /* PiChartView.swift in Sources */,
 				55F6CE6D1FFC0FBB00D7E0B4 /* MCPeerID+Default.swift in Sources */,
 				55F6CE651FFC0AD600D7E0B4 /* MainWebViewController.swift in Sources */,
+				556CBFE52002BE0200FBAF7D /* CustomWebView.swift in Sources */,
 				55F6CE681FFC0E7800D7E0B4 /* WebDataStructures.swift in Sources */,
 				55F6CE671FFC0CBD00D7E0B4 /* URL+SearchInit.swift in Sources */,
+				556CBFE42002BDD100FBAF7D /* String+isLink.swift in Sources */,
 				55D2081A1FF49FC2009AF34F /* Web_Share.xcdatamodeld in Sources */,
+				55EFC84B2004311B009620A4 /* String+NilIfEmpty.swift in Sources */,
 				55D208151FF49FC2009AF34F /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

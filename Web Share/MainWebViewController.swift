@@ -39,10 +39,10 @@ class MainWebViewController: NSViewController {
     
     private lazy var searchButtonScript: WKUserScript = {
         let source = """
-                        var searchButton = document.getElementById("tsbb");
+                        var searchButton = document.getElementById("_fZl");
                         searchButton.addEventListener("click", function() {
                             var searchText = document.getElementById("lst-ib").value;
-                            window.webkit.messageHandlers.iosListener.postMessage("Search: " + searchText);
+                            window.webkit.messageHandlers.macListener.postMessage("Search: " + searchText);
                         });
                     """
         let script = WKUserScript(source: source, injectionTime: .atDocumentEnd, forMainFrameOnly: false)
@@ -52,12 +52,12 @@ class MainWebViewController: NSViewController {
     private lazy var configuration: WKWebViewConfiguration = {
         let configuration = WKWebViewConfiguration()
         configuration.userContentController.addUserScript(searchButtonScript)
-        configuration.userContentController.add(self, name: "iosListener")
+        configuration.userContentController.add(self, name: "macListener")
         return configuration
     }()
     
-    public lazy var webView: WKWebView = {
-        let webView = WKWebView(frame: .zero, configuration: configuration)
+    public lazy var webView: CustomWebView = {
+        let webView = CustomWebView(frame: .zero, configuration: configuration)
         webView.translatesAutoresizingMaskIntoConstraints = false
         return webView
     }()
@@ -67,6 +67,7 @@ class MainWebViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         assistant.start()
+        setUpSubviews()
     }
     
     override func viewWillAppear() {
@@ -82,7 +83,24 @@ class MainWebViewController: NSViewController {
         //TODO: Update progressview with webview.estimatedprogress
     }
     
+    // MARK: Public Functions
+    
+    public func search(_ url: URL) {
+        sendSearchRequest(SearchRequest(url: url))
+    }
+    
     // MARK: Private Functions
+    
+    private func setUpSubviews() {
+        view.addSubview(webView)
+        
+        NSLayoutConstraint.activate([
+            webView.topAnchor.constraint(equalTo: view.topAnchor),
+            webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            webView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            webView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+    }
     
     private func decodeMultipeerConnectivityData(_ data: Data) {
         if let searchResult = try? PropertyListDecoder().decode(SearchResult.self, from: data) {
@@ -116,14 +134,6 @@ class MainWebViewController: NSViewController {
 
 extension MainWebViewController: MCSessionDelegate {
     
-    func browserViewControllerDidFinish(_ browserViewController: MCBrowserViewController) {
-        dismissViewController(browserViewController)
-    }
-    
-    func browserViewControllerWasCancelled(_ browserViewController: MCBrowserViewController) {
-        dismissViewController(browserViewController)
-    }
-    
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
         decodeMultipeerConnectivityData(data)
     }
@@ -132,17 +142,9 @@ extension MainWebViewController: MCSessionDelegate {
         
     }
     
-    func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
-        
-    }
-    
-    func session(_ session: MCSession, didStartReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, with progress: Progress) {
-        
-    }
-    
-    func session(_ session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, at localURL: URL?, withError error: Error?) {
-        
-    }
+    func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {}
+    func session(_ session: MCSession, didStartReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, with progress: Progress) {}
+    func session(_ session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, at localURL: URL?, withError error: Error?) {}
 }
 
 extension MainWebViewController: WKScriptMessageHandler {
@@ -152,7 +154,6 @@ extension MainWebViewController: WKScriptMessageHandler {
             message.hasPrefix("Search: ") else { return }
         let search = message.replacingOccurrences(of: "Search: ", with: "")
         guard let url = URL(search: search) else { return }
-        // Search for url
+        sendSearchRequest(SearchRequest(url: url))
     }
 }
-

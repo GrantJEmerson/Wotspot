@@ -10,7 +10,7 @@ import MultipeerConnectivity
 
 enum UserAgent: String, Codable {
     case mobile = "Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5376e Safari/8536.25"
-    case desktop = ""
+    case desktop = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/604.5.3 (KHTML, like Gecko) Version/11.0.3 Safari/604.5.3"
 }
 
 struct WebPage: Codable {
@@ -29,6 +29,10 @@ struct Resource: Codable {
 struct SearchRequest: Codable {
     let url: URL
     let userAgent: UserAgent
+    init(url: URL, userAgent: UserAgent = .desktop) {
+        self.url = url
+        self.userAgent = userAgent
+    }
 }
 
 struct SearchResult: Codable {

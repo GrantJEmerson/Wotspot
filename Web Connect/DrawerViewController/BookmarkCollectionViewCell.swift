@@ -108,7 +108,7 @@ class BookmarkCollectionViewCell: UICollectionViewCell {
     
     private func setUpSubviews() {
         addSubview(informationView)
-        informationView.addSubviews([screenshotImageView, titleLabel])
+        informationView.add(screenshotImageView, titleLabel)
         addSubview(deleteView)
         
         informationView.constrainToParent()

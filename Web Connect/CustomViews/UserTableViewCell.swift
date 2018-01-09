@@ -104,9 +104,8 @@ class UserTableViewCell: UITableViewCell {
     
     private func setUpSubviews() {
         
-        addSubviews([
-            usernameLabel, dataUsedPercentageLabel, seperatorView1, dataUsageGraph,
-            seperatorView2, removeButton, seperatorView3, addDataButton])
+        add(usernameLabel, dataUsedPercentageLabel, seperatorView1, dataUsageGraph,
+            seperatorView2, removeButton, seperatorView3, addDataButton)
         
         NSLayoutConstraint.activate([
             usernameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: spacing),

@@ -683,18 +683,101 @@
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
             <objects>
-                <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
-                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
+                <windowController id="B8D-0N-5wS" customClass="WebShareWindowController" customModule="Web_Share" customModuleProvider="target" sceneMemberID="viewController">
+                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" titleVisibility="hidden" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="240" width="480" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+                        <toolbar key="toolbar" implicitIdentifier="78FBC9BC-9980-40BE-B1FC-D704F89492CA" autosavesConfiguration="NO" showsBaselineSeparator="NO" displayMode="iconAndLabel" sizeMode="regular" id="b6J-uh-RYv">
+                            <allowedToolbarItems>
+                                <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="qHA-w4-KNk"/>
+                                <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="U7B-Xl-9ng"/>
+                                <toolbarItem implicitItemIdentifier="1FF22063-C5CB-45FB-AE19-9B0952B0D7CA" label="Search Bar" paletteLabel="Search Bar" visibilityPriority="1" id="dPf-2r-fDg">
+                                    <nil key="toolTip"/>
+                                    <size key="minSize" width="96" height="22"/>
+                                    <size key="maxSize" width="1000" height="22"/>
+                                    <searchField key="view" wantsLayer="YES" verticalHuggingPriority="750" textCompletion="NO" id="JOJ-OX-1tb">
+                                        <rect key="frame" x="0.0" y="14" width="240" height="22"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                        <searchFieldCell key="cell" selectable="YES" editable="YES" borderStyle="bezel" placeholderString="Search or enter website name" usesSingleLineMode="YES" bezelStyle="round" id="XDE-OM-IFy">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </searchFieldCell>
+                                        <connections>
+                                            <action selector="searchBarDidEnter:" target="B8D-0N-5wS" id="JHK-Kd-hyR"/>
+                                        </connections>
+                                    </searchField>
+                                </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="F6F64A74-4E98-4C7A-A3B2-7CDCDCE4B5F1" label="Back Button" paletteLabel="Back Button" image="NSGoBackTemplate" id="QZV-yx-jAc">
+                                    <nil key="toolTip"/>
+                                    <size key="minSize" width="38" height="32"/>
+                                    <size key="maxSize" width="38" height="32"/>
+                                    <button key="view" verticalHuggingPriority="750" id="sOc-Aw-xRC" customClass="NavigationButton" customModule="Web_Share" customModuleProvider="target">
+                                        <rect key="frame" x="17" y="14" width="38" height="32"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSGoBackTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="2fY-DE-vtj">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="backButtonClicked:" target="B8D-0N-5wS" id="xXx-6H-hUg"/>
+                                        </connections>
+                                    </button>
+                                </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="E48B2A61-C6CD-42A6-BF2B-0EB5D038A323" label="Forward Button" paletteLabel="Forward Button" image="NSGoForwardTemplate" id="8ak-P9-Vjk">
+                                    <nil key="toolTip"/>
+                                    <size key="minSize" width="38" height="32"/>
+                                    <size key="maxSize" width="38" height="43"/>
+                                    <button key="view" verticalHuggingPriority="750" id="k4c-vL-Lo3">
+                                        <rect key="frame" x="25" y="14" width="38" height="43"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSGoForwardTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="EJV-35-HtT">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="forwardButtonClicked:" target="B8D-0N-5wS" id="f8R-we-CZJ"/>
+                                        </connections>
+                                    </button>
+                                </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="F11CC1BE-0CD5-4B05-963A-748449CC426D" label="PiChartView" paletteLabel="PiChartView" tag="-1" id="z9H-wc-wAp">
+                                    <nil key="toolTip"/>
+                                    <size key="minSize" width="60" height="32"/>
+                                    <size key="maxSize" width="60" height="32"/>
+                                    <customView key="view" id="32P-v8-bup" customClass="PiChartView" customModule="Web_Share" customModuleProvider="target">
+                                        <rect key="frame" x="6" y="14" width="60" height="32"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    </customView>
+                                </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="2787F534-4D03-44EF-9616-187CE5A4D54B" label="Status Indicator View" paletteLabel="Status Indicator View" tag="-1" id="aua-kn-aRS">
+                                    <nil key="toolTip"/>
+                                    <size key="minSize" width="10" height="10"/>
+                                    <size key="maxSize" width="10" height="96"/>
+                                    <customView key="view" id="sUJ-Yc-tem">
+                                        <rect key="frame" x="55" y="14" width="10" height="10"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    </customView>
+                                </toolbarItem>
+                            </allowedToolbarItems>
+                            <defaultToolbarItems>
+                                <toolbarItem reference="QZV-yx-jAc"/>
+                                <toolbarItem reference="8ak-P9-Vjk"/>
+                                <toolbarItem reference="U7B-Xl-9ng"/>
+                                <toolbarItem reference="dPf-2r-fDg"/>
+                                <toolbarItem reference="U7B-Xl-9ng"/>
+                                <toolbarItem reference="z9H-wc-wAp"/>
+                                <toolbarItem reference="aua-kn-aRS"/>
+                            </defaultToolbarItems>
+                        </toolbar>
                         <connections>
                             <outlet property="delegate" destination="B8D-0N-5wS" id="98r-iN-zZc"/>
                         </connections>
                     </window>
                     <connections>
-                        <segue destination="jA0-Gk-j3o" kind="relationship" relationship="window.shadowedContentViewController" id="2kf-Yu-oya"/>
+                        <outlet property="searchBar" destination="JOJ-OX-1tb" id="aK6-gk-5du"/>
+                        <segue destination="7jR-kO-ui6" kind="relationship" relationship="window.shadowedContentViewController" id="EI2-k6-1m7"/>
                     </connections>
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -702,17 +785,21 @@
             <point key="canvasLocation" x="75" y="250"/>
         </scene>
         <!--Main Web View Controller-->
-        <scene sceneID="by1-QA-Hvp">
+        <scene sceneID="wOw-Bp-S26">
             <objects>
-                <viewController id="jA0-Gk-j3o" customClass="MainWebViewController" customModule="Web_Share" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="Bsh-Uf-kjU">
+                <viewController id="7jR-kO-ui6" customClass="MainWebViewController" customModule="Web_Share" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="6Pz-9j-MyH">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </view>
                 </viewController>
-                <customObject id="Efn-tJ-UqX" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <customObject id="gTT-JA-7aq" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="671"/>
+            <point key="canvasLocation" x="75" y="731"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="NSGoBackTemplate" width="9" height="12"/>
+        <image name="NSGoForwardTemplate" width="9" height="12"/>
+    </resources>
 </document>

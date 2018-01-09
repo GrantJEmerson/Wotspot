@@ -103,9 +103,9 @@ class ProfileManagementView: UIView {
     
     private func setUpSubViews() {
         
-        addSubviews([
-            profileManageMentViewTitleLabel, seperatorView1, userNameTitleLabel, seperatorView2,
-            dataUsageGraph, seperatorView3, leaveSessionButton, userNameTextField])
+        add(profileManageMentViewTitleLabel, seperatorView1, userNameTitleLabel,
+            seperatorView2, dataUsageGraph, seperatorView3,
+            leaveSessionButton, userNameTextField)
         
         NSLayoutConstraint.activate([
             profileManageMentViewTitleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),

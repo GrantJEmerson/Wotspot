@@ -123,8 +123,8 @@ class DataUsageGraphView: UIView {
     // MARK: Private Functions
     
     private func setUpSubviews() {
-        addSubviews([enclosingDataGraphView, usedDataTitleLabel, availableDataTitleLabel])
-        enclosingDataGraphView.addSubviews([usedDataGraphView, availableDataGraphView])
+        add(enclosingDataGraphView, usedDataTitleLabel, availableDataTitleLabel)
+        enclosingDataGraphView.add(usedDataGraphView, availableDataGraphView)
         
         usedDataGraphView.addSubview(usedDataAmountLabel)
         availableDataGraphView.addSubview(availableDataAmountLabel)

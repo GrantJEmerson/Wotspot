@@ -94,7 +94,7 @@ class HomeViewController: UIViewController {
     private func setUpSubviews() {
         
         view.addSubview(backgroundGradientView)
-        buttonGroupingView.addSubviews([hostSessionButton, joinSessionButton, selectionOrTextLabel])
+        buttonGroupingView.add(hostSessionButton, joinSessionButton, selectionOrTextLabel)
         view.addSubview(buttonGroupingView)
         
         backgroundGradientView.constrainToParent()

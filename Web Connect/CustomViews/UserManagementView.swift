@@ -101,7 +101,7 @@ class UserManagementView: UIView {
     
     private func setUpSubViews() {
         
-        addSubviews([titleLabel, addUsersButton, seperatorView1, userCountLabel, tableView])
+        add(titleLabel, addUsersButton, seperatorView1, userCountLabel, tableView)
         
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: spacing),
