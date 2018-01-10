@@ -691,25 +691,24 @@
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
                         <toolbar key="toolbar" implicitIdentifier="78FBC9BC-9980-40BE-B1FC-D704F89492CA" autosavesConfiguration="NO" showsBaselineSeparator="NO" displayMode="iconAndLabel" sizeMode="regular" id="b6J-uh-RYv">
                             <allowedToolbarItems>
-                                <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="qHA-w4-KNk"/>
-                                <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="U7B-Xl-9ng"/>
-                                <toolbarItem implicitItemIdentifier="1FF22063-C5CB-45FB-AE19-9B0952B0D7CA" label="Search Bar" paletteLabel="Search Bar" visibilityPriority="1" id="dPf-2r-fDg">
+                                <toolbarItem implicitItemIdentifier="F7DBABB5-F003-46A5-B08A-EE83519F5015" label="Search" paletteLabel="SearchBar" id="OjO-8F-Df9">
                                     <nil key="toolTip"/>
-                                    <size key="minSize" width="96" height="22"/>
+                                    <size key="minSize" width="240" height="22"/>
                                     <size key="maxSize" width="1000" height="22"/>
-                                    <searchField key="view" wantsLayer="YES" verticalHuggingPriority="750" textCompletion="NO" id="JOJ-OX-1tb">
+                                    <textField key="view" verticalHuggingPriority="750" id="juI-BK-Lr1">
                                         <rect key="frame" x="0.0" y="14" width="240" height="22"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                                        <searchFieldCell key="cell" selectable="YES" editable="YES" borderStyle="bezel" placeholderString="Search or enter website name" usesSingleLineMode="YES" bezelStyle="round" id="XDE-OM-IFy">
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Search or enter website name" usesSingleLineMode="YES" bezelStyle="round" id="l1w-28-xwG">
                                             <font key="font" metaFont="system"/>
-                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                        </searchFieldCell>
+                                        </textFieldCell>
                                         <connections>
-                                            <action selector="searchBarDidEnter:" target="B8D-0N-5wS" id="JHK-Kd-hyR"/>
+                                            <action selector="searchBarDidEnter:" target="B8D-0N-5wS" id="NY8-1L-AuT"/>
                                         </connections>
-                                    </searchField>
+                                    </textField>
                                 </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="U7B-Xl-9ng"/>
                                 <toolbarItem implicitItemIdentifier="F6F64A74-4E98-4C7A-A3B2-7CDCDCE4B5F1" label="Back Button" paletteLabel="Back Button" image="NSGoBackTemplate" id="QZV-yx-jAc">
                                     <nil key="toolTip"/>
                                     <size key="minSize" width="38" height="32"/>
@@ -753,20 +752,23 @@
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="2787F534-4D03-44EF-9616-187CE5A4D54B" label="Status Indicator View" paletteLabel="Status Indicator View" tag="-1" id="aua-kn-aRS">
                                     <nil key="toolTip"/>
-                                    <size key="minSize" width="10" height="10"/>
-                                    <size key="maxSize" width="10" height="96"/>
-                                    <customView key="view" id="sUJ-Yc-tem">
-                                        <rect key="frame" x="55" y="14" width="10" height="10"/>
+                                    <size key="minSize" width="8" height="8"/>
+                                    <size key="maxSize" width="8" height="11"/>
+                                    <customView key="view" id="sUJ-Yc-tem" customClass="StatusIndicatorView" customModule="Web_Share" customModuleProvider="target">
+                                        <rect key="frame" x="56" y="14" width="8" height="8"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     </customView>
                                 </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="Lsh-3h-OoE"/>
                             </allowedToolbarItems>
                             <defaultToolbarItems>
                                 <toolbarItem reference="QZV-yx-jAc"/>
                                 <toolbarItem reference="8ak-P9-Vjk"/>
+                                <toolbarItem reference="Lsh-3h-OoE"/>
                                 <toolbarItem reference="U7B-Xl-9ng"/>
-                                <toolbarItem reference="dPf-2r-fDg"/>
+                                <toolbarItem reference="OjO-8F-Df9"/>
                                 <toolbarItem reference="U7B-Xl-9ng"/>
+                                <toolbarItem reference="Lsh-3h-OoE"/>
                                 <toolbarItem reference="z9H-wc-wAp"/>
                                 <toolbarItem reference="aua-kn-aRS"/>
                             </defaultToolbarItems>
@@ -776,7 +778,9 @@
                         </connections>
                     </window>
                     <connections>
-                        <outlet property="searchBar" destination="JOJ-OX-1tb" id="aK6-gk-5du"/>
+                        <outlet property="piChartView" destination="32P-v8-bup" id="aow-D0-lHE"/>
+                        <outlet property="searchBar" destination="juI-BK-Lr1" id="lux-vK-lbv"/>
+                        <outlet property="statusIndicatorView" destination="sUJ-Yc-tem" id="Ygi-6O-Oov"/>
                         <segue destination="7jR-kO-ui6" kind="relationship" relationship="window.shadowedContentViewController" id="EI2-k6-1m7"/>
                     </connections>
                 </windowController>

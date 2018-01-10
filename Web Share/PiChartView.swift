@@ -22,6 +22,8 @@ class PiChartView: NSView {
     private lazy var percentageLabel: NSTextField = {
         let textField = NSTextField()
         textField.isEditable = false
+        textField.drawsBackground = false
+        textField.isBezeled = false
         textField.stringValue = "75%"
         textField.alignment = .center
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -61,6 +63,8 @@ class PiChartView: NSView {
 }
 
 class PiChart: NSView {
+    
+    // MARK: Properties
     
     open var percentage: CGFloat = 0.75 {
         didSet {

@@ -12,20 +12,25 @@ class WebShareWindowController: NSWindowController, NSWindowDelegate  {
     
     // MARK: Properties
     
-    var mainWebViewController: MainWebViewController! { return contentViewController as? MainWebViewController }
+    var mainWebViewController: MainWebViewController! {
+        return contentViewController as? MainWebViewController
+    }
+    @IBOutlet weak var searchBar: NSTextField!
+    @IBOutlet weak var piChartView: PiChartView!
+    @IBOutlet weak var statusIndicatorView: StatusIndicatorView!
     
-    @IBOutlet weak var searchBar: NSSearchField!
-     
     // MARK: IBActions
     
     @IBAction func backButtonClicked(_ sender: NSButton) {
+        mainWebViewController.goBack()
     }
     
     @IBAction func forwardButtonClicked(_ sender: NSButton) {
+        mainWebViewController.goForward()
     }
     
-    @IBAction func searchBarDidEnter(_ sender: NSSearchField) {
-        guard let search = sender.stringValue.nilIfEmpty(),
+    @IBAction func searchBarDidEnter(_ sender: NSTextField) {
+        guard let search = searchBar.stringValue.nilIfEmpty(),
             let url = URL(search: search) else { return }
         mainWebViewController.search(url)
     }

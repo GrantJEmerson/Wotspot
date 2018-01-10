@@ -31,6 +31,7 @@
 		556CBFE52002BE0200FBAF7D /* CustomWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55529BAD1FE98C5E0077A520 /* CustomWebView.swift */; };
 		557A6CCE1FF3FE290030F88A /* UIColor+ColorSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557A6CCD1FF3FE290030F88A /* UIColor+ColorSet.swift */; };
 		559872AE1FF6BEC900A726D9 /* String+NilIfEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559872AD1FF6BEC900A726D9 /* String+NilIfEmpty.swift */; };
+		55A4FDD8200565EA00BA19A8 /* StatusIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A4FDD7200565EA00BA19A8 /* StatusIndicatorView.swift */; };
 		55C0DFE61FFD7C5B00A03B91 /* OfflineErrorPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C0DFE51FFD7C5B00A03B91 /* OfflineErrorPage.swift */; };
 		55C0DFE81FFD8ED700A03B91 /* HTMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C0DFE71FFD8ED700A03B91 /* HTMLParser.swift */; };
 		55C9DCEB1FF7517D00F0C02B /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C9DCEA1FF7517D00F0C02B /* Reachability.swift */; };
@@ -90,6 +91,7 @@
 		55654C6E2002F65700090797 /* PiChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PiChartView.swift; sourceTree = "<group>"; };
 		557A6CCD1FF3FE290030F88A /* UIColor+ColorSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+ColorSet.swift"; sourceTree = "<group>"; };
 		559872AD1FF6BEC900A726D9 /* String+NilIfEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+NilIfEmpty.swift"; sourceTree = "<group>"; };
+		55A4FDD7200565EA00BA19A8 /* StatusIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusIndicatorView.swift; sourceTree = "<group>"; };
 		55C0DFE51FFD7C5B00A03B91 /* OfflineErrorPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineErrorPage.swift; sourceTree = "<group>"; };
 		55C0DFE71FFD8ED700A03B91 /* HTMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLParser.swift; sourceTree = "<group>"; };
 		55C9DCEA1FF7517D00F0C02B /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
@@ -277,6 +279,7 @@
 				55F6CE641FFC0AD600D7E0B4 /* MainWebViewController.swift */,
 				55F6CE6C1FFC0FBB00D7E0B4 /* MCPeerID+Default.swift */,
 				55654C6E2002F65700090797 /* PiChartView.swift */,
+				55A4FDD7200565EA00BA19A8 /* StatusIndicatorView.swift */,
 				55D2081B1FF49FC2009AF34F /* Assets.xcassets */,
 				55D2081D1FF49FC2009AF34F /* Main.storyboard */,
 				55D208201FF49FC2009AF34F /* Info.plist */,
@@ -481,6 +484,7 @@
 				55F6CE681FFC0E7800D7E0B4 /* WebDataStructures.swift in Sources */,
 				55F6CE671FFC0CBD00D7E0B4 /* URL+SearchInit.swift in Sources */,
 				556CBFE42002BDD100FBAF7D /* String+isLink.swift in Sources */,
+				55A4FDD8200565EA00BA19A8 /* StatusIndicatorView.swift in Sources */,
 				55D2081A1FF49FC2009AF34F /* Web_Share.xcdatamodeld in Sources */,
 				55EFC84B2004311B009620A4 /* String+NilIfEmpty.swift in Sources */,
 				55D208151FF49FC2009AF34F /* AppDelegate.swift in Sources */,

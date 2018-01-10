@@ -87,6 +87,27 @@ class MainWebViewController: NSViewController {
     
     public func search(_ url: URL) {
         sendSearchRequest(SearchRequest(url: url))
+        webView.forwardURLs.removeAll()
+        guard let currentURL = webView.url else { return }
+        webView.backwardURLs.append(currentURL)
+    }
+    
+    public func goBack() {
+        guard !webView.backwardURLs.isEmpty else { return }
+        let previousURL = webView.backwardURLs.removeLast()
+        let searchRequest = SearchRequest(url: previousURL)
+        sendSearchRequest(searchRequest)
+        guard let currentURL = webView.url else { return }
+        webView.forwardURLs.append(currentURL)
+    }
+    
+    public func goForward() {
+        guard !webView.forwardURLs.isEmpty else { return }
+        let nextURL = webView.forwardURLs.removeLast()
+        let searchRequest = SearchRequest(url: nextURL)
+        sendSearchRequest(searchRequest)
+        guard let currentURL = webView.url else { return }
+        webView.backwardURLs.append(currentURL)
     }
     
     // MARK: Private Functions
@@ -129,7 +150,6 @@ class MainWebViewController: NSViewController {
     private func presentDisconnectedAlert() {
         // TODO: Change connected status
     }
-    
 }
 
 extension MainWebViewController: MCSessionDelegate {

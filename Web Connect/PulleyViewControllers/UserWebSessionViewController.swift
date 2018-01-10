@@ -107,14 +107,7 @@ class UserWebSessionViewController: PulleyViewController {
         }
     }
     
-    private func preformNavigationalOperationWith(_ url: URL) {
-        let searchRequest = SearchRequest(url: url, userAgent: userAgent)
-        drawerDelegate?.prepareForSearch()
-        drawerDelegate?.updateBookmarkIconFor(url)
-        sendSearchRequest(searchRequest)
-        guard let currentURL = webView?.url else { return }
-        webView?.forwardURLs.append(currentURL)
-    }
+
 }
 
 extension UserWebSessionViewController: MCSessionDelegate {
@@ -163,13 +156,19 @@ extension UserWebSessionViewController: ContentDelegate, ParentDelegate {
     func goBack() {
         guard !(webView?.backwardURLs.isEmpty ?? true),
             let previousURL = webView?.backwardURLs.removeLast() else { return }
-        preformNavigationalOperationWith(previousURL)
+        let searchRequest = SearchRequest(url: previousURL)
+        sendSearchRequest(searchRequest)
+        guard let currentURL = webView?.url else { return }
+        webView?.forwardURLs.append(currentURL)
     }
     
     func goForward() {
         guard !(webView?.forwardURLs.isEmpty ?? true),
             let nextURL = webView?.forwardURLs.removeLast() else { return }
-        preformNavigationalOperationWith(nextURL)
+        let searchRequest = SearchRequest(url: nextURL)
+        sendSearchRequest(searchRequest)
+        guard let currentURL = webView?.url else { return }
+        webView?.backwardURLs.append(currentURL)
     }
     
     func bookmark() {
