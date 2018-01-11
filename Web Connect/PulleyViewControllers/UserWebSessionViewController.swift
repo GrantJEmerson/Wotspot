@@ -87,9 +87,9 @@ class UserWebSessionViewController: PulleyViewController {
         guard let data = try? PropertyListEncoder().encode(searchRequest) else { return }
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         do {
-            let host = session.connectedPeers.filter({ $0.displayName == "Host" })
+            guard let host = session.connectedPeers.filter({ $0.displayName == "Host" }).first else { return }
             awaitingURL = searchRequest.url
-            try session.send(data, toPeers: host, with: .reliable)
+            try session.send(data, toPeers: [host], with: .reliable)
         } catch {
             print(error.localizedDescription)
             UIApplication.shared.isNetworkActivityIndicatorVisible = false

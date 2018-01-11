@@ -11,9 +11,19 @@ import MultipeerConnectivity
 import CoreData
 import WebKit
 
+public protocol WindowControllerDelegate {
+    func changeConnectionStatusTo(_ status: MCSessionState)
+    func setDataChartTo(_ percentage: CGFloat)
+    func setLoadingPercentTo(_ percentage: Double)
+}
+
 class MainWebViewController: NSViewController {
     
     // MARK: Properties
+    
+    public var delegate: WindowControllerDelegate?
+    
+    private var bookmarks = [Bookmark]()
     
     private lazy var appDelegate = NSApplication.shared.delegate as? AppDelegate
     private lazy var moc = appDelegate?.persistentContainer.viewContext
@@ -62,12 +72,20 @@ class MainWebViewController: NSViewController {
         return webView
     }()
     
+    @IBOutlet weak var bookmarkView: NSView! {
+        didSet {
+            setUpSubviews()
+        }
+    }
+    
+    @IBOutlet weak var bookmarkTableView: NSTableView!
+    @IBOutlet weak var bookmarkViewTrailingConstraint: NSLayoutConstraint!
+    
     // MARK: View Controller Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         assistant.start()
-        setUpSubviews()
     }
     
     override func viewWillAppear() {
@@ -80,12 +98,24 @@ class MainWebViewController: NSViewController {
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         guard keyPath == "estimatedProgress" else { return }
-        //TODO: Update progressview with webview.estimatedprogress
+        delegate?.setLoadingPercentTo(webView.estimatedProgress)
+    }
+    
+    // MARK: Selector Functions
+    
+    @IBAction func bookmarkViewToggleSelected(_ sender: NSMenuItem) {
+        let open = sender.title == "Hide Bookmarks"
+        bookmarkViewTrailingConstraint.isActive = open
+        sender.title = open ? "Show Bookmarks" : "Hide Bookmarks"
+    }
+    
+    @IBAction func addBookmarkItemSelected(_ sender: NSMenuItem) {
     }
     
     // MARK: Public Functions
     
     public func search(_ url: URL) {
+        prepareForSearch()
         sendSearchRequest(SearchRequest(url: url))
         webView.forwardURLs.removeAll()
         guard let currentURL = webView.url else { return }
@@ -117,10 +147,14 @@ class MainWebViewController: NSViewController {
         
         NSLayoutConstraint.activate([
             webView.topAnchor.constraint(equalTo: view.topAnchor),
-            webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            webView.leadingAnchor.constraint(equalTo: bookmarkView.trailingAnchor),
             webView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             webView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+    }
+    
+    private func prepareForSearch() {
+        delegate?.setLoadingPercentTo(0.2)
     }
     
     private func decodeMultipeerConnectivityData(_ data: Data) {
@@ -128,27 +162,62 @@ class MainWebViewController: NSViewController {
             guard searchResult.webPage.url == awaitingURL else { return }
             awaitingURL = nil
             webView.loadWebPage(searchResult.webPage)
-            // TODO: Update Data Usage Graph
+            delegate?.setDataChartTo(CGFloat(searchResult.dataSet.availablePercentage()))
         } else if let disconnectMessage = String(data: data, encoding: .utf8) {
             guard disconnectMessage == "disconnect" else { return }
             session.disconnect()
-            presentDisconnectedAlert()
+            delegate?.changeConnectionStatusTo(.notConnected)
         }
     }
     
     private func sendSearchRequest(_ searchRequest: SearchRequest) {
         guard let data = try? PropertyListEncoder().encode(searchRequest) else { return }
         do {
-            let host = session.connectedPeers.filter({ $0.displayName == "Host" })
+            guard let host = session.connectedPeers.filter({ $0.displayName == "Host" }).first else { return }
             awaitingURL = searchRequest.url
-            try session.send(data, toPeers: host, with: .reliable)
+            try session.send(data, toPeers: [host], with: .reliable)
         } catch {
             print(error.localizedDescription)
         }
     }
     
-    private func presentDisconnectedAlert() {
-        // TODO: Change connected status
+    private func getBookmarks() {
+        
+        let fetchRequest = Bookmark.fetchRequest() as NSFetchRequest<Bookmark>
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
+        
+        do {
+            guard let bookmarks = try moc?.fetch(fetchRequest) else { return }
+            self.bookmarks = bookmarks
+        } catch {
+            print(error.localizedDescription)
+        }
+        
+        DispatchQueue.main.async {
+            self.bookmarkTableView.reloadData()
+        }
+    }
+}
+
+extension MainWebViewController: NSTableViewDataSource {
+    func numberOfRows(in tableView: NSTableView) -> Int {
+        return bookmarks.count
+    }
+}
+
+extension MainWebViewController: NSTableViewDelegate {
+    
+    func tableViewSelectionDidChange(_ notification: Notification) {
+        let selectedRow = bookmarkTableView.selectedRow
+        guard let url = URL(string: bookmarks[selectedRow].url!) else { return }
+        search(url)
+        bookmarkTableView.deselectRow(selectedRow)
+    }
+    
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+        let cell = bookmarkTableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "bookmarkCellID"), owner: self) as? BookmarkTableViewCell
+        cell?.bookmark = bookmarks[row]
+        return cell
     }
 }
 
@@ -159,7 +228,7 @@ extension MainWebViewController: MCSessionDelegate {
     }
     
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
-        
+        delegate?.changeConnectionStatusTo(state)
     }
     
     func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {}

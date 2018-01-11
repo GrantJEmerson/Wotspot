@@ -12,7 +12,7 @@ class PiChartView: NSView {
     
     // MARK: Properties
     
-    open var percentage: CGFloat = 0.75 {
+    open var percentage: CGFloat = 1 {
         didSet {
             piChart.percentage = percentage
             percentageLabel.stringValue = "\(Int(percentage * 100))%"
@@ -66,7 +66,7 @@ class PiChart: NSView {
     
     // MARK: Properties
     
-    open var percentage: CGFloat = 0.75 {
+    open var percentage: CGFloat = 1 {
         didSet {
             self.draw(bounds)
         }
@@ -76,7 +76,7 @@ class PiChart: NSView {
     override func draw(_ dirtyRect: NSRect) {
         let ovalRect = dirtyRect
         let ovalPath = NSBezierPath()
-        ovalPath.appendArc(withCenter: NSPoint(x: ovalRect.midX, y: ovalRect.midY), radius: ovalRect.width / 3.5, startAngle: 450 * percentage, endAngle: 90, clockwise: true)
+        ovalPath.appendArc(withCenter: NSPoint(x: ovalRect.midX, y: ovalRect.midY), radius: ovalRect.width / 3.5, startAngle: 0, endAngle: (360.0 - percentage * 360) + 0.0001, clockwise: true)
         ovalPath.line(to: NSPoint(x: ovalRect.midX, y: ovalRect.midY))
         ovalPath.close()
         NSColor.darkGray.setFill()

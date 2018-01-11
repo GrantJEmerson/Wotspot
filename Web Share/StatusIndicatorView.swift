@@ -7,16 +7,13 @@
 //
 
 import AppKit
-
-public enum ConnectionStatus {
-    case notConnected, connecting, connected
-}
+import MultipeerConnectivity
 
 class StatusIndicatorView: NSView {
     
     // MARK: Properties
     
-    open var status: ConnectionStatus = .notConnected {
+    open var status: MCSessionState = .notConnected {
         didSet {
             switch status {
             case .notConnected:

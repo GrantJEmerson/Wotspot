@@ -7,15 +7,27 @@
 //
 
 import AppKit
+import MultipeerConnectivity
 
 class WebShareWindowController: NSWindowController, NSWindowDelegate  {
     
     // MARK: Properties
     
     var mainWebViewController: MainWebViewController! {
-        return contentViewController as? MainWebViewController
+        let vc = contentViewController as? MainWebViewController
+        vc?.delegate = self
+        return vc
     }
-    @IBOutlet weak var searchBar: NSTextField!
+    
+    private lazy var progressBar: ProgressBar = {
+        let progressBar = ProgressBar()
+        progressBar.translatesAutoresizingMaskIntoConstraints = false
+        return progressBar
+    }()
+    
+    @IBOutlet weak var searchBar: NSTextField! {
+        didSet { setUpSearchBar() }
+    }
     @IBOutlet weak var piChartView: PiChartView!
     @IBOutlet weak var statusIndicatorView: StatusIndicatorView!
     
@@ -33,5 +45,32 @@ class WebShareWindowController: NSWindowController, NSWindowDelegate  {
         guard let search = searchBar.stringValue.nilIfEmpty(),
             let url = URL(search: search) else { return }
         mainWebViewController.search(url)
+    }
+    
+    // MARK: Private Functions
+    
+    private func setUpSearchBar() {
+        searchBar.addSubview(progressBar)
+        NSLayoutConstraint.activate([
+            progressBar.leadingAnchor.constraint(equalTo: searchBar.leadingAnchor),
+            progressBar.trailingAnchor.constraint(equalTo: searchBar.trailingAnchor),
+            progressBar.bottomAnchor.constraint(equalTo: searchBar.bottomAnchor),
+            progressBar.heightAnchor.constraint(equalToConstant: 20)
+        ])
+    }
+}
+
+extension WebShareWindowController: WindowControllerDelegate {
+    
+    func changeConnectionStatusTo(_ status: MCSessionState) {
+        statusIndicatorView.status = status
+    }
+    
+    func setDataChartTo(_ percentage: CGFloat) {
+        piChartView.percentage = percentage
+    }
+    
+    func setLoadingPercentTo(_ percentage: Double) {
+        progressBar.setProgress(percentage)
     }
 }
