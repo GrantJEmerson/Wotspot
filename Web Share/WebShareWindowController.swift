@@ -19,15 +19,7 @@ class WebShareWindowController: NSWindowController, NSWindowDelegate  {
         return vc
     }
     
-    private lazy var progressBar: ProgressBar = {
-        let progressBar = ProgressBar()
-        progressBar.translatesAutoresizingMaskIntoConstraints = false
-        return progressBar
-    }()
-    
-    @IBOutlet weak var searchBar: NSTextField! {
-        didSet { setUpSearchBar() }
-    }
+    @IBOutlet weak var searchBar: NSTextField!
     @IBOutlet weak var piChartView: PiChartView!
     @IBOutlet weak var statusIndicatorView: StatusIndicatorView!
     
@@ -46,18 +38,6 @@ class WebShareWindowController: NSWindowController, NSWindowDelegate  {
             let url = URL(search: search) else { return }
         mainWebViewController.search(url)
     }
-    
-    // MARK: Private Functions
-    
-    private func setUpSearchBar() {
-        searchBar.addSubview(progressBar)
-        NSLayoutConstraint.activate([
-            progressBar.leadingAnchor.constraint(equalTo: searchBar.leadingAnchor),
-            progressBar.trailingAnchor.constraint(equalTo: searchBar.trailingAnchor),
-            progressBar.bottomAnchor.constraint(equalTo: searchBar.bottomAnchor),
-            progressBar.heightAnchor.constraint(equalToConstant: 20)
-        ])
-    }
 }
 
 extension WebShareWindowController: WindowControllerDelegate {
@@ -66,11 +46,30 @@ extension WebShareWindowController: WindowControllerDelegate {
         statusIndicatorView.status = status
     }
     
-    func setDataChartTo(_ percentage: CGFloat) {
+    func setDataChartTo(_ percentage: Int) {
         piChartView.percentage = percentage
     }
+}
+
+extension WebShareWindowController: NSUserInterfaceValidations {
     
-    func setLoadingPercentTo(_ percentage: Double) {
-        progressBar.setProgress(percentage)
+    func validateUserInterfaceItem(_ item: NSValidatedUserInterfaceItem) -> Bool {
+        if let action = item.action {
+            
+        }
+        return true
+    }
+    
+    @IBAction func toggleBookmarkVisibility(_ sender: AnyObject!) {
+        guard let menuItem = sender as? NSMenuItem else { return }
+        mainWebViewController.bookmarkViewToggleSelected(menuItem)
+    }
+    
+    @IBAction func addBookmark(_ sender: AnyObject!) {
+        mainWebViewController.addBookmark()
+    }
+    
+    @IBAction func leaveSession(_ sender: AnyObject!) {
+        mainWebViewController.leaveSession()
     }
 }

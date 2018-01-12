@@ -13,8 +13,7 @@ import WebKit
 
 public protocol WindowControllerDelegate {
     func changeConnectionStatusTo(_ status: MCSessionState)
-    func setDataChartTo(_ percentage: CGFloat)
-    func setLoadingPercentTo(_ percentage: Double)
+    func setDataChartTo(_ percentage: Int)
 }
 
 class MainWebViewController: NSViewController {
@@ -72,6 +71,14 @@ class MainWebViewController: NSViewController {
         return webView
     }()
     
+    private lazy var progressView: NSProgressIndicator = {
+        let progressView = NSProgressIndicator()
+        progressView.style = .spinning
+        progressView.isDisplayedWhenStopped = false
+        progressView.translatesAutoresizingMaskIntoConstraints = false
+        return progressView
+    }()
+    
     @IBOutlet weak var bookmarkView: NSView! {
         didSet {
             setUpSubviews()
@@ -79,7 +86,7 @@ class MainWebViewController: NSViewController {
     }
     
     @IBOutlet weak var bookmarkTableView: NSTableView!
-    @IBOutlet weak var bookmarkViewTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet var bookmarkViewTrailingConstraint: NSLayoutConstraint!
     
     // MARK: View Controller Life Cycle
     
@@ -88,28 +95,40 @@ class MainWebViewController: NSViewController {
         assistant.start()
     }
     
-    override func viewWillAppear() {
-        webView.addObserver(self, forKeyPath: "estimatedProgress", options: .new, context: nil)
-    }
-    
-    override func viewWillDisappear() {
-        webView.removeObserver(self, forKeyPath: "estimatedProgress")
-    }
-    
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        guard keyPath == "estimatedProgress" else { return }
-        delegate?.setLoadingPercentTo(webView.estimatedProgress)
-    }
-    
     // MARK: Selector Functions
     
-    @IBAction func bookmarkViewToggleSelected(_ sender: NSMenuItem) {
+    @objc public func bookmarkViewToggleSelected(_ sender: NSMenuItem) {
         let open = sender.title == "Hide Bookmarks"
         bookmarkViewTrailingConstraint.isActive = open
         sender.title = open ? "Show Bookmarks" : "Hide Bookmarks"
     }
     
-    @IBAction func addBookmarkItemSelected(_ sender: NSMenuItem) {
+    @objc public func addBookmark() {
+        guard let currentURL = webView.url else { return }
+        
+        let existingBookmark = bookmarks.first { (bookmark) -> Bool in
+            return bookmark.url == currentURL.absoluteString
+        }
+        
+        if let existingBookmark = existingBookmark {
+            moc?.delete(existingBookmark)
+        } else {
+            guard let moc = moc else { return }
+            let bookmark = Bookmark(context: moc)
+            bookmark.title = webView.title
+            bookmark.url = webView.url?.absoluteString
+            bookmark.screenshot = webView.screenshot
+            bookmark.date = Date()
+            
+            appDelegate?.saveAction(self)
+        }
+        
+        getBookmarks()
+    }
+    
+    @objc public func leaveSession() {
+        session.disconnect()
+        delegate?.setDataChartTo(1)
     }
     
     // MARK: Public Functions
@@ -144,17 +163,21 @@ class MainWebViewController: NSViewController {
     
     private func setUpSubviews() {
         view.addSubview(webView)
+        view.addSubview(progressView)
         
         NSLayoutConstraint.activate([
             webView.topAnchor.constraint(equalTo: view.topAnchor),
             webView.leadingAnchor.constraint(equalTo: bookmarkView.trailingAnchor),
             webView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            webView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            webView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            progressView.centerXAnchor.constraint(equalTo: webView.centerXAnchor),
+            progressView.centerYAnchor.constraint(equalTo: webView.centerYAnchor),
         ])
     }
     
     private func prepareForSearch() {
-        delegate?.setLoadingPercentTo(0.2)
+        progressView.startAnimation(self)
     }
     
     private func decodeMultipeerConnectivityData(_ data: Data) {
@@ -162,12 +185,21 @@ class MainWebViewController: NSViewController {
             guard searchResult.webPage.url == awaitingURL else { return }
             awaitingURL = nil
             webView.loadWebPage(searchResult.webPage)
-            delegate?.setDataChartTo(CGFloat(searchResult.dataSet.availablePercentage()))
+            updateDataUsageGraphsWith(searchResult.dataSet)
         } else if let disconnectMessage = String(data: data, encoding: .utf8) {
             guard disconnectMessage == "disconnect" else { return }
             session.disconnect()
             delegate?.changeConnectionStatusTo(.notConnected)
         }
+        
+        DispatchQueue.main.async {
+            self.progressView.stopAnimation(self)
+        }
+    }
+    
+    private func updateDataUsageGraphsWith(_ dataSet: DataSet) {
+        delegate?.setDataChartTo(dataSet.availablePercentage())
+        //dataUsedMenuItem.title = "\(dataSet.dataUsed.toMegabytes()) of \(dataSet.dataCap.toMegabytes()) Mb Used"
     }
     
     private func sendSearchRequest(_ searchRequest: SearchRequest) {
@@ -228,6 +260,7 @@ extension MainWebViewController: MCSessionDelegate {
     }
     
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
+        guard peerID == self.peerID else { return }
         delegate?.changeConnectionStatusTo(state)
     }
     

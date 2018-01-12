@@ -14,7 +14,7 @@
 		550DF51C1FF82400000268A5 /* MCPeerID+Default.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550DF51B1FF82400000268A5 /* MCPeerID+Default.swift */; };
 		5514517D1FEDB010000F74CD /* DeletionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5514517C1FEDB010000F74CD /* DeletionView.swift */; };
 		5514517F1FEDCB5D000F74CD /* NotificationName+Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5514517E1FEDCB5D000F74CD /* NotificationName+Custom.swift */; };
-		5522FBB4200817C8009C8712 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5522FBB3200817C8009C8712 /* ProgressBar.swift */; };
+		5522FBB82008507B009C8712 /* WKWebView+Screenshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5522FBB72008507B009C8712 /* WKWebView+Screenshot.swift */; };
 		5524A6821FEEEF4700EA7D2C /* UserManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5524A6811FEEEF4700EA7D2C /* UserManagementView.swift */; };
 		5524A6861FEEF87900EA7D2C /* ProfileManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5524A6851FEEF87900EA7D2C /* ProfileManagementView.swift */; };
 		5524DCC72005A7FF0033E872 /* BookmarkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5524DCC62005A7FF0033E872 /* BookmarkTableViewCell.swift */; };
@@ -78,7 +78,7 @@
 		550DF51B1FF82400000268A5 /* MCPeerID+Default.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MCPeerID+Default.swift"; sourceTree = "<group>"; };
 		5514517C1FEDB010000F74CD /* DeletionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletionView.swift; sourceTree = "<group>"; };
 		5514517E1FEDCB5D000F74CD /* NotificationName+Custom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+Custom.swift"; sourceTree = "<group>"; };
-		5522FBB3200817C8009C8712 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
+		5522FBB72008507B009C8712 /* WKWebView+Screenshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WKWebView+Screenshot.swift"; sourceTree = "<group>"; };
 		5524A6811FEEEF4700EA7D2C /* UserManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManagementView.swift; sourceTree = "<group>"; };
 		5524A6851FEEF87900EA7D2C /* ProfileManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileManagementView.swift; sourceTree = "<group>"; };
 		5524DCC62005A7FF0033E872 /* BookmarkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkTableViewCell.swift; sourceTree = "<group>"; };
@@ -282,9 +282,9 @@
 				55EFC84920042E80009620A4 /* WebShareWindowController.swift */,
 				55F6CE641FFC0AD600D7E0B4 /* MainWebViewController.swift */,
 				55F6CE6C1FFC0FBB00D7E0B4 /* MCPeerID+Default.swift */,
+				5522FBB72008507B009C8712 /* WKWebView+Screenshot.swift */,
 				55654C6E2002F65700090797 /* PiChartView.swift */,
 				55A4FDD7200565EA00BA19A8 /* StatusIndicatorView.swift */,
-				5522FBB3200817C8009C8712 /* ProgressBar.swift */,
 				5524DCC62005A7FF0033E872 /* BookmarkTableViewCell.swift */,
 				55D2081B1FF49FC2009AF34F /* Assets.xcassets */,
 				55D2081D1FF49FC2009AF34F /* Main.storyboard */,
@@ -488,12 +488,12 @@
 				55F6CE651FFC0AD600D7E0B4 /* MainWebViewController.swift in Sources */,
 				556CBFE52002BE0200FBAF7D /* CustomWebView.swift in Sources */,
 				55F6CE681FFC0E7800D7E0B4 /* WebDataStructures.swift in Sources */,
-				5522FBB4200817C8009C8712 /* ProgressBar.swift in Sources */,
 				55F6CE671FFC0CBD00D7E0B4 /* URL+SearchInit.swift in Sources */,
 				556CBFE42002BDD100FBAF7D /* String+isLink.swift in Sources */,
 				55A4FDD8200565EA00BA19A8 /* StatusIndicatorView.swift in Sources */,
 				55D2081A1FF49FC2009AF34F /* Web_Share.xcdatamodeld in Sources */,
 				55EFC84B2004311B009620A4 /* String+NilIfEmpty.swift in Sources */,
+				5522FBB82008507B009C8712 /* WKWebView+Screenshot.swift in Sources */,
 				55D208151FF49FC2009AF34F /* AppDelegate.swift in Sources */,
 				5524DCC72005A7FF0033E872 /* BookmarkTableViewCell.swift in Sources */,
 			);

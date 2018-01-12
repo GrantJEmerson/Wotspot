@@ -12,10 +12,12 @@ class PiChartView: NSView {
     
     // MARK: Properties
     
-    open var percentage: CGFloat = 1 {
+    open var percentage: Int = 100 {
         didSet {
-            piChart.percentage = percentage
-            percentageLabel.stringValue = "\(Int(percentage * 100))%"
+            DispatchQueue.main.async {
+                self.piChart.percentageAvailable = CGFloat(self.percentage) / 100
+                self.percentageLabel.stringValue = "\(self.percentage)%"
+            }
         }
     }
     
@@ -24,7 +26,7 @@ class PiChartView: NSView {
         textField.isEditable = false
         textField.drawsBackground = false
         textField.isBezeled = false
-        textField.stringValue = "75%"
+        textField.stringValue = "100%"
         textField.alignment = .center
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
@@ -66,9 +68,9 @@ class PiChart: NSView {
     
     // MARK: Properties
     
-    open var percentage: CGFloat = 1 {
+    open var percentageAvailable: CGFloat = 1 {
         didSet {
-            self.draw(bounds)
+            needsDisplay = true
         }
     }
     
@@ -76,7 +78,8 @@ class PiChart: NSView {
     override func draw(_ dirtyRect: NSRect) {
         let ovalRect = dirtyRect
         let ovalPath = NSBezierPath()
-        ovalPath.appendArc(withCenter: NSPoint(x: ovalRect.midX, y: ovalRect.midY), radius: ovalRect.width / 3.5, startAngle: 0, endAngle: (360.0 - percentage * 360) + 0.0001, clockwise: true)
+        let endAngle = 360 - percentageAvailable * 360 + 0.0001
+        ovalPath.appendArc(withCenter: NSPoint(x: ovalRect.midX, y: ovalRect.midY), radius: ovalRect.width / 3.5, startAngle: 0, endAngle: endAngle, clockwise: true)
         ovalPath.line(to: NSPoint(x: ovalRect.midX, y: ovalRect.midY))
         ovalPath.close()
         NSColor.darkGray.setFill()

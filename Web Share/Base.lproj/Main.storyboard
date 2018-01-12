@@ -9,7 +9,7 @@
         <scene sceneID="JPo-4y-FX3">
             <objects>
                 <application id="hnw-xV-0zn" sceneMemberID="viewController">
-                    <menu key="mainMenu" title="Main Menu" systemMenu="main" id="AYu-sK-qS6">
+                    <menu key="mainMenu" title="Main Menu" systemMenu="main" autoenablesItems="NO" id="AYu-sK-qS6">
                         <items>
                             <menuItem title="Web Share" id="1Xt-HY-uBw">
                                 <modifierMask key="keyEquivalentModifierMask"/>
@@ -301,41 +301,35 @@
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="Bookmarks" id="fv9-xj-Wwz">
+                            <menuItem title="Bookmarks" id="SHf-Tt-1Vh">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Bookmarks" id="sfW-Oc-S8W">
+                                <menu key="submenu" title="Bookmarks" id="s08-Pd-YGA">
                                     <items>
-                                        <menuItem title="Show Bookmarks" keyEquivalent="b" id="1st-fp-sxv">
+                                        <menuItem title="Show Bookmarks" keyEquivalent="b" id="A4c-Sh-RM6">
                                             <connections>
-                                                <action selector="bookmarkViewToggleSelected:" target="Voe-Tx-rLC" id="AUt-Hh-qSi"/>
+                                                <action selector="toggleBookmarkVisibility:" target="Ady-hI-5gd" id="bHC-ej-vnO"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Add Bookmark" keyEquivalent="d" id="kxV-63-rU8">
+                                        <menuItem title="Add Bookmark" keyEquivalent="d" id="ELK-XZ-wNm">
                                             <connections>
-                                                <action selector="addBookmarkItemSelected:" target="Voe-Tx-rLC" id="j9L-Z5-eqb"/>
+                                                <action selector="addBookmark:" target="Ady-hI-5gd" id="zR1-6F-mNx"/>
                                             </connections>
-                                        </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="Rhf-Vx-gff"/>
-                                        <menuItem title="Recent" image="ClockIcon" id="xEc-B7-2mb">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
                                         </menuItem>
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="Session" id="c34-og-Fnw">
+                            <menuItem title="Session" id="wfy-Fp-kJv">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Session" id="W5A-MT-TnT">
+                                <menu key="submenu" title="Session" id="DgV-iT-kb0">
                                     <items>
-                                        <menuItem title="Edit Peer ID" id="bcT-ql-4qj">
+                                        <menuItem title="Edit Username" id="0Wf-4G-Wtj">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                         </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="aMl-tk-Ih9"/>
-                                        <menuItem title="50 of 75 Mb Used" id="Uia-sF-vb4">
+                                        <menuItem title="Leave Session" id="L2T-e5-f8V">
                                             <modifierMask key="keyEquivalentModifierMask"/>
-                                        </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="FqJ-4v-eVI"/>
-                                        <menuItem title="Leave Session" id="DFs-5a-g3F">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="leaveSession:" target="Ady-hI-5gd" id="Pcd-Ec-GO1"/>
+                                            </connections>
                                         </menuItem>
                                     </items>
                                 </menu>
@@ -375,7 +369,7 @@
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="0.0"/>
+            <point key="canvasLocation" x="-33" y="-134"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
@@ -384,9 +378,9 @@
                     <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" titleVisibility="hidden" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-                        <rect key="contentRect" x="196" y="240" width="586" height="270"/>
+                        <rect key="contentRect" x="196" y="240" width="620" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
-                        <value key="minSize" type="size" width="586" height="270"/>
+                        <value key="minSize" type="size" width="620" height="270"/>
                         <toolbar key="toolbar" implicitIdentifier="78FBC9BC-9980-40BE-B1FC-D704F89492CA" autosavesConfiguration="NO" showsBaselineSeparator="NO" displayMode="iconAndLabel" sizeMode="regular" id="b6J-uh-RYv">
                             <allowedToolbarItems>
                                 <toolbarItem implicitItemIdentifier="F7DBABB5-F003-46A5-B08A-EE83519F5015" label="Search" paletteLabel="SearchBar" id="OjO-8F-Df9">
@@ -441,10 +435,10 @@
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="F11CC1BE-0CD5-4B05-963A-748449CC426D" label="PiChartView" paletteLabel="PiChartView" tag="-1" id="z9H-wc-wAp">
                                     <nil key="toolTip"/>
-                                    <size key="minSize" width="60" height="32"/>
-                                    <size key="maxSize" width="60" height="32"/>
+                                    <size key="minSize" width="70" height="32"/>
+                                    <size key="maxSize" width="70" height="32"/>
                                     <customView key="view" id="32P-v8-bup" customClass="PiChartView" customModule="Web_Share" customModuleProvider="target">
-                                        <rect key="frame" x="6" y="14" width="60" height="32"/>
+                                        <rect key="frame" x="1" y="14" width="70" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     </customView>
                                 </toolbarItem>
@@ -484,18 +478,18 @@
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="128" y="250"/>
+            <point key="canvasLocation" x="132" y="250"/>
         </scene>
         <!--Main Web View Controller-->
         <scene sceneID="wOw-Bp-S26">
             <objects>
                 <viewController id="7jR-kO-ui6" customClass="MainWebViewController" customModule="Web_Share" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="6Pz-9j-MyH">
-                        <rect key="frame" x="0.0" y="0.0" width="588" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="620" height="504"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="ndc-cY-705">
-                                <rect key="frame" x="0.0" y="0.0" width="200" height="504"/>
+                                <rect key="frame" x="-200" y="0.0" width="200" height="504"/>
                                 <subviews>
                                     <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="103" horizontalPageScroll="10" verticalLineScroll="103" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="czm-JT-QYN">
                                         <rect key="frame" x="0.0" y="0.0" width="200" height="444"/>
@@ -601,7 +595,7 @@
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="ndc-cY-705" secondAttribute="bottom" id="1H4-Dj-pwh"/>
-                            <constraint firstItem="ndc-cY-705" firstAttribute="trailing" secondItem="6Pz-9j-MyH" secondAttribute="leading" constant="200" id="F00-ga-dvI"/>
+                            <constraint firstItem="ndc-cY-705" firstAttribute="trailing" secondItem="6Pz-9j-MyH" secondAttribute="leading" id="F00-ga-dvI"/>
                             <constraint firstItem="ndc-cY-705" firstAttribute="leading" secondItem="6Pz-9j-MyH" secondAttribute="leading" priority="999" id="bgV-8r-tnc"/>
                             <constraint firstItem="ndc-cY-705" firstAttribute="top" secondItem="6Pz-9j-MyH" secondAttribute="top" id="kgW-BL-0tV"/>
                         </constraints>
@@ -614,11 +608,10 @@
                 </viewController>
                 <customObject id="gTT-JA-7aq" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="144" y="833"/>
+            <point key="canvasLocation" x="132" y="828"/>
         </scene>
     </scenes>
     <resources>
-        <image name="ClockIcon" width="13" height="13"/>
         <image name="NSGoBackTemplate" width="9" height="12"/>
         <image name="NSGoForwardTemplate" width="9" height="12"/>
     </resources>
