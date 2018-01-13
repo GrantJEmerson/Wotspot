@@ -11,7 +11,7 @@ import MultipeerConnectivity
 import CoreData
 import WebKit
 
-public protocol WindowControllerDelegate {
+public protocol WindowControllerDelegate: class {
     func changeConnectionStatusTo(_ status: MCSessionState)
     func setDataChartTo(_ percentage: Int)
 }
@@ -20,7 +20,7 @@ class MainWebViewController: NSViewController {
     
     // MARK: Properties
     
-    public var delegate: WindowControllerDelegate?
+    public weak var delegate: WindowControllerDelegate?
     
     private var bookmarks = [Bookmark]()
     
@@ -67,6 +67,7 @@ class MainWebViewController: NSViewController {
     
     public lazy var webView: CustomWebView = {
         let webView = CustomWebView(frame: .zero, configuration: configuration)
+        webView.loadHTMLString(WebErrorPage.offline, baseURL: nil)
         webView.translatesAutoresizingMaskIntoConstraints = false
         return webView
     }()
@@ -79,27 +80,34 @@ class MainWebViewController: NSViewController {
         return progressView
     }()
     
+    
+    
     @IBOutlet weak var bookmarkView: NSView! {
         didSet {
             setUpSubviews()
         }
     }
     
+    public enum BookmarkViewPosition {
+        case open, closed
+    }
+    
     @IBOutlet weak var bookmarkTableView: NSTableView!
-    @IBOutlet var bookmarkViewTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var bookmarkViewTrailingConstraint: NSLayoutConstraint!
     
     // MARK: View Controller Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         assistant.start()
+        getBookmarks()
     }
     
     // MARK: Selector Functions
     
     @objc public func bookmarkViewToggleSelected(_ sender: NSMenuItem) {
         let open = sender.title == "Hide Bookmarks"
-        bookmarkViewTrailingConstraint.isActive = open
+        setBookmarkViewTo(open ? .closed : .open)
         sender.title = open ? "Show Bookmarks" : "Hide Bookmarks"
     }
     
@@ -128,7 +136,7 @@ class MainWebViewController: NSViewController {
     
     @objc public func leaveSession() {
         session.disconnect()
-        delegate?.setDataChartTo(1)
+        delegate?.setDataChartTo(100)
     }
     
     // MARK: Public Functions
@@ -186,12 +194,19 @@ class MainWebViewController: NSViewController {
             awaitingURL = nil
             webView.loadWebPage(searchResult.webPage)
             updateDataUsageGraphsWith(searchResult.dataSet)
-        } else if let disconnectMessage = String(data: data, encoding: .utf8) {
-            guard disconnectMessage == "disconnect" else { return }
-            session.disconnect()
-            delegate?.changeConnectionStatusTo(.notConnected)
+        } else if let command = String(data: data, encoding: .utf8) {
+            switch command {
+            case "disconnect":
+                session.disconnect()
+                delegate?.changeConnectionStatusTo(.notConnected)
+                webView.loadHTMLString(WebErrorPage.offline, baseURL: nil)
+                presentDisconnectedAlert()
+            case "Not-Found":
+                webView.loadHTMLString(WebErrorPage.notFound, baseURL: nil)
+            default:
+                break
+            }
         }
-        
         DispatchQueue.main.async {
             self.progressView.stopAnimation(self)
         }
@@ -199,7 +214,15 @@ class MainWebViewController: NSViewController {
     
     private func updateDataUsageGraphsWith(_ dataSet: DataSet) {
         delegate?.setDataChartTo(dataSet.availablePercentage())
-        //dataUsedMenuItem.title = "\(dataSet.dataUsed.toMegabytes()) of \(dataSet.dataCap.toMegabytes()) Mb Used"
+    }
+    
+    private func presentDisconnectedAlert() {
+        let alert = NSAlert()
+        alert.messageText = "Disconnected"
+        alert.informativeText = "You have been removed from the current Web Share session."
+        alert.alertStyle = .informational
+        alert.addButton(withTitle: "OK")
+        alert.runModal()
     }
     
     private func sendSearchRequest(_ searchRequest: SearchRequest) {
@@ -229,6 +252,16 @@ class MainWebViewController: NSViewController {
             self.bookmarkTableView.reloadData()
         }
     }
+    
+    private func setBookmarkViewTo(_ position: BookmarkViewPosition) {
+        let newConstraintConstant: CGFloat = position == .closed ? 0 : 200
+        NSAnimationContext.runAnimationGroup({ (context) in
+            context.duration = 0.5
+            context.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+            bookmarkViewTrailingConstraint.animator().constant = newConstraintConstant
+        })
+    }
+    
 }
 
 extension MainWebViewController: NSTableViewDataSource {

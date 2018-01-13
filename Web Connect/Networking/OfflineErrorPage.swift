@@ -16,6 +16,12 @@ final public class WebErrorPage {
                                    message: "The page you are looking for either doesn't exist or is not here anymore.")
     
     internal class func htmlWith(title: String, message: String) -> String {
+        
+        var isMobile = true
+        #if os(OSX)
+            isMobile = false
+        #endif
+            
         return """
         <html class="gr__"><head>
         <style>
@@ -46,15 +52,15 @@ final public class WebErrorPage {
         }
         
         .error-title {
-        font-size: 86px;
+        font-size: \(isMobile ? 86 : 28)px;
         font-weight: 700;
-        line-height: 104px;
+        line-height: \(isMobile ? 104 : 34)px;
         margin: 0 auto;
         }
         
         .error-message, .suggestion-prompt {
-        font-size: 40px;
-        line-height: 55px;
+        font-size: \(isMobile ? 40 : 13)px;
+        line-height: \(isMobile ? 55 : 18)px;
         padding: 0px 24px;
         }
         

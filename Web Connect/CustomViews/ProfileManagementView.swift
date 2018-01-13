@@ -9,7 +9,7 @@
 import UIKit
 import MultipeerConnectivity
 
-public protocol ProfileManagementViewDelegate {
+public protocol ProfileManagementViewDelegate: class {
     func leaveSession()
     func setPeerIDTo(_ displayName: String)
     func movePulleyViewControllerUp()
@@ -20,7 +20,7 @@ class ProfileManagementView: UIView {
     
     // MARK: Properties
     
-    public var delegate: ProfileManagementViewDelegate?
+    public weak var delegate: ProfileManagementViewDelegate?
     
     private let buttonHeight: CGFloat = 44
     

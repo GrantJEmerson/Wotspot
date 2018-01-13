@@ -18,10 +18,17 @@ class WebShareWindowController: NSWindowController, NSWindowDelegate  {
         vc?.delegate = self
         return vc
     }
-    
+
     @IBOutlet weak var searchBar: NSTextField!
     @IBOutlet weak var piChartView: PiChartView!
     @IBOutlet weak var statusIndicatorView: StatusIndicatorView!
+    
+    // MARK: Window Life Cycle
+    
+    override func windowDidLoad() {
+        super.windowDidLoad()
+        //window?.backgroundColor = .black
+    }
     
     // MARK: IBActions
     
@@ -59,7 +66,7 @@ extension WebShareWindowController: NSUserInterfaceValidations {
         }
         return true
     }
-    
+        
     @IBAction func toggleBookmarkVisibility(_ sender: AnyObject!) {
         guard let menuItem = sender as? NSMenuItem else { return }
         mainWebViewController.bookmarkViewToggleSelected(menuItem)

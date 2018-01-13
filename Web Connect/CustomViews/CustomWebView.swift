@@ -31,10 +31,6 @@ class CustomWebView: WKWebView {
         addObserver(self, forKeyPath: "isLoading", options: .new, context: nil)
     }
     
-    deinit {
-        removeObserver(self, forKeyPath: "isLoading")
-    }
-    
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         guard !isLoading else { return }
         cleanTemporaryDirectory()

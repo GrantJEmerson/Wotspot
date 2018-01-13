@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol DeleteViewDelegate {
+protocol DeleteViewDelegate: class {
     func deleteButtonTapped()
 }
 
@@ -16,7 +16,7 @@ class DeletionView: UIView {
     
     // MARK: Properties
     
-    public var delegate: DeleteViewDelegate?
+    public weak var delegate: DeleteViewDelegate?
 
     private lazy var deleteButton: UIButton = {
         let button = UIButton()

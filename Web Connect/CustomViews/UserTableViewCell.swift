@@ -9,7 +9,7 @@
 import UIKit
 import MultipeerConnectivity
 
-protocol UserTableViewCellDelegate {
+protocol UserTableViewCellDelegate: class {
     func addDataForPeer(_ peerID: MCPeerID)
     func removePeer(_ peerID: MCPeerID)
 }
@@ -18,7 +18,7 @@ class UserTableViewCell: UITableViewCell {
     
     // MARK: Properties
     
-    public var delegate: UserTableViewCellDelegate?
+    public weak var delegate: UserTableViewCellDelegate?
     
     public var user: User? {
         didSet {

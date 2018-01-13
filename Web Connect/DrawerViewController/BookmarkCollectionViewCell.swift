@@ -8,7 +8,7 @@
 
 import UIKit
 
-public protocol BookMarkCellDelegate {
+public protocol BookMarkCellDelegate: class {
     func deleteCell(_ cell: UICollectionViewCell)
 }
 
@@ -16,7 +16,7 @@ class BookmarkCollectionViewCell: UICollectionViewCell {
     
     // MARK: Properties
     
-    public var delegate: BookMarkCellDelegate?
+    public weak var delegate: BookMarkCellDelegate?
     
     public var editing = false {
         didSet {

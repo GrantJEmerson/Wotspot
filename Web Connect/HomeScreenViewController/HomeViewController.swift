@@ -29,7 +29,7 @@ class HomeViewController: UIViewController {
     
     private let HomePageButton: () -> (UIButton) = {
         let button = UIButton()
-        button.setTitleColor(.defaultButtonColor, for: .normal)
+        button.setTitleColor(.themeColor, for: .normal)
         button.setTitleColor(.lightGray, for: .highlighted)
         button.setTitleColor(.lightGray, for: .disabled)
         button.backgroundColor = .white

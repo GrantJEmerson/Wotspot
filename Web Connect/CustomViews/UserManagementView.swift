@@ -9,7 +9,7 @@
 import UIKit
 import MultipeerConnectivity
 
-protocol UserManagementViewDelegate {
+protocol UserManagementViewDelegate: class {
     func addUsers()
     func endSession()
     func addDataForPeer(_ peerID: MCPeerID)
@@ -20,7 +20,7 @@ class UserManagementView: UIView {
     
     // MARK: Properties
     
-    public var delegate: UserManagementViewDelegate?
+    public weak var delegate: UserManagementViewDelegate?
     
     public var users = [User]() {
         didSet {
@@ -48,6 +48,7 @@ class UserManagementView: UIView {
     
     private lazy var addUsersButton: UIButton = {
         let button = UIButton(type: .contactAdd)
+        button.tintColor = .themeColor
         button.addTarget(self, action: #selector(addUsers), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button

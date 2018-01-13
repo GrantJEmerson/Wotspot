@@ -369,14 +369,14 @@
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-33" y="-134"/>
+            <point key="canvasLocation" x="58" y="-10"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
             <objects>
                 <windowController id="B8D-0N-5wS" customClass="WebShareWindowController" customModule="Web_Share" customModuleProvider="target" sceneMemberID="viewController">
                     <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" titleVisibility="hidden" id="IQv-IB-iLA">
-                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" texturedBackground="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="240" width="620" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
@@ -390,10 +390,13 @@
                                     <textField key="view" verticalHuggingPriority="750" id="juI-BK-Lr1">
                                         <rect key="frame" x="0.0" y="14" width="240" height="22"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Search or enter website name" usesSingleLineMode="YES" bezelStyle="round" id="l1w-28-xwG">
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Search or enter website name" usesSingleLineMode="YES" bezelStyle="round" id="l1w-28-xwG" customClass="ImageTextFieldCell" customModule="Web_Share" customModuleProvider="target">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="image" keyPath="detailImage" value="Water"/>
+                                            </userDefinedRuntimeAttributes>
                                         </textFieldCell>
                                         <connections>
                                             <action selector="searchBarDidEnter:" target="B8D-0N-5wS" id="NY8-1L-AuT"/>
@@ -405,7 +408,7 @@
                                     <nil key="toolTip"/>
                                     <size key="minSize" width="38" height="32"/>
                                     <size key="maxSize" width="38" height="32"/>
-                                    <button key="view" verticalHuggingPriority="750" id="sOc-Aw-xRC" customClass="NavigationButton" customModule="Web_Share" customModuleProvider="target">
+                                    <button key="view" verticalHuggingPriority="750" id="sOc-Aw-xRC">
                                         <rect key="frame" x="17" y="14" width="38" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSGoBackTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="2fY-DE-vtj">
@@ -491,13 +494,13 @@
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="ndc-cY-705">
                                 <rect key="frame" x="-200" y="0.0" width="200" height="504"/>
                                 <subviews>
-                                    <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="103" horizontalPageScroll="10" verticalLineScroll="103" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="czm-JT-QYN">
+                                    <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="138" horizontalPageScroll="10" verticalLineScroll="138" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="czm-JT-QYN">
                                         <rect key="frame" x="0.0" y="0.0" width="200" height="444"/>
                                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="HSd-vw-1Nd">
                                             <rect key="frame" x="0.0" y="0.0" width="200" height="444"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="101" rowSizeStyle="automatic" viewBased="YES" id="KDJ-l8-uL2">
+                                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="136" viewBased="YES" id="KDJ-l8-uL2">
                                                     <rect key="frame" x="0.0" y="0.0" width="200" height="444"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
@@ -518,7 +521,7 @@
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
                                                                 <tableCellView identifier="bookmarkCellID" id="PZo-Or-WI7" customClass="BookmarkTableViewCell" customModule="Web_Share" customModuleProvider="target">
-                                                                    <rect key="frame" x="1" y="1" width="197" height="101"/>
+                                                                    <rect key="frame" x="1" y="1" width="197" height="136"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="ivh-uV-Ob5">
@@ -526,15 +529,15 @@
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" constant="21" id="exg-T7-Yie"/>
                                                                             </constraints>
-                                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Bookmark" id="S05-KX-2lW">
+                                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" id="S05-KX-2lW">
                                                                                 <font key="font" size="13" name="Futura-Medium"/>
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
                                                                         </textField>
                                                                         <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RnM-iZ-3P6">
-                                                                            <rect key="frame" x="5" y="26" width="187" height="70"/>
-                                                                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="dqV-is-zKb"/>
+                                                                            <rect key="frame" x="5" y="26" width="187" height="105"/>
+                                                                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="dqV-is-zKb"/>
                                                                         </imageView>
                                                                     </subviews>
                                                                     <constraints>
@@ -564,7 +567,7 @@
                                             <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
                                         </clipView>
                                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="ZyE-LN-KR5">
-                                            <rect key="frame" x="1" y="-15" width="0.0" height="16"/>
+                                            <rect key="frame" x="0.0" y="428" width="200" height="16"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="Fds-vm-1IP">
@@ -596,7 +599,6 @@
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="ndc-cY-705" secondAttribute="bottom" id="1H4-Dj-pwh"/>
                             <constraint firstItem="ndc-cY-705" firstAttribute="trailing" secondItem="6Pz-9j-MyH" secondAttribute="leading" id="F00-ga-dvI"/>
-                            <constraint firstItem="ndc-cY-705" firstAttribute="leading" secondItem="6Pz-9j-MyH" secondAttribute="leading" priority="999" id="bgV-8r-tnc"/>
                             <constraint firstItem="ndc-cY-705" firstAttribute="top" secondItem="6Pz-9j-MyH" secondAttribute="top" id="kgW-BL-0tV"/>
                         </constraints>
                     </view>
@@ -614,5 +616,6 @@
     <resources>
         <image name="NSGoBackTemplate" width="9" height="12"/>
         <image name="NSGoForwardTemplate" width="9" height="12"/>
+        <image name="Water" width="128.63999938964844" height="123.83999633789062"/>
     </resources>
 </document>

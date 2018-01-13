@@ -69,9 +69,7 @@ class PiChart: NSView {
     // MARK: Properties
     
     open var percentageAvailable: CGFloat = 1 {
-        didSet {
-            needsDisplay = true
-        }
+        didSet { needsDisplay = true }
     }
     
     // MARK: Draw
@@ -80,9 +78,14 @@ class PiChart: NSView {
         let ovalPath = NSBezierPath()
         let endAngle = 360 - percentageAvailable * 360 + 0.0001
         ovalPath.appendArc(withCenter: NSPoint(x: ovalRect.midX, y: ovalRect.midY), radius: ovalRect.width / 3.5, startAngle: 0, endAngle: endAngle, clockwise: true)
-        ovalPath.line(to: NSPoint(x: ovalRect.midX, y: ovalRect.midY))
+        if percentageAvailable != 1 {
+            ovalPath.line(to: NSPoint(x: ovalRect.midX, y: ovalRect.midY))
+        }
         ovalPath.close()
-        NSColor.darkGray.setFill()
+        NSColor.white.setFill()
         ovalPath.fill()
+        NSColor.black.setStroke()
+        ovalPath.lineWidth = 1
+        ovalPath.stroke()
     }
 }

@@ -9,7 +9,7 @@
 import UIKit
 import WebKit
 
-@objc public protocol ParentDelegate {
+@objc public protocol ParentDelegate: class {
     func setPulleyPosition(_ pulleyPosition: Int)
     func searchFor(_ url: URL)
     @objc optional func goBack()
@@ -20,7 +20,7 @@ class WebBrowserViewController: UIViewController {
     
     // MARK: Properties
     
-    public var delegate: ParentDelegate?
+    public weak var delegate: ParentDelegate?
     
     private var isHost: Bool
     

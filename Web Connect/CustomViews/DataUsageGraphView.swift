@@ -62,7 +62,7 @@ class DataUsageGraphView: UIView {
     
     private lazy var usedDataGraphView: GradientView = {
         let view = GradientView()
-        view.colors = [#colorLiteral(red: 0.1019607857, green: 0.2784313858, blue: 0.400000006, alpha: 1), #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)]
+        view.colors = [#colorLiteral(red: 0.2641793575, green: 0.5471587531, blue: 0.6843655133, alpha: 1), #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)]
         view.locations = [0.8, 1]
         view.clipsToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -71,7 +71,7 @@ class DataUsageGraphView: UIView {
     
     private lazy var availableDataGraphView: GradientView = {
         let view = GradientView()
-        view.colors = [#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0), #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)]
+        view.colors = [#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0), #colorLiteral(red: 0.4862745098, green: 0.7176470588, blue: 0.8588235294, alpha: 1)]
         view.locations = [0, 0.2, 1]
         view.clipsToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false

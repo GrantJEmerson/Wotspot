@@ -16,8 +16,7 @@ class HostWebSessionViewController: PulleyViewController {
     // MARK: Properties
     
     public weak var webView: CustomWebView?
-    
-    public var drawerDelegate: WebSessionDrawerDelegate?
+    public weak var drawerDelegate: WebSessionDrawerDelegate?
     
     private var peerIDsToAdd = [MCPeerID]()
     
@@ -34,6 +33,7 @@ class HostWebSessionViewController: PulleyViewController {
     private lazy var dataCapTextFieldConfigurtationHandler: ((UITextField) -> Void) = { textField in
         textField.placeholder = "Data Cap"
         textField.keyboardType = .numberPad
+        textField.font = UIFont(name: "Futura", size: 18)
         textField.textAlignment = .center
         textField.delegate = self
     }
@@ -52,6 +52,7 @@ class HostWebSessionViewController: PulleyViewController {
     private lazy var browser: MCBrowserViewController = {
         let browser = MCBrowserViewController(serviceType: "Web-Share", session: session)
         browser.delegate = self
+        browser.view.tintColor = .themeColor
         return browser
     }()
     
@@ -142,10 +143,9 @@ class HostWebSessionViewController: PulleyViewController {
     }
     
     private func shouldAddDataToCap(for name: String, completion: @escaping (Bool) -> ()) {
-        let alertController = UIAlertController(title: "Limit Reached",
+        let alertController = CustomAlertController(title: "Limit Reached",
                                                 message: "\(name) has reached their data cap. Do you want to extend it?",
                                                 preferredStyle: .alert)
-        
         alertController.addAction(UIAlertAction(title: "No", style: .default) { (_) in
             completion(false)
         })
@@ -159,7 +159,7 @@ class HostWebSessionViewController: PulleyViewController {
     
     private func getDataAmountToAdd(to name: String, completion: @escaping (Byte?) -> ()) {
         
-        let alertController = UIAlertController(title: "Add Data",
+        let alertController = CustomAlertController(title: "Add Data",
                                                 message: "How many MB of data would you like to add to \(name)?",
                                                 preferredStyle: .alert)
         
@@ -184,7 +184,7 @@ class HostWebSessionViewController: PulleyViewController {
         
         let templateMessage = "How many MB of data would you like to provide "
         
-        let alertController = UIAlertController(title: "Data Cap",
+        let alertController = CustomAlertController(title: "Data Cap",
                                                 message: templateMessage + "\(peerIDsToAdd.first!.displayName)?",
                                                 preferredStyle: .alert)
         

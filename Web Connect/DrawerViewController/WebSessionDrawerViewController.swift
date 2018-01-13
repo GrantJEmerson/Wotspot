@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 import MultipeerConnectivity
 
-@objc public protocol ContentDelegate {
+@objc public protocol ContentDelegate: class {
     
     var currentURL: URL? { get }
 
@@ -30,7 +30,7 @@ import MultipeerConnectivity
     func setPulleyPosition(_ pulleyPosition: Int)
 }
 
-protocol WebSessionDrawerDelegate {
+protocol WebSessionDrawerDelegate: class {
     func endEditing()
     func updateBookmarkIconFor(_ url: URL)
     func updateDataUsageGraph(dataSet: DataSet)
@@ -43,7 +43,7 @@ class WebSessionDrawerViewController: UIViewController {
     
     // MARK: Properties
     
-    public var delegate: ContentDelegate?
+    public weak var delegate: ContentDelegate?
     
     private let isHost: Bool
     
@@ -239,7 +239,7 @@ class WebSessionDrawerViewController: UIViewController {
     
     private func setUpSearchBar() {
         searchBar.setImage(#imageLiteral(resourceName: "ReloadIcon"), for: .bookmark, state: .normal)
-        searchBar.tintColor = UserDefaults.standard.bool(forKey: "prefersDark") ? .white : .defaultButtonColor
+        searchBar.tintColor = UserDefaults.standard.bool(forKey: "prefersDark") ? .white : .themeColor
         searchBar.autocapitalizationType = .none
         
         NotificationCenter.default.addObserver(forName: .lightenLabels, object: nil, queue: .main) { (_) in
@@ -250,7 +250,7 @@ class WebSessionDrawerViewController: UIViewController {
         
         NotificationCenter.default.addObserver(forName: .darkenLabels, object: nil, queue: .main) { (_) in
             UIView.animate(withDuration: 0.8) {
-                self.searchBar.tintColor = .defaultButtonColor
+                self.searchBar.tintColor = .themeColor
             }
         }
         

@@ -21,7 +21,7 @@ class BookmarkTableViewCell: NSTableCellView {
     @IBOutlet weak var bookmarkTitleLabel: NSTextField!
     @IBOutlet weak var bookmarkScreenshotImageView: NSImageView! {
         didSet {
-            bookmarkScreenshotImageView.layer?.cornerRadius = 5
+            bookmarkScreenshotImageView.layer?.cornerRadius = 15
         }
     }
 }

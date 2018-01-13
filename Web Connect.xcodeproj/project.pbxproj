@@ -58,6 +58,9 @@
 		55D2081A1FF49FC2009AF34F /* Web_Share.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 55D208181FF49FC2009AF34F /* Web_Share.xcdatamodeld */; };
 		55D2081C1FF49FC2009AF34F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55D2081B1FF49FC2009AF34F /* Assets.xcassets */; };
 		55D2081F1FF49FC2009AF34F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55D2081D1FF49FC2009AF34F /* Main.storyboard */; };
+		55EE749E2009546600446880 /* ImageTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EE749D2009546600446880 /* ImageTextFieldCell.swift */; };
+		55EE749F20097CC300446880 /* OfflineErrorPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C0DFE51FFD7C5B00A03B91 /* OfflineErrorPage.swift */; };
+		55EE74A220099C7C00446880 /* CustomAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EE74A120099C7C00446880 /* CustomAlertController.swift */; };
 		55EFC84A20042E80009620A4 /* WebShareWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EFC84920042E80009620A4 /* WebShareWindowController.swift */; };
 		55EFC84B2004311B009620A4 /* String+NilIfEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559872AD1FF6BEC900A726D9 /* String+NilIfEmpty.swift */; };
 		55F1D6A21FDB8DD7003B223F /* UIVisualEffectView+SwitchStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F1D6A11FDB8DD7003B223F /* UIVisualEffectView+SwitchStyle.swift */; };
@@ -126,6 +129,8 @@
 		55D208201FF49FC2009AF34F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		55D208211FF49FC2009AF34F /* Web_Share.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Web_Share.entitlements; sourceTree = "<group>"; };
 		55E4A8821FFC17790076E7AD /* Web Share.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Web Share.entitlements"; sourceTree = "<group>"; };
+		55EE749D2009546600446880 /* ImageTextFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTextFieldCell.swift; sourceTree = "<group>"; };
+		55EE74A120099C7C00446880 /* CustomAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertController.swift; sourceTree = "<group>"; };
 		55EFC84920042E80009620A4 /* WebShareWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebShareWindowController.swift; sourceTree = "<group>"; };
 		55F1D6A11FDB8DD7003B223F /* UIVisualEffectView+SwitchStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIVisualEffectView+SwitchStyle.swift"; sourceTree = "<group>"; };
 		55F1D6A31FDB90F1003B223F /* WebSessionDrawerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSessionDrawerViewController.swift; sourceTree = "<group>"; };
@@ -286,6 +291,7 @@
 				55654C6E2002F65700090797 /* PiChartView.swift */,
 				55A4FDD7200565EA00BA19A8 /* StatusIndicatorView.swift */,
 				5524DCC62005A7FF0033E872 /* BookmarkTableViewCell.swift */,
+				55EE749D2009546600446880 /* ImageTextFieldCell.swift */,
 				55D2081B1FF49FC2009AF34F /* Assets.xcassets */,
 				55D2081D1FF49FC2009AF34F /* Main.storyboard */,
 				55D208201FF49FC2009AF34F /* Info.plist */,
@@ -321,6 +327,7 @@
 				555E42921FFB2F0000EFE1D8 /* AdaptiveLabel.swift */,
 				55529BAD1FE98C5E0077A520 /* CustomWebView.swift */,
 				55054CBE2001DEDE00829308 /* NavigationNotifierView.swift */,
+				55EE74A120099C7C00446880 /* CustomAlertController.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -461,6 +468,7 @@
 				559872AE1FF6BEC900A726D9 /* String+NilIfEmpty.swift in Sources */,
 				55D1B7691FF18E4000379E34 /* DataUsageGraphView.swift in Sources */,
 				55CB1BF41FDA235100A1E377 /* AppDelegate.swift in Sources */,
+				55EE74A220099C7C00446880 /* CustomAlertController.swift in Sources */,
 				55054CBF2001DEDE00829308 /* NavigationNotifierView.swift in Sources */,
 				55F1D6A21FDB8DD7003B223F /* UIVisualEffectView+SwitchStyle.swift in Sources */,
 				55C0DFE81FFD8ED700A03B91 /* HTMLParser.swift in Sources */,
@@ -482,6 +490,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55EE749E2009546600446880 /* ImageTextFieldCell.swift in Sources */,
 				55EFC84A20042E80009620A4 /* WebShareWindowController.swift in Sources */,
 				55654C6F2002F65700090797 /* PiChartView.swift in Sources */,
 				55F6CE6D1FFC0FBB00D7E0B4 /* MCPeerID+Default.swift in Sources */,
@@ -492,6 +501,7 @@
 				556CBFE42002BDD100FBAF7D /* String+isLink.swift in Sources */,
 				55A4FDD8200565EA00BA19A8 /* StatusIndicatorView.swift in Sources */,
 				55D2081A1FF49FC2009AF34F /* Web_Share.xcdatamodeld in Sources */,
+				55EE749F20097CC300446880 /* OfflineErrorPage.swift in Sources */,
 				55EFC84B2004311B009620A4 /* String+NilIfEmpty.swift in Sources */,
 				5522FBB82008507B009C8712 /* WKWebView+Screenshot.swift in Sources */,
 				55D208151FF49FC2009AF34F /* AppDelegate.swift in Sources */,
@@ -655,7 +665,7 @@
 		55D208231FF49FC2009AF34F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = MacAppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Web Share/Web Share.entitlements";
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -674,7 +684,7 @@
 		55D208241FF49FC2009AF34F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = MacAppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Web Share/Web Share.entitlements";
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;

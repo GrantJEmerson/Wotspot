@@ -17,7 +17,7 @@ class UserWebSessionViewController: PulleyViewController {
     
     public weak var webView: CustomWebView?
     
-    public var drawerDelegate: WebSessionDrawerDelegate?
+    public weak var drawerDelegate: WebSessionDrawerDelegate?
     
     private var appDelegate = UIApplication.shared.delegate as? AppDelegate
     @available(iOS 10.0, *)
@@ -66,7 +66,7 @@ class UserWebSessionViewController: PulleyViewController {
     
     private func decodeMultipeerConnectivityData(_ data: Data) {
         if let searchResult = try? PropertyListDecoder().decode(SearchResult.self, from: data) {
-            //guard searchResult.webPage.url == awaitingURL else { return }
+            guard searchResult.webPage.url == awaitingURL else { return }
             awaitingURL = nil
             webView?.loadWebPage(searchResult.webPage)
             drawerDelegate?.updateDataUsageGraph(dataSet: searchResult.dataSet)
@@ -97,7 +97,7 @@ class UserWebSessionViewController: PulleyViewController {
     }
     
     private func presentDisconnectedAlert() {
-        let alertController = UIAlertController(title: "Disconnected",
+        let alertController = CustomAlertController(title: "Disconnected",
                                       message: "You have been removed from the current Web Share session.",
                                       preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "OK", style: .default))
@@ -106,8 +106,6 @@ class UserWebSessionViewController: PulleyViewController {
             self.webView?.loadHTMLString(WebErrorPage.offline, baseURL: nil)
         }
     }
-    
-
 }
 
 extension UserWebSessionViewController: MCSessionDelegate {
