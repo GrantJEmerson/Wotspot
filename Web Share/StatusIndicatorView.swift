@@ -23,7 +23,9 @@ class StatusIndicatorView: NSView {
             case .connected:
                 fillColor = NSColor.green
             }
-            draw(bounds)
+            DispatchQueue.main.async {
+                self.needsDisplay = true
+            }
         }
     }
     

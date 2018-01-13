@@ -13,11 +13,9 @@ class WebShareWindowController: NSWindowController, NSWindowDelegate  {
     
     // MARK: Properties
     
-    var mainWebViewController: MainWebViewController! {
-        let vc = contentViewController as? MainWebViewController
-        vc?.delegate = self
-        return vc
-    }
+    private lazy var mainWebViewController: MainWebViewController = {
+        return contentViewController as! MainWebViewController
+    }()
 
     @IBOutlet weak var searchBar: NSTextField!
     @IBOutlet weak var piChartView: PiChartView!
@@ -27,6 +25,7 @@ class WebShareWindowController: NSWindowController, NSWindowDelegate  {
     
     override func windowDidLoad() {
         super.windowDidLoad()
+        mainWebViewController.delegate = self
         //window?.backgroundColor = .black
     }
     

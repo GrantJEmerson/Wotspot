@@ -137,6 +137,7 @@ class MainWebViewController: NSViewController {
     @objc public func leaveSession() {
         session.disconnect()
         delegate?.setDataChartTo(100)
+        webView.loadHTMLString(WebErrorPage.offline, baseURL: nil)
     }
     
     // MARK: Public Functions
@@ -274,11 +275,12 @@ extension MainWebViewController: NSTableViewDelegate {
     
     func tableViewSelectionDidChange(_ notification: Notification) {
         let selectedRow = bookmarkTableView.selectedRow
+        guard selectedRow >= 0 else { return }
         guard let url = URL(string: bookmarks[selectedRow].url!) else { return }
         search(url)
         bookmarkTableView.deselectRow(selectedRow)
     }
-    
+        
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         let cell = bookmarkTableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "bookmarkCellID"), owner: self) as? BookmarkTableViewCell
         cell?.bookmark = bookmarks[row]
@@ -292,11 +294,12 @@ extension MainWebViewController: MCSessionDelegate {
         decodeMultipeerConnectivityData(data)
     }
     
-    func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
-        guard peerID == self.peerID else { return }
-        delegate?.changeConnectionStatusTo(state)
+    func session(_ session: MCSession, didReceiveCertificate certificate: [Any]?, fromPeer peerID: MCPeerID, certificateHandler: @escaping (Bool) -> Void) {
+        delegate?.changeConnectionStatusTo(.connected)
+        certificateHandler(true)
     }
     
+    func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {}
     func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {}
     func session(_ session: MCSession, didStartReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, with progress: Progress) {}
     func session(_ session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, at localURL: URL?, withError error: Error?) {}
