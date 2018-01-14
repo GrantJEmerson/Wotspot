@@ -17,12 +17,12 @@
         </array>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="InterBrowseSessionDrawerViewController" customModule="Web_Connect" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="InterBrowseSessionDrawerViewController" customModule="InterBrowseMobile" customModuleProvider="target">
             <connections>
                 <outlet property="bookmarkButton" destination="MMq-HS-j4J" id="bJs-bk-cEA"/>
                 <outlet property="collectionView" destination="gJb-HF-8AT" id="cIe-mg-ult"/>
                 <outlet property="customView" destination="kXP-HN-LCE" id="pIL-YM-Y2q"/>
-                <outlet property="gripperTopConstraint" destination="FGU-cx-j2G" id="Jk3-Hh-Cbl"/>
+                <outlet property="gripperTopConstraint" destination="FGU-cx-j2G" id="BcK-pR-grG"/>
                 <outlet property="nightModeButton" destination="Hli-gx-K8Y" id="WRM-6k-RyI"/>
                 <outlet property="searchBar" destination="k1Z-Uw-HDn" id="xET-wZ-alY"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -39,7 +39,7 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H81-7S-LDa" userLabel="SearchBarContainer">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="68"/>
                             <subviews>
-                                <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Search or enter website name" showsBookmarkButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k1Z-Uw-HDn">
+                                <searchBar contentMode="redraw" searchBarStyle="minimal" text="" placeholder="Search or enter website name" showsBookmarkButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k1Z-Uw-HDn">
                                     <rect key="frame" x="0.0" y="6" width="375" height="56"/>
                                     <textInputTraits key="textInputTraits"/>
                                     <connections>
@@ -103,7 +103,7 @@
                                 <constraint firstAttribute="height" priority="999" constant="35" id="Bvo-18-Uje"/>
                             </constraints>
                         </stackView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bookmarks" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ukK-BX-idU" customClass="AdaptiveLabel" customModule="Web_Connect" customModuleProvider="target">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bookmarks" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ukK-BX-idU" customClass="AdaptiveLabel" customModule="InterBrowseMobile" customModuleProvider="target">
                             <rect key="frame" x="8" y="119" width="299" height="34"/>
                             <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="26"/>
                             <nil key="textColor"/>

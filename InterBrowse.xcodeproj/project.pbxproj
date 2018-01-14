@@ -47,7 +47,7 @@
 		55CB1BFC1FDA235200A1E377 /* Web_Connect.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 55CB1BFA1FDA235200A1E377 /* Web_Connect.xcdatamodeld */; };
 		55CB1BFE1FDA235200A1E377 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55CB1BFD1FDA235200A1E377 /* Assets.xcassets */; };
 		55CB1C091FDA252000A1E377 /* UserInterBrowseSessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CB1C081FDA252000A1E377 /* UserInterBrowseSessionViewController.swift */; };
-		55CB1C0B1FDA257500A1E377 /* WebDataStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CB1C0A1FDA257500A1E377 /* WebDataStructures.swift */; };
+		55CB1C0B1FDA257500A1E377 /* DataStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CB1C0A1FDA257500A1E377 /* DataStructures.swift */; };
 		55CB1C111FDA25E800A1E377 /* PastelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CB1C0C1FDA25E700A1E377 /* PastelView.swift */; };
 		55CB1C121FDA25E800A1E377 /* PulleyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CB1C0D1FDA25E800A1E377 /* PulleyViewController.swift */; };
 		55CB1C131FDA25E800A1E377 /* PulleyViewController+Nested.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CB1C0E1FDA25E800A1E377 /* PulleyViewController+Nested.swift */; };
@@ -73,7 +73,7 @@
 		55F1D6A61FDB90F1003B223F /* WebSessionDrawerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55F1D6A41FDB90F1003B223F /* WebSessionDrawerViewController.xib */; };
 		55F6CE651FFC0AD600D7E0B4 /* MainWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F6CE641FFC0AD600D7E0B4 /* MainWebViewController.swift */; };
 		55F6CE671FFC0CBD00D7E0B4 /* URL+SearchInit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555E42901FFB266700EFE1D8 /* URL+SearchInit.swift */; };
-		55F6CE681FFC0E7800D7E0B4 /* WebDataStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CB1C0A1FDA257500A1E377 /* WebDataStructures.swift */; };
+		55F6CE681FFC0E7800D7E0B4 /* DataStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CB1C0A1FDA257500A1E377 /* DataStructures.swift */; };
 		55F6CE6A1FFC0EBE00D7E0B4 /* WKWebView+Screenshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F6CE691FFC0EBE00D7E0B4 /* WKWebView+Screenshot.swift */; };
 		55F7E87C200A97D90074B2B3 /* Image+ScaleToFill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F7E87B200A97D90074B2B3 /* Image+ScaleToFill.swift */; };
 		55F7E87E200A9E2A0074B2B3 /* SeperatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F7E87D200A9E2A0074B2B3 /* SeperatorView.swift */; };
@@ -119,7 +119,7 @@
 		55CB1BFD1FDA235200A1E377 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		55CB1C021FDA235200A1E377 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		55CB1C081FDA252000A1E377 /* UserInterBrowseSessionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInterBrowseSessionViewController.swift; sourceTree = "<group>"; };
-		55CB1C0A1FDA257500A1E377 /* WebDataStructures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebDataStructures.swift; sourceTree = "<group>"; };
+		55CB1C0A1FDA257500A1E377 /* DataStructures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStructures.swift; sourceTree = "<group>"; };
 		55CB1C0C1FDA25E700A1E377 /* PastelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PastelView.swift; sourceTree = "<group>"; };
 		55CB1C0D1FDA25E800A1E377 /* PulleyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PulleyViewController.swift; sourceTree = "<group>"; };
 		55CB1C0E1FDA25E800A1E377 /* PulleyViewController+Nested.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PulleyViewController+Nested.swift"; sourceTree = "<group>"; };
@@ -131,13 +131,13 @@
 		55D1B7681FF18E4000379E34 /* DataUsageGraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataUsageGraphView.swift; sourceTree = "<group>"; };
 		55D208061FF49924009AF34F /* SeperatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeperatorView.swift; sourceTree = "<group>"; };
 		55D2080C1FF49A98009AF34F /* UserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
-		55D208121FF49FC2009AF34F /* Web Share.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Web Share.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		55D208121FF49FC2009AF34F /* InterBrowseDesktop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InterBrowseDesktop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		55D208141FF49FC2009AF34F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		55D208191FF49FC2009AF34F /* Web_Share.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Web_Share.xcdatamodel; sourceTree = "<group>"; };
 		55D2081B1FF49FC2009AF34F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		55D2081E1FF49FC2009AF34F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		55D208201FF49FC2009AF34F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		55E4A8821FFC17790076E7AD /* Web Share.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Web Share.entitlements"; sourceTree = "<group>"; };
+		55E4A8821FFC17790076E7AD /* InterBrowse.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = InterBrowse.entitlements; sourceTree = "<group>"; };
 		55EE749D2009546600446880 /* ImageTextFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTextFieldCell.swift; sourceTree = "<group>"; };
 		55EE74A120099C7C00446880 /* CustomAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertController.swift; sourceTree = "<group>"; };
 		55EFC84920042E80009620A4 /* InterBrowseWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterBrowseWindowController.swift; sourceTree = "<group>"; };
@@ -265,7 +265,7 @@
 		55529BB01FE98D0F0077A520 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				55CB1C0A1FDA257500A1E377 /* WebDataStructures.swift */,
+				55CB1C0A1FDA257500A1E377 /* DataStructures.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -304,7 +304,7 @@
 			isa = PBXGroup;
 			children = (
 				55CB1BF01FDA235100A1E377 /* Web Connect.app */,
-				55D208121FF49FC2009AF34F /* Web Share.app */,
+				55D208121FF49FC2009AF34F /* InterBrowseDesktop.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -343,7 +343,7 @@
 		55D208131FF49FC2009AF34F /* InterBrowseDesktop */ = {
 			isa = PBXGroup;
 			children = (
-				55E4A8821FFC17790076E7AD /* Web Share.entitlements */,
+				55E4A8821FFC17790076E7AD /* InterBrowse.entitlements */,
 				5529A84C200B162D00869700 /* Controllers */,
 				5529A84E200B165000869700 /* Extensions */,
 				5529A84D200B164300869700 /* CustomViews */,
@@ -390,9 +390,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		55CB1BEF1FDA235100A1E377 /* Web Connect */ = {
+		55CB1BEF1FDA235100A1E377 /* InterBrowseMobile */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 55CB1C051FDA235200A1E377 /* Build configuration list for PBXNativeTarget "Web Connect" */;
+			buildConfigurationList = 55CB1C051FDA235200A1E377 /* Build configuration list for PBXNativeTarget "InterBrowseMobile" */;
 			buildPhases = (
 				55CB1BEC1FDA235100A1E377 /* Sources */,
 				55CB1BED1FDA235100A1E377 /* Frameworks */,
@@ -402,14 +402,14 @@
 			);
 			dependencies = (
 			);
-			name = "Web Connect";
+			name = InterBrowseMobile;
 			productName = "Web Connect";
 			productReference = 55CB1BF01FDA235100A1E377 /* Web Connect.app */;
 			productType = "com.apple.product-type.application";
 		};
-		55D208111FF49FC2009AF34F /* Web Share */ = {
+		55D208111FF49FC2009AF34F /* InterBrowseDesktop */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 55D208221FF49FC2009AF34F /* Build configuration list for PBXNativeTarget "Web Share" */;
+			buildConfigurationList = 55D208221FF49FC2009AF34F /* Build configuration list for PBXNativeTarget "InterBrowseDesktop" */;
 			buildPhases = (
 				55D2080E1FF49FC2009AF34F /* Sources */,
 				55D2080F1FF49FC2009AF34F /* Frameworks */,
@@ -419,9 +419,9 @@
 			);
 			dependencies = (
 			);
-			name = "Web Share";
+			name = InterBrowseDesktop;
 			productName = "Web Share";
-			productReference = 55D208121FF49FC2009AF34F /* Web Share.app */;
+			productReference = 55D208121FF49FC2009AF34F /* InterBrowseDesktop.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -462,8 +462,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				55CB1BEF1FDA235100A1E377 /* Web Connect */,
-				55D208111FF49FC2009AF34F /* Web Share */,
+				55CB1BEF1FDA235100A1E377 /* InterBrowseMobile */,
+				55D208111FF49FC2009AF34F /* InterBrowseDesktop */,
 			);
 		};
 /* End PBXProject section */
@@ -504,7 +504,7 @@
 				55D208071FF49924009AF34F /* SeperatorView.swift in Sources */,
 				55CB1BFC1FDA235200A1E377 /* Web_Connect.xcdatamodeld in Sources */,
 				55F6CE6A1FFC0EBE00D7E0B4 /* WKWebView+Screenshot.swift in Sources */,
-				55CB1C0B1FDA257500A1E377 /* WebDataStructures.swift in Sources */,
+				55CB1C0B1FDA257500A1E377 /* DataStructures.swift in Sources */,
 				5524A6861FEEF87900EA7D2C /* ProfileManagementView.swift in Sources */,
 				550AFE701FDC48CA000CFAED /* HomeViewController.swift in Sources */,
 				55CB1C091FDA252000A1E377 /* UserInterBrowseSessionViewController.swift in Sources */,
@@ -553,7 +553,7 @@
 				5529A849200AE9D800869700 /* DeletionView.swift in Sources */,
 				55F6CE651FFC0AD600D7E0B4 /* MainWebViewController.swift in Sources */,
 				556CBFE52002BE0200FBAF7D /* CustomWebView.swift in Sources */,
-				55F6CE681FFC0E7800D7E0B4 /* WebDataStructures.swift in Sources */,
+				55F6CE681FFC0E7800D7E0B4 /* DataStructures.swift in Sources */,
 				55F6CE671FFC0CBD00D7E0B4 /* URL+SearchInit.swift in Sources */,
 				553837832009C73400E8C71E /* Defaults.swift in Sources */,
 				5500AC95200BA6E100594E4F /* WKNavigationType+Matches.swift in Sources */,
@@ -727,7 +727,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = MacAppIcon;
-				CODE_SIGN_ENTITLEMENTS = "InterBrowseDesktop/Web Share.entitlements";
+				CODE_SIGN_ENTITLEMENTS = InterBrowseDesktop/InterBrowse.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -746,7 +746,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = MacAppIcon;
-				CODE_SIGN_ENTITLEMENTS = "InterBrowseDesktop/Web Share.entitlements";
+				CODE_SIGN_ENTITLEMENTS = InterBrowseDesktop/InterBrowse.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -773,7 +773,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		55CB1C051FDA235200A1E377 /* Build configuration list for PBXNativeTarget "Web Connect" */ = {
+		55CB1C051FDA235200A1E377 /* Build configuration list for PBXNativeTarget "InterBrowseMobile" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				55CB1C061FDA235200A1E377 /* Debug */,
@@ -782,7 +782,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		55D208221FF49FC2009AF34F /* Build configuration list for PBXNativeTarget "Web Share" */ = {
+		55D208221FF49FC2009AF34F /* Build configuration list for PBXNativeTarget "InterBrowseDesktop" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				55D208231FF49FC2009AF34F /* Debug */,

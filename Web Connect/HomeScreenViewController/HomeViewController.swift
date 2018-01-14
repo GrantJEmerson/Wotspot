@@ -82,11 +82,11 @@ class HomeViewController: UIViewController {
     // MARK: Selector Functions
     
     @objc private func startHostingSessionTapped() {
-        presentHostWebSessionVC()
+        presentHostSessionVC()
     }
     
     @objc private func joinAvailableSessionTapped() {
-        presentUserWebSessionVC()
+        presentUserSessionVC()
     }
     
     // MARK: - Private Functions
@@ -122,28 +122,28 @@ class HomeViewController: UIViewController {
         ])
     }
     
-    private func presentHostWebSessionVC() {
+    private func presentHostSessionVC() {
         let webBrowserVC = WebBrowserViewController(isHost: true)
-        let webSesionDrawerVC = InterBrowseSessionDrawerViewController(isHost: true)
-        let hostWebSessionVC = HostInterBrowseSessionViewController(contentViewController: webBrowserVC,
-                                                            drawerViewController: webSesionDrawerVC)
-        hostWebSessionVC.webView = webBrowserVC.webView
-        hostWebSessionVC.drawerDelegate = webSesionDrawerVC
-        webSesionDrawerVC.delegate = hostWebSessionVC
-        webBrowserVC.delegate = hostWebSessionVC
-        self.show(hostWebSessionVC, sender: self)
+        let sesionDrawerVC = InterBrowseSessionDrawerViewController(isHost: true)
+        let hostSessionVC = HostInterBrowseSessionViewController(contentViewController: webBrowserVC,
+                                                            drawerViewController: sesionDrawerVC)
+        hostSessionVC.webView = webBrowserVC.webView
+        hostSessionVC.drawerDelegate = sesionDrawerVC
+        sesionDrawerVC.delegate = hostSessionVC
+        webBrowserVC.delegate = hostSessionVC
+        self.show(hostSessionVC, sender: self)
     }
     
-    private func presentUserWebSessionVC() {
+    private func presentUserSessionVC() {
         let webBrowserVC = WebBrowserViewController(isHost: false)
-        let webSesionDrawerVC = InterBrowseSessionDrawerViewController(isHost: false)
-        let userWebSessionVC = UserInterBrowseSessionViewController(contentViewController: webBrowserVC,
-                                                            drawerViewController: webSesionDrawerVC)
-        userWebSessionVC.webView = webBrowserVC.webView
-        userWebSessionVC.drawerDelegate = webSesionDrawerVC
-        webSesionDrawerVC.delegate = userWebSessionVC
-        webBrowserVC.delegate = userWebSessionVC
-        self.show(userWebSessionVC, sender: self)
+        let sesionDrawerVC = InterBrowseSessionDrawerViewController(isHost: false)
+        let userSessionVC = UserInterBrowseSessionViewController(contentViewController: webBrowserVC,
+                                                            drawerViewController: sesionDrawerVC)
+        userSessionVC.webView = webBrowserVC.webView
+        userSessionVC.drawerDelegate = sesionDrawerVC
+        sesionDrawerVC.delegate = userSessionVC
+        webBrowserVC.delegate = userSessionVC
+        self.show(userSessionVC, sender: self)
     }
 }
 
