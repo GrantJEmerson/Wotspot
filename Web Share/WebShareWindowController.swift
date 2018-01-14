@@ -68,9 +68,6 @@ extension WebShareWindowController: WindowControllerDelegate {
 extension WebShareWindowController: NSUserInterfaceValidations {
     
     func validateUserInterfaceItem(_ item: NSValidatedUserInterfaceItem) -> Bool {
-//        if let action = item.action {
-//
-//        }
         return true
     }
         

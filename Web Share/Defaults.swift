@@ -25,6 +25,8 @@ struct PreferenceKey<Value> : RawRepresentable {
 
 extension Notification.Name {
     static let appearanceChanged = Notification.Name(rawValue: "AppearanceChangedNotification")
+    static let beginBookmarkEditing = Notification.Name(rawValue: "BeginEditing")
+    static let endBookmarkEditing = Notification.Name(rawValue: "EndEditing")
 }
 
 extension UserDefaults {
@@ -55,9 +57,9 @@ extension UserDefaults {
     static let peerIDKey = PreferenceKey<String>("PeerID")
     static let useDarkModeKey = PreferenceKey<Bool>("UseDarkMode")
     
-    static var peerID: String? {
+    static var peerID: String {
         get {
-            return UserDefaults.standard[peerIDKey]
+            return UserDefaults.standard[peerIDKey] ?? Host.current().localizedName ?? "Mac"
         }
     }
     

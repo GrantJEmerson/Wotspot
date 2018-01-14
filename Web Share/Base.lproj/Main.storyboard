@@ -283,12 +283,6 @@
                                                 <action selector="toggleToolbarShown:" target="Ady-hI-5gd" id="BXY-wc-z0C"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Customize Toolbar…" id="1UK-8n-QPP">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="runToolbarCustomizationPalette:" target="Ady-hI-5gd" id="pQI-g3-MTW"/>
-                                            </connections>
-                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="hB3-LF-h0Y"/>
                                         <menuItem title="Show Sidebar" keyEquivalent="s" id="kIP-vf-haE">
                                             <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
@@ -328,6 +322,9 @@
                                     <items>
                                         <menuItem title="Edit Username" id="0Wf-4G-Wtj">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <segue destination="4LS-l8-Ifi" kind="show" id="kT7-38-IEe"/>
+                                            </connections>
                                         </menuItem>
                                         <menuItem title="Leave Session" id="L2T-e5-f8V">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -494,7 +491,7 @@
                     <window key="window" title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="vWX-9R-SyB">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES" bottomStrut="YES"/>
-                        <rect key="contentRect" x="163" y="199" width="480" height="270"/>
+                        <rect key="contentRect" x="163" y="199" width="370" height="150"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
                         <value key="minSize" type="size" width="370" height="150"/>
                         <value key="maxSize" type="size" width="370" height="150"/>
@@ -519,16 +516,16 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="ndc-cY-705">
-                                <rect key="frame" x="0.0" y="0.0" width="200" height="504"/>
+                                <rect key="frame" x="-200" y="0.0" width="200" height="504"/>
                                 <subviews>
-                                    <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="138" horizontalPageScroll="10" verticalLineScroll="138" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="czm-JT-QYN">
-                                        <rect key="frame" x="0.0" y="0.0" width="200" height="452"/>
+                                    <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="138" horizontalPageScroll="10" verticalLineScroll="138" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="czm-JT-QYN">
+                                        <rect key="frame" x="0.0" y="0.0" width="200" height="455"/>
                                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="HSd-vw-1Nd">
-                                            <rect key="frame" x="0.0" y="0.0" width="200" height="452"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="200" height="455"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="136" viewBased="YES" id="KDJ-l8-uL2">
-                                                    <rect key="frame" x="0.0" y="0.0" width="200" height="452"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="200" height="455"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
@@ -566,19 +563,27 @@
                                                                             <rect key="frame" x="5" y="26" width="187" height="105"/>
                                                                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="dqV-is-zKb"/>
                                                                         </imageView>
+                                                                        <customView hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yj9-J3-G9F" customClass="DeletionView" customModule="Web_Share" customModuleProvider="target">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="197" height="136"/>
+                                                                        </customView>
                                                                     </subviews>
                                                                     <constraints>
                                                                         <constraint firstAttribute="trailing" secondItem="ivh-uV-Ob5" secondAttribute="trailing" constant="5" id="89d-hO-0DF"/>
+                                                                        <constraint firstItem="yj9-J3-G9F" firstAttribute="top" secondItem="PZo-Or-WI7" secondAttribute="top" id="9cn-dw-LLX"/>
+                                                                        <constraint firstItem="yj9-J3-G9F" firstAttribute="leading" secondItem="PZo-Or-WI7" secondAttribute="leading" id="AKz-p3-dYu"/>
                                                                         <constraint firstItem="RnM-iZ-3P6" firstAttribute="top" secondItem="PZo-Or-WI7" secondAttribute="top" constant="5" id="R1m-dD-7yT"/>
                                                                         <constraint firstItem="ivh-uV-Ob5" firstAttribute="leading" secondItem="PZo-Or-WI7" secondAttribute="leading" constant="5" id="Z9E-hT-TNV"/>
                                                                         <constraint firstAttribute="bottom" secondItem="ivh-uV-Ob5" secondAttribute="bottom" constant="5" id="ZBz-b8-n4A"/>
+                                                                        <constraint firstAttribute="trailing" secondItem="yj9-J3-G9F" secondAttribute="trailing" id="aQJ-Y0-Qm8"/>
                                                                         <constraint firstItem="RnM-iZ-3P6" firstAttribute="leading" secondItem="PZo-Or-WI7" secondAttribute="leading" constant="5" id="lwn-bn-Bbp"/>
                                                                         <constraint firstItem="ivh-uV-Ob5" firstAttribute="top" secondItem="RnM-iZ-3P6" secondAttribute="bottom" id="qXo-Ht-rLM"/>
                                                                         <constraint firstAttribute="trailing" secondItem="RnM-iZ-3P6" secondAttribute="trailing" constant="5" id="sIk-2I-jMU"/>
+                                                                        <constraint firstAttribute="bottom" secondItem="yj9-J3-G9F" secondAttribute="bottom" id="tPt-pm-owN"/>
                                                                     </constraints>
                                                                     <connections>
                                                                         <outlet property="bookmarkScreenshotImageView" destination="RnM-iZ-3P6" id="vsu-Sa-3jb"/>
                                                                         <outlet property="bookmarkTitleLabel" destination="ivh-uV-Ob5" id="WNB-zF-fgt"/>
+                                                                        <outlet property="deletionView" destination="yj9-J3-G9F" id="mMk-g6-ioV"/>
                                                                         <outlet property="textField" destination="ivh-uV-Ob5" id="JZM-ex-BN1"/>
                                                                     </connections>
                                                                 </tableCellView>
@@ -594,47 +599,59 @@
                                             <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
                                         </clipView>
                                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="ZyE-LN-KR5">
-                                            <rect key="frame" x="0.0" y="428" width="200" height="16"/>
+                                            <rect key="frame" x="-100" y="-100" width="200" height="16"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="Fds-vm-1IP">
-                                            <rect key="frame" x="224" y="17" width="15" height="102"/>
+                                            <rect key="frame" x="-100" y="-100" width="15" height="102"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="L8h-Yo-BJs">
-                                        <rect key="frame" x="18" y="454" width="164" height="35"/>
+                                        <rect key="frame" x="18" y="457" width="124" height="32"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Bookmarks" id="tw5-qw-Ho7">
-                                            <font key="font" size="26" name="Futura-Medium"/>
+                                            <font key="font" size="24" name="Futura-Medium"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="ERt-lG-BK1" customClass="SeperatorView" customModule="Web_Share" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="452" width="160" height="2"/>
+                                        <rect key="frame" x="20" y="455" width="170" height="2"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="2" id="ROz-Ze-9UK"/>
                                         </constraints>
                                     </customView>
+                                    <button verticalHuggingPriority="750" horizontalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="Baf-rp-FDX">
+                                        <rect key="frame" x="148" y="455" width="48" height="32"/>
+                                        <buttonCell key="cell" type="push" title="Edit" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="4NY-m3-tLH">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" size="9" name="Futura-Medium"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="editBookmarksButtonClicked:" target="7jR-kO-ui6" id="Gjt-2q-4sa"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="L8h-Yo-BJs" secondAttribute="trailing" constant="20" id="4SZ-ww-XVJ"/>
                                     <constraint firstItem="L8h-Yo-BJs" firstAttribute="leading" secondItem="ndc-cY-705" secondAttribute="leading" constant="20" id="629-Tw-lu8"/>
                                     <constraint firstItem="L8h-Yo-BJs" firstAttribute="top" secondItem="ndc-cY-705" secondAttribute="top" constant="15" id="9x3-ff-6FM"/>
+                                    <constraint firstItem="Baf-rp-FDX" firstAttribute="bottom" secondItem="L8h-Yo-BJs" secondAttribute="bottom" constant="-5" id="LgH-gn-eE9"/>
                                     <constraint firstItem="czm-JT-QYN" firstAttribute="leading" secondItem="ndc-cY-705" secondAttribute="leading" id="Noo-eL-31I"/>
                                     <constraint firstItem="ERt-lG-BK1" firstAttribute="top" secondItem="L8h-Yo-BJs" secondAttribute="bottom" id="PTM-Sj-cpz"/>
                                     <constraint firstAttribute="width" constant="200" id="Q0M-2C-fS5"/>
                                     <constraint firstAttribute="trailing" secondItem="czm-JT-QYN" secondAttribute="trailing" id="W4U-gY-JMg"/>
                                     <constraint firstItem="ERt-lG-BK1" firstAttribute="leading" secondItem="ndc-cY-705" secondAttribute="leading" constant="20" id="WHx-9f-Gre"/>
                                     <constraint firstAttribute="bottom" secondItem="czm-JT-QYN" secondAttribute="bottom" id="b2a-cY-kJb"/>
-                                    <constraint firstAttribute="trailing" secondItem="ERt-lG-BK1" secondAttribute="trailing" constant="20" id="f64-cR-Tpk"/>
+                                    <constraint firstAttribute="trailing" secondItem="ERt-lG-BK1" secondAttribute="trailing" constant="10" id="f64-cR-Tpk"/>
                                     <constraint firstItem="czm-JT-QYN" firstAttribute="top" secondItem="ERt-lG-BK1" secondAttribute="bottom" id="gi7-km-mGh"/>
+                                    <constraint firstAttribute="trailing" secondItem="Baf-rp-FDX" secondAttribute="trailing" constant="10" id="kIg-XG-Jsy"/>
+                                    <constraint firstItem="Baf-rp-FDX" firstAttribute="leading" secondItem="L8h-Yo-BJs" secondAttribute="trailing" constant="14" id="ke4-gU-S8O"/>
                                 </constraints>
                             </customView>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="ndc-cY-705" secondAttribute="bottom" id="1H4-Dj-pwh"/>
-                            <constraint firstItem="ndc-cY-705" firstAttribute="trailing" secondItem="6Pz-9j-MyH" secondAttribute="leading" constant="200" id="F00-ga-dvI"/>
+                            <constraint firstItem="ndc-cY-705" firstAttribute="trailing" secondItem="6Pz-9j-MyH" secondAttribute="leading" id="F00-ga-dvI"/>
                             <constraint firstItem="ndc-cY-705" firstAttribute="top" secondItem="6Pz-9j-MyH" secondAttribute="top" id="kgW-BL-0tV"/>
                         </constraints>
                     </view>
@@ -692,18 +709,19 @@
                             </customView>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Hi8-Jc-WMs">
                                 <rect key="frame" x="45" y="42" width="280" height="22"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="280" id="au5-O3-VZV"/>
-                                </constraints>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Enter a Username for Web Share Sessions" bezelStyle="round" id="lKc-YE-KVM">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
+                                <connections>
+                                    <binding destination="Zgj-aV-ulQ" name="value" keyPath="values.PeerID" id="zkA-yy-69y"/>
+                                </connections>
                             </textField>
                         </subviews>
                         <constraints>
                             <constraint firstItem="GiC-TJ-DJc" firstAttribute="top" secondItem="qot-Ez-Fjy" secondAttribute="bottom" id="5Ws-YZ-2s1"/>
+                            <constraint firstItem="Hi8-Jc-WMs" firstAttribute="leading" secondItem="3pW-66-3rL" secondAttribute="leading" constant="45" id="GWA-bK-XIZ"/>
                             <constraint firstItem="GiC-TJ-DJc" firstAttribute="centerX" secondItem="3pW-66-3rL" secondAttribute="centerX" id="JFL-XK-mdQ"/>
                             <constraint firstItem="NMr-rE-xVA" firstAttribute="centerX" secondItem="3pW-66-3rL" secondAttribute="centerX" id="KvU-UC-2th"/>
                             <constraint firstItem="qot-Ez-Fjy" firstAttribute="top" secondItem="3pW-66-3rL" secondAttribute="top" constant="20" id="ZbO-tI-DgW"/>
@@ -717,7 +735,7 @@
                 <customObject id="zfA-EW-MoN" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <userDefaultsController representsSharedInstance="YES" id="Zgj-aV-ulQ"/>
             </objects>
-            <point key="canvasLocation" x="1344.5" y="192"/>
+            <point key="canvasLocation" x="1344" y="192"/>
         </scene>
     </scenes>
     <resources>
@@ -725,4 +743,7 @@
         <image name="NSGoForwardTemplate" width="9" height="12"/>
         <image name="Water" width="128.63999938964844" height="123.83999633789062"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="kT7-38-IEe"/>
+    </inferredMetricsTieBreakers>
 </document>

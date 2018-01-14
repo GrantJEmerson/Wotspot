@@ -12,6 +12,8 @@ import Cocoa
 class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        UserDefaults.standard.register(defaults: [ UserDefaults.useDarkModeKey.rawValue : false ])
+        UserDefaults.standard.register(defaults: [UserDefaults.peerIDKey.rawValue : Host.current().localizedName ?? "Mac"])
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

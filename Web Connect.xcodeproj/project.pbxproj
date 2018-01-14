@@ -18,6 +18,7 @@
 		5524A6821FEEEF4700EA7D2C /* UserManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5524A6811FEEEF4700EA7D2C /* UserManagementView.swift */; };
 		5524A6861FEEF87900EA7D2C /* ProfileManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5524A6851FEEF87900EA7D2C /* ProfileManagementView.swift */; };
 		5524DCC72005A7FF0033E872 /* BookmarkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5524DCC62005A7FF0033E872 /* BookmarkTableViewCell.swift */; };
+		5529A849200AE9D800869700 /* DeletionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5529A848200AE9D800869700 /* DeletionView.swift */; };
 		553837812009C6A100E8C71E /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553837802009C6A100E8C71E /* PreferencesViewController.swift */; };
 		553837832009C73400E8C71E /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553837822009C73400E8C71E /* Defaults.swift */; };
 		553A061E20008BEF00FADC0F /* URL+DomainNameURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553A061D20008BEF00FADC0F /* URL+DomainNameURL.swift */; };
@@ -72,7 +73,6 @@
 		55F6CE671FFC0CBD00D7E0B4 /* URL+SearchInit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555E42901FFB266700EFE1D8 /* URL+SearchInit.swift */; };
 		55F6CE681FFC0E7800D7E0B4 /* WebDataStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CB1C0A1FDA257500A1E377 /* WebDataStructures.swift */; };
 		55F6CE6A1FFC0EBE00D7E0B4 /* WKWebView+Screenshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F6CE691FFC0EBE00D7E0B4 /* WKWebView+Screenshot.swift */; };
-		55F6CE6D1FFC0FBB00D7E0B4 /* MCPeerID+Default.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F6CE6C1FFC0FBB00D7E0B4 /* MCPeerID+Default.swift */; };
 		55F7E87C200A97D90074B2B3 /* Image+ScaleToFill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F7E87B200A97D90074B2B3 /* Image+ScaleToFill.swift */; };
 		55F7E87E200A9E2A0074B2B3 /* SeperatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F7E87D200A9E2A0074B2B3 /* SeperatorView.swift */; };
 /* End PBXBuildFile section */
@@ -89,6 +89,7 @@
 		5524A6811FEEEF4700EA7D2C /* UserManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManagementView.swift; sourceTree = "<group>"; };
 		5524A6851FEEF87900EA7D2C /* ProfileManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileManagementView.swift; sourceTree = "<group>"; };
 		5524DCC62005A7FF0033E872 /* BookmarkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkTableViewCell.swift; sourceTree = "<group>"; };
+		5529A848200AE9D800869700 /* DeletionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletionView.swift; sourceTree = "<group>"; };
 		553837802009C6A100E8C71E /* PreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
 		553837822009C73400E8C71E /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
 		553A061D20008BEF00FADC0F /* URL+DomainNameURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+DomainNameURL.swift"; sourceTree = "<group>"; };
@@ -143,7 +144,6 @@
 		55F1D6A41FDB90F1003B223F /* WebSessionDrawerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WebSessionDrawerViewController.xib; sourceTree = "<group>"; };
 		55F6CE641FFC0AD600D7E0B4 /* MainWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWebViewController.swift; sourceTree = "<group>"; };
 		55F6CE691FFC0EBE00D7E0B4 /* WKWebView+Screenshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WKWebView+Screenshot.swift"; sourceTree = "<group>"; };
-		55F6CE6C1FFC0FBB00D7E0B4 /* MCPeerID+Default.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MCPeerID+Default.swift"; sourceTree = "<group>"; };
 		55F7E87B200A97D90074B2B3 /* Image+ScaleToFill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+ScaleToFill.swift"; sourceTree = "<group>"; };
 		55F7E87D200A9E2A0074B2B3 /* SeperatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeperatorView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -294,11 +294,11 @@
 				55D208141FF49FC2009AF34F /* AppDelegate.swift */,
 				55EFC84920042E80009620A4 /* WebShareWindowController.swift */,
 				55F6CE641FFC0AD600D7E0B4 /* MainWebViewController.swift */,
-				55F6CE6C1FFC0FBB00D7E0B4 /* MCPeerID+Default.swift */,
 				5522FBB72008507B009C8712 /* WKWebView+Screenshot.swift */,
 				55654C6E2002F65700090797 /* PiChartView.swift */,
 				55A4FDD7200565EA00BA19A8 /* StatusIndicatorView.swift */,
 				5524DCC62005A7FF0033E872 /* BookmarkTableViewCell.swift */,
+				5529A848200AE9D800869700 /* DeletionView.swift */,
 				55EE749D2009546600446880 /* ImageTextFieldCell.swift */,
 				55F7E87B200A97D90074B2B3 /* Image+ScaleToFill.swift */,
 				553837802009C6A100E8C71E /* PreferencesViewController.swift */,
@@ -506,7 +506,7 @@
 				55EFC84A20042E80009620A4 /* WebShareWindowController.swift in Sources */,
 				553837812009C6A100E8C71E /* PreferencesViewController.swift in Sources */,
 				55654C6F2002F65700090797 /* PiChartView.swift in Sources */,
-				55F6CE6D1FFC0FBB00D7E0B4 /* MCPeerID+Default.swift in Sources */,
+				5529A849200AE9D800869700 /* DeletionView.swift in Sources */,
 				55F6CE651FFC0AD600D7E0B4 /* MainWebViewController.swift in Sources */,
 				556CBFE52002BE0200FBAF7D /* CustomWebView.swift in Sources */,
 				55F6CE681FFC0E7800D7E0B4 /* WebDataStructures.swift in Sources */,

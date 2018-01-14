@@ -22,6 +22,8 @@ class MainWebViewController: NSViewController {
     
     public weak var delegate: WindowControllerDelegate?
     
+    private var editingBookmarks = false
+    
     private var bookmarks = [Bookmark]()
     
     private lazy var appDelegate = NSApplication.shared.delegate as? AppDelegate
@@ -31,7 +33,7 @@ class MainWebViewController: NSViewController {
     
     // Multipeer Connectivity
     
-    private lazy var peerID = MCPeerID.saved
+    private lazy var peerID = MCPeerID(displayName: UserDefaults.peerID)
     
     private lazy var assistant: MCAdvertiserAssistant = {
         let assistant = MCAdvertiserAssistant(serviceType: "Web-Share", discoveryInfo: nil, session: session)
@@ -79,7 +81,6 @@ class MainWebViewController: NSViewController {
         progressView.translatesAutoresizingMaskIntoConstraints = false
         return progressView
     }()
-    
     
     @IBOutlet weak var bookmarkView: NSView! {
         didSet {
@@ -135,8 +136,19 @@ class MainWebViewController: NSViewController {
     
     @objc public func leaveSession() {
         session.disconnect()
+        delegate?.changeConnectionStatusTo(.notConnected)
         delegate?.setDataChartTo(100)
         webView.loadHTMLString(WebErrorPage.offline, baseURL: nil)
+    }
+    
+    @IBAction func editBookmarksButtonClicked(_ sender: NSButton) {
+        editingBookmarks = !editingBookmarks
+        if editingBookmarks {
+            NotificationCenter.default.post(Notification(name: .beginBookmarkEditing))
+        } else {
+            NotificationCenter.default.post(Notification(name: .endBookmarkEditing))
+        }
+        sender.title = editingBookmarks ? "Done" : "Edit"
     }
     
     // MARK: Public Functions
@@ -280,11 +292,26 @@ extension MainWebViewController: NSTableViewDelegate {
         search(url)
         bookmarkTableView.deselectRow(selectedRow)
     }
-        
+    
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         let cell = bookmarkTableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "bookmarkCellID"), owner: self) as? BookmarkTableViewCell
         cell?.bookmark = bookmarks[row]
+        cell?.delegate = self
+        cell?.editing = editingBookmarks
         return cell
+    }
+}
+
+extension MainWebViewController: BookmarkCellDelegate {
+    
+    func delete(_ cell: BookmarkTableViewCell) {
+        guard let bookmark = cell.bookmark,
+            let bookmarkIndex = bookmarks.index(of: bookmark) else { return }
+        bookmarks.remove(at: bookmarkIndex)
+        moc?.delete(bookmark)
+        appDelegate?.saveAction(self)
+        let indexSet = IndexSet(integer: bookmarkIndex)
+        bookmarkTableView.removeRows(at: indexSet, withAnimation: .effectFade)
     }
 }
 
