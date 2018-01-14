@@ -1,6 +1,6 @@
 //
 //  NotificationName+Custom.swift
-//  Web Connect
+//  InterBrowse
 //
 //  Created by Grant Emerson on 12/22/17.
 //  Copyright © 2017 Grant Emerson. All rights reserved.

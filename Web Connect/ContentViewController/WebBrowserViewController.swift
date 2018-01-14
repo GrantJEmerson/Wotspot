@@ -1,6 +1,6 @@
 //
 //  WebBrowserViewController.swift
-//  Web Connect
+//  InterBrowse
 //
 //  Created by Grant Emerson on 12/7/17.
 //  Copyright © 2017 Grant Emerson. All rights reserved.
@@ -202,7 +202,8 @@ extension WebBrowserViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         decisionHandler(.allow)
         guard let url = navigationAction.request.url,
-            navigationAction.navigationType.matchesAnyOf([.linkActivated, .backForward, .reload]) else { return }
+            navigationAction.navigationType.matchesAnyOf([.linkActivated, .backForward, .reload]),
+            isHost else { return }
         delegate?.searchFor(url)
     }
     
@@ -228,16 +229,5 @@ extension WebBrowserViewController: WKScriptMessageHandler {
         let search = message.replacingOccurrences(of: "Search: ", with: "")
         guard let url = URL(search: search) else { return }
         delegate?.searchFor(url)
-    }
-}
-
-extension WKNavigationType {
-    
-    func matchesAnyOf(_ types: [WKNavigationType]) -> Bool {
-        for type in types {
-            guard self == type else { continue }
-            return true
-        }
-        return false
     }
 }

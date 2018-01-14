@@ -1,6 +1,6 @@
 //
 //  CustomAlertController.swift
-//  Web Connect
+//  InterBrowse
 //
 //  Created by Grant Emerson on 1/12/18.
 //  Copyright © 2018 Grant Emerson. All rights reserved.

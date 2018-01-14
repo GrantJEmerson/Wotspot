@@ -1,6 +1,6 @@
 //
 //  NavigationNotifierView.swift
-//  Web Share
+//  InterBrowse
 //
 //  Created by Grant Emerson on 1/6/18.
 //  Copyright © 2018 Celebrity Games. All rights reserved.

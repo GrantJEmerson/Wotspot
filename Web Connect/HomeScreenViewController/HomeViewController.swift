@@ -1,6 +1,6 @@
 //
 //  HomeViewController.swift
-//  Web Connect
+//  InterBrowse
 //
 //  Created by Grant Emerson on 12/9/17.
 //  Copyright © 2017 Grant Emerson. All rights reserved.
@@ -44,7 +44,7 @@ class HomeViewController: UIViewController {
     private lazy var hostSessionButton: UIButton = {
         let button = HomePageButton()
         button.isEnabled = Reachability.isConnectedToNetwork()
-        let host = NSLocalizedString("Host", comment: "Title of Button to host a new Web Share Session")
+        let host = NSLocalizedString("Host", comment: "Title of Button to host a new InterBrowse Session")
         button.setTitle(host, for: .normal)
         button.addTarget(self, action: #selector(startHostingSessionTapped), for: .touchUpInside)
         return button
@@ -52,7 +52,7 @@ class HomeViewController: UIViewController {
     
     private lazy var joinSessionButton: UIButton = {
         let button = HomePageButton()
-        let join = NSLocalizedString("Join", comment: "Title of Button to join a Web Share Session")
+        let join = NSLocalizedString("Join", comment: "Title of Button to join a InterBrowse Session")
         button.setTitle(join, for: .normal)
         button.addTarget(self, action: #selector(joinAvailableSessionTapped), for: .touchUpInside)
         return button
@@ -124,8 +124,8 @@ class HomeViewController: UIViewController {
     
     private func presentHostWebSessionVC() {
         let webBrowserVC = WebBrowserViewController(isHost: true)
-        let webSesionDrawerVC = WebSessionDrawerViewController(isHost: true)
-        let hostWebSessionVC = HostWebSessionViewController(contentViewController: webBrowserVC,
+        let webSesionDrawerVC = InterBrowseSessionDrawerViewController(isHost: true)
+        let hostWebSessionVC = HostInterBrowseSessionViewController(contentViewController: webBrowserVC,
                                                             drawerViewController: webSesionDrawerVC)
         hostWebSessionVC.webView = webBrowserVC.webView
         hostWebSessionVC.drawerDelegate = webSesionDrawerVC
@@ -136,8 +136,8 @@ class HomeViewController: UIViewController {
     
     private func presentUserWebSessionVC() {
         let webBrowserVC = WebBrowserViewController(isHost: false)
-        let webSesionDrawerVC = WebSessionDrawerViewController(isHost: false)
-        let userWebSessionVC = UserWebSessionViewController(contentViewController: webBrowserVC,
+        let webSesionDrawerVC = InterBrowseSessionDrawerViewController(isHost: false)
+        let userWebSessionVC = UserInterBrowseSessionViewController(contentViewController: webBrowserVC,
                                                             drawerViewController: webSesionDrawerVC)
         userWebSessionVC.webView = webBrowserVC.webView
         userWebSessionVC.drawerDelegate = webSesionDrawerVC

@@ -1,6 +1,6 @@
 //
 //  HTMLParser.swift
-//  Web Connect
+//  InterBrowse
 //
 //  Created by Grant Emerson on 1/3/18.
 //  Copyright © 2018 Grant Emerson. All rights reserved.

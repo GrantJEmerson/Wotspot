@@ -28,14 +28,14 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Water" translatesAutoresizingMaskIntoConstraints="NO" id="hG0-Zh-DoH">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="WebShareAppIconWithoutBackground" translatesAutoresizingMaskIntoConstraints="NO" id="h5r-jS-Ubv">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AppIconWithoutBackground" translatesAutoresizingMaskIntoConstraints="NO" id="h5r-jS-Ubv">
                                 <rect key="frame" x="93.5" y="239.5" width="187.5" height="187.5"/>
                                 <constraints>
                                     <constraint firstAttribute="height" secondItem="h5r-jS-Ubv" secondAttribute="width" multiplier="1:1" id="fjw-D9-6Qq"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Web Share" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a0s-WT-b2f">
-                                <rect key="frame" x="107.5" y="199" width="159" height="40.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="InterBrowse" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a0s-WT-b2f">
+                                <rect key="frame" x="104.5" y="199" width="165.5" height="40.5"/>
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="31"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -61,7 +61,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="AppIconWithoutBackground" width="1024" height="1024"/>
         <image name="Water" width="536" height="516"/>
-        <image name="WebShareAppIconWithoutBackground" width="1024" height="1024"/>
     </resources>
 </document>

@@ -1,6 +1,6 @@
 //
 //  CustomWebView.swift
-//  Web Connect
+//  InterBrowse
 //
 //  Created by Grant Emerson on 12/19/17.
 //  Copyright © 2017 Grant Emerson. All rights reserved.

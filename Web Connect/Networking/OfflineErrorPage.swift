@@ -1,6 +1,6 @@
 //
 //  OfflineErrorPage.swift
-//  Web Connect
+//  InterBrowse
 //
 //  Created by Grant Emerson on 1/3/18.
 //  Copyright © 2018 Grant Emerson. All rights reserved.
@@ -10,8 +10,8 @@ import Foundation
 
 final public class WebErrorPage {
     
-    static let offline = htmlWith(title: "You Are Not Connected to a Web Share Session",
-                                  message: "Have a host add you to a Web Share session in order to surf the web.")
+    static let offline = htmlWith(title: "You Are Not Connected to a InterBrowse session",
+                                  message: "Have a host add you to a InterBrowse session in order to surf the web.")
     static let notFound = htmlWith(title: "404 Page Not Found",
                                    message: "The page you are looking for either doesn't exist or is not here anymore.")
     
