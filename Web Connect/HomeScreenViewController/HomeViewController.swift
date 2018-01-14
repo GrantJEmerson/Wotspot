@@ -124,7 +124,7 @@ class HomeViewController: UIViewController {
     
     private func presentHostSessionVC() {
         let webBrowserVC = WebBrowserViewController(isHost: true)
-        let sesionDrawerVC = InterBrowseSessionDrawerViewController(isHost: true)
+        let sesionDrawerVC = WebSessionDrawerViewController(isHost: true)
         let hostSessionVC = HostInterBrowseSessionViewController(contentViewController: webBrowserVC,
                                                             drawerViewController: sesionDrawerVC)
         hostSessionVC.webView = webBrowserVC.webView
@@ -136,7 +136,7 @@ class HomeViewController: UIViewController {
     
     private func presentUserSessionVC() {
         let webBrowserVC = WebBrowserViewController(isHost: false)
-        let sesionDrawerVC = InterBrowseSessionDrawerViewController(isHost: false)
+        let sesionDrawerVC = WebSessionDrawerViewController(isHost: false)
         let userSessionVC = UserInterBrowseSessionViewController(contentViewController: webBrowserVC,
                                                             drawerViewController: sesionDrawerVC)
         userSessionVC.webView = webBrowserVC.webView

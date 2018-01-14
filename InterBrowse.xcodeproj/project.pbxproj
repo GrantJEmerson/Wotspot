@@ -36,6 +36,7 @@
 		55654C6F2002F65700090797 /* PiChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55654C6E2002F65700090797 /* PiChartView.swift */; };
 		556CBFE42002BDD100FBAF7D /* String+isLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553DF69A1FFE9C3A00B3EF04 /* String+isLink.swift */; };
 		556CBFE52002BE0200FBAF7D /* CustomWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55529BAD1FE98C5E0077A520 /* CustomWebView.swift */; };
+		55718C42200C128F009E0312 /* WebSessionDrawerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55718C41200C128F009E0312 /* WebSessionDrawerViewController.swift */; };
 		557A6CCE1FF3FE290030F88A /* UIColor+ColorSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557A6CCD1FF3FE290030F88A /* UIColor+ColorSet.swift */; };
 		559872AE1FF6BEC900A726D9 /* String+NilIfEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559872AD1FF6BEC900A726D9 /* String+NilIfEmpty.swift */; };
 		55A4FDD8200565EA00BA19A8 /* StatusIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A4FDD7200565EA00BA19A8 /* StatusIndicatorView.swift */; };
@@ -69,7 +70,6 @@
 		55EFC84A20042E80009620A4 /* InterBrowseWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EFC84920042E80009620A4 /* InterBrowseWindowController.swift */; };
 		55EFC84B2004311B009620A4 /* String+NilIfEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559872AD1FF6BEC900A726D9 /* String+NilIfEmpty.swift */; };
 		55F1D6A21FDB8DD7003B223F /* UIVisualEffectView+SwitchStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F1D6A11FDB8DD7003B223F /* UIVisualEffectView+SwitchStyle.swift */; };
-		55F1D6A51FDB90F1003B223F /* InterBrowseSessionDrawerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F1D6A31FDB90F1003B223F /* InterBrowseSessionDrawerViewController.swift */; };
 		55F1D6A61FDB90F1003B223F /* WebSessionDrawerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55F1D6A41FDB90F1003B223F /* WebSessionDrawerViewController.xib */; };
 		55F6CE651FFC0AD600D7E0B4 /* MainWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F6CE641FFC0AD600D7E0B4 /* MainWebViewController.swift */; };
 		55F6CE671FFC0CBD00D7E0B4 /* URL+SearchInit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555E42901FFB266700EFE1D8 /* URL+SearchInit.swift */; };
@@ -106,13 +106,14 @@
 		555E42901FFB266700EFE1D8 /* URL+SearchInit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+SearchInit.swift"; sourceTree = "<group>"; };
 		555E42921FFB2F0000EFE1D8 /* AdaptiveLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveLabel.swift; sourceTree = "<group>"; };
 		55654C6E2002F65700090797 /* PiChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PiChartView.swift; sourceTree = "<group>"; };
+		55718C41200C128F009E0312 /* WebSessionDrawerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSessionDrawerViewController.swift; sourceTree = "<group>"; };
 		557A6CCD1FF3FE290030F88A /* UIColor+ColorSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+ColorSet.swift"; sourceTree = "<group>"; };
 		559872AD1FF6BEC900A726D9 /* String+NilIfEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+NilIfEmpty.swift"; sourceTree = "<group>"; };
 		55A4FDD7200565EA00BA19A8 /* StatusIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusIndicatorView.swift; sourceTree = "<group>"; };
 		55C0DFE51FFD7C5B00A03B91 /* OfflineErrorPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineErrorPage.swift; sourceTree = "<group>"; };
 		55C0DFE71FFD8ED700A03B91 /* HTMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLParser.swift; sourceTree = "<group>"; };
 		55C9DCEA1FF7517D00F0C02B /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
-		55CB1BF01FDA235100A1E377 /* Web Connect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Web Connect.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		55CB1BF01FDA235100A1E377 /* Web Connect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "Web Connect.app"; path = InterBrowseMobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		55CB1BF31FDA235100A1E377 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		55CB1BF51FDA235200A1E377 /* HostInterBrowseSessionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostInterBrowseSessionViewController.swift; sourceTree = "<group>"; };
 		55CB1BFB1FDA235200A1E377 /* Web_Connect.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Web_Connect.xcdatamodel; sourceTree = "<group>"; };
@@ -142,7 +143,6 @@
 		55EE74A120099C7C00446880 /* CustomAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertController.swift; sourceTree = "<group>"; };
 		55EFC84920042E80009620A4 /* InterBrowseWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterBrowseWindowController.swift; sourceTree = "<group>"; };
 		55F1D6A11FDB8DD7003B223F /* UIVisualEffectView+SwitchStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIVisualEffectView+SwitchStyle.swift"; sourceTree = "<group>"; };
-		55F1D6A31FDB90F1003B223F /* InterBrowseSessionDrawerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterBrowseSessionDrawerViewController.swift; sourceTree = "<group>"; };
 		55F1D6A41FDB90F1003B223F /* WebSessionDrawerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WebSessionDrawerViewController.xib; sourceTree = "<group>"; };
 		55F6CE641FFC0AD600D7E0B4 /* MainWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWebViewController.swift; sourceTree = "<group>"; };
 		55F6CE691FFC0EBE00D7E0B4 /* WKWebView+Screenshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WKWebView+Screenshot.swift"; sourceTree = "<group>"; };
@@ -359,7 +359,7 @@
 		55F1D6A71FDB92A6003B223F /* DrawerViewController */ = {
 			isa = PBXGroup;
 			children = (
-				55F1D6A31FDB90F1003B223F /* InterBrowseSessionDrawerViewController.swift */,
+				55718C41200C128F009E0312 /* WebSessionDrawerViewController.swift */,
 				550AFE711FDC522B000CFAED /* BookmarkCollectionViewCell.swift */,
 				5514517C1FEDB010000F74CD /* DeletionView.swift */,
 				55D016A81FF841F4001D71D3 /* NoBookmarksCollectionViewCell.swift */,
@@ -509,7 +509,6 @@
 				550AFE701FDC48CA000CFAED /* HomeViewController.swift in Sources */,
 				55CB1C091FDA252000A1E377 /* UserInterBrowseSessionViewController.swift in Sources */,
 				5500AC94200BA6D800594E4F /* WKNavigationType+Matches.swift in Sources */,
-				55F1D6A51FDB90F1003B223F /* InterBrowseSessionDrawerViewController.swift in Sources */,
 				55CB1C131FDA25E800A1E377 /* PulleyViewController+Nested.swift in Sources */,
 				5514517D1FEDB010000F74CD /* DeletionView.swift in Sources */,
 				553DF69B1FFE9C3A00B3EF04 /* String+isLink.swift in Sources */,
@@ -533,6 +532,7 @@
 				555BF0411FF59167008A095D /* NSLayoutConstraint+PrioritySetter.swift in Sources */,
 				553A061E20008BEF00FADC0F /* URL+DomainNameURL.swift in Sources */,
 				550DF5181FF81698000268A5 /* EndSessionFooterView.swift in Sources */,
+				55718C42200C128F009E0312 /* WebSessionDrawerViewController.swift in Sources */,
 				55529BAE1FE98C5E0077A520 /* CustomWebView.swift in Sources */,
 				550AFE721FDC522B000CFAED /* BookmarkCollectionViewCell.swift in Sources */,
 				5546605C1FFC6C3F004FE348 /* NetworkService.swift in Sources */,

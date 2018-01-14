@@ -17,7 +17,7 @@
         </array>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="InterBrowseSessionDrawerViewController" customModule="InterBrowseMobile" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WebSessionDrawerViewController" customModule="InterBrowseMobile" customModuleProvider="target">
             <connections>
                 <outlet property="bookmarkButton" destination="MMq-HS-j4J" id="bJs-bk-cEA"/>
                 <outlet property="collectionView" destination="gJb-HF-8AT" id="cIe-mg-ult"/>
