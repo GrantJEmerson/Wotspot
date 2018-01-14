@@ -14,14 +14,18 @@ class BookmarkTableViewCell: NSTableCellView {
         didSet {
             guard let bookmark = bookmark else { return }
             bookmarkTitleLabel.stringValue = bookmark.title ?? ""
-            bookmarkScreenshotImageView.image = bookmark.screenshot as? NSImage
+            let screenshotImage = bookmark.screenshot as? NSImage
+            bookmarkScreenshotImageView.image = screenshotImage?.scaleToFillImage(in: bookmarkScreenshotImageView.bounds)
         }
     }
     
     @IBOutlet weak var bookmarkTitleLabel: NSTextField!
     @IBOutlet weak var bookmarkScreenshotImageView: NSImageView! {
         didSet {
-            bookmarkScreenshotImageView.layer?.cornerRadius = 15
+            bookmarkScreenshotImageView.imageScaling = .scaleAxesIndependently
+            bookmarkScreenshotImageView.wantsLayer = true
+            bookmarkScreenshotImageView.layer?.cornerRadius = 8
+            bookmarkScreenshotImageView.layer?.masksToBounds = true
         }
     }
 }

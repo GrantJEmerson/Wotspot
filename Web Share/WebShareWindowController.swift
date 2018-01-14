@@ -25,8 +25,16 @@ class WebShareWindowController: NSWindowController, NSWindowDelegate  {
     
     override func windowDidLoad() {
         super.windowDidLoad()
+        
         mainWebViewController.delegate = self
-        //window?.backgroundColor = .black
+        
+        if UserDefaults.useDarkMode {
+            window?.appearance = NSAppearance(named: .vibrantDark)
+        }
+        
+        NotificationCenter.default.addObserver(forName: .appearanceChanged, object: nil, queue: .main) { (_) in
+            self.window?.appearance = UserDefaults.useDarkMode ? NSAppearance(named: .vibrantDark) : NSAppearance(named: .vibrantLight)
+        }
     }
     
     // MARK: IBActions
@@ -60,9 +68,9 @@ extension WebShareWindowController: WindowControllerDelegate {
 extension WebShareWindowController: NSUserInterfaceValidations {
     
     func validateUserInterfaceItem(_ item: NSValidatedUserInterfaceItem) -> Bool {
-        if let action = item.action {
-            
-        }
+//        if let action = item.action {
+//
+//        }
         return true
     }
         

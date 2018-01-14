@@ -81,7 +81,6 @@ class MainWebViewController: NSViewController {
     }()
     
     
-    
     @IBOutlet weak var bookmarkView: NSView! {
         didSet {
             setUpSubviews()
@@ -143,6 +142,7 @@ class MainWebViewController: NSViewController {
     // MARK: Public Functions
     
     public func search(_ url: URL) {
+        guard session.connectedPeers.count >= 1 else { return }
         prepareForSearch()
         sendSearchRequest(SearchRequest(url: url))
         webView.forwardURLs.removeAll()

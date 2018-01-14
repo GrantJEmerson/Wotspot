@@ -10,12 +10,9 @@ import AppKit
 import WebKit
 
 extension WKWebView {
-    
-    var screenshot: NSImage {
-        let rep = bitmapImageRepForCachingDisplay(in: bounds)!
-        cacheDisplay(in: bounds, to: rep)
-        let image: NSImage = NSImage()
-        image.addRepresentation(rep)
-        return image
+    var screenshot: NSImage? {
+        guard let window = window else { return nil }
+        let imageRef = CGDisplayCreateImage(CGMainDisplayID(), rect: window.frame)
+        return NSImage(cgImage: imageRef!, size: window.frame.size)
     }
 }
