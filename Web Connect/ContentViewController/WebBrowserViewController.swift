@@ -201,9 +201,10 @@ extension WebBrowserViewController: WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         decisionHandler(.allow)
-        guard let url = navigationAction.request.url,
+        guard var url = navigationAction.request.url,
             navigationAction.navigationType.matchesAnyOf([.linkActivated, .backForward, .reload]),
-            isHost else { return }
+            !isHost else { return }
+        if navigationAction.navigationType == .reload { url = webView.url! }
         delegate?.searchFor(url)
     }
     
