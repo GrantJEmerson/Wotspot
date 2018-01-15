@@ -1,6 +1,6 @@
 //
 //  NSLayoutConstraint+PrioritySetter.swift
-//  InterBrowse
+//  Wotspot
 //
 //  Created by Grant Emerson on 12/28/17.
 //  Copyright © 2017 Grant Emerson. All rights reserved.

@@ -1,6 +1,6 @@
 //
-//  InterBrowseWindowController.swift
-//  InterBrowse
+//  WotspotWindowController.swift
+//  Wotspot
 //
 //  Created by Grant Emerson on 1/8/18.
 //  Copyright © 2018 Grant Emerson. All rights reserved.
@@ -9,7 +9,7 @@
 import AppKit
 import MultipeerConnectivity
 
-class InterBrowseWindowController: NSWindowController, NSWindowDelegate  {
+class WotspotWindowController: NSWindowController, NSWindowDelegate  {
     
     // MARK: Properties
     
@@ -54,7 +54,7 @@ class InterBrowseWindowController: NSWindowController, NSWindowDelegate  {
     }
 }
 
-extension InterBrowseWindowController: WindowControllerDelegate {
+extension WotspotWindowController: WindowControllerDelegate {
     
     func changeConnectionStatusTo(_ status: MCSessionState) {
         statusIndicatorView.status = status
@@ -65,7 +65,7 @@ extension InterBrowseWindowController: WindowControllerDelegate {
     }
 }
 
-extension InterBrowseWindowController: NSUserInterfaceValidations {
+extension WotspotWindowController: NSUserInterfaceValidations {
     
     func validateUserInterfaceItem(_ item: NSValidatedUserInterfaceItem) -> Bool {
         return true

@@ -1,6 +1,6 @@
 //
 //  PiChartView.swift
-//  InterBrowse
+//  Wotspot
 //
 //  Created by Grant Emerson on 1/7/18.
 //  Copyright © 2018 Grant Emerson. All rights reserved.

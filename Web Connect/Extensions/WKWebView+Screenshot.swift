@@ -1,6 +1,6 @@
 //
 //  WKWebView+Screenshot.swift
-//  InterBrowse
+//  Wotspot
 //
 //  Created by Grant Emerson on 1/2/18.
 //  Copyright © 2018 Grant Emerson. All rights reserved.

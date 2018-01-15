@@ -44,10 +44,10 @@
 		55C0DFE81FFD8ED700A03B91 /* HTMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C0DFE71FFD8ED700A03B91 /* HTMLParser.swift */; };
 		55C9DCEB1FF7517D00F0C02B /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C9DCEA1FF7517D00F0C02B /* Reachability.swift */; };
 		55CB1BF41FDA235100A1E377 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CB1BF31FDA235100A1E377 /* AppDelegate.swift */; };
-		55CB1BF61FDA235200A1E377 /* HostInterBrowseSessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CB1BF51FDA235200A1E377 /* HostInterBrowseSessionViewController.swift */; };
+		55CB1BF61FDA235200A1E377 /* HostWotspotSessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CB1BF51FDA235200A1E377 /* HostWotspotSessionViewController.swift */; };
 		55CB1BFC1FDA235200A1E377 /* Web_Connect.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 55CB1BFA1FDA235200A1E377 /* Web_Connect.xcdatamodeld */; };
 		55CB1BFE1FDA235200A1E377 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55CB1BFD1FDA235200A1E377 /* Assets.xcassets */; };
-		55CB1C091FDA252000A1E377 /* UserInterBrowseSessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CB1C081FDA252000A1E377 /* UserInterBrowseSessionViewController.swift */; };
+		55CB1C091FDA252000A1E377 /* UserWotspotSessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CB1C081FDA252000A1E377 /* UserWotspotSessionViewController.swift */; };
 		55CB1C0B1FDA257500A1E377 /* DataStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CB1C0A1FDA257500A1E377 /* DataStructures.swift */; };
 		55CB1C111FDA25E800A1E377 /* PastelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CB1C0C1FDA25E700A1E377 /* PastelView.swift */; };
 		55CB1C121FDA25E800A1E377 /* PulleyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CB1C0D1FDA25E800A1E377 /* PulleyViewController.swift */; };
@@ -67,7 +67,7 @@
 		55EE749E2009546600446880 /* ImageTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EE749D2009546600446880 /* ImageTextFieldCell.swift */; };
 		55EE749F20097CC300446880 /* OfflineErrorPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C0DFE51FFD7C5B00A03B91 /* OfflineErrorPage.swift */; };
 		55EE74A220099C7C00446880 /* CustomAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EE74A120099C7C00446880 /* CustomAlertController.swift */; };
-		55EFC84A20042E80009620A4 /* InterBrowseWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EFC84920042E80009620A4 /* InterBrowseWindowController.swift */; };
+		55EFC84A20042E80009620A4 /* WotspotWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EFC84920042E80009620A4 /* WotspotWindowController.swift */; };
 		55EFC84B2004311B009620A4 /* String+NilIfEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559872AD1FF6BEC900A726D9 /* String+NilIfEmpty.swift */; };
 		55F1D6A21FDB8DD7003B223F /* UIVisualEffectView+SwitchStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F1D6A11FDB8DD7003B223F /* UIVisualEffectView+SwitchStyle.swift */; };
 		55F1D6A61FDB90F1003B223F /* WebSessionDrawerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55F1D6A41FDB90F1003B223F /* WebSessionDrawerViewController.xib */; };
@@ -115,11 +115,11 @@
 		55C9DCEA1FF7517D00F0C02B /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		55CB1BF01FDA235100A1E377 /* Web Connect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "Web Connect.app"; path = InterBrowseMobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		55CB1BF31FDA235100A1E377 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		55CB1BF51FDA235200A1E377 /* HostInterBrowseSessionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostInterBrowseSessionViewController.swift; sourceTree = "<group>"; };
+		55CB1BF51FDA235200A1E377 /* HostWotspotSessionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostWotspotSessionViewController.swift; sourceTree = "<group>"; };
 		55CB1BFB1FDA235200A1E377 /* Web_Connect.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Web_Connect.xcdatamodel; sourceTree = "<group>"; };
 		55CB1BFD1FDA235200A1E377 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		55CB1C021FDA235200A1E377 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		55CB1C081FDA252000A1E377 /* UserInterBrowseSessionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInterBrowseSessionViewController.swift; sourceTree = "<group>"; };
+		55CB1C081FDA252000A1E377 /* UserWotspotSessionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserWotspotSessionViewController.swift; sourceTree = "<group>"; };
 		55CB1C0A1FDA257500A1E377 /* DataStructures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStructures.swift; sourceTree = "<group>"; };
 		55CB1C0C1FDA25E700A1E377 /* PastelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PastelView.swift; sourceTree = "<group>"; };
 		55CB1C0D1FDA25E800A1E377 /* PulleyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PulleyViewController.swift; sourceTree = "<group>"; };
@@ -138,10 +138,10 @@
 		55D2081B1FF49FC2009AF34F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		55D2081E1FF49FC2009AF34F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		55D208201FF49FC2009AF34F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		55E4A8821FFC17790076E7AD /* InterBrowse.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = InterBrowse.entitlements; sourceTree = "<group>"; };
+		55E4A8821FFC17790076E7AD /* Wotspot.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Wotspot.entitlements; sourceTree = "<group>"; };
 		55EE749D2009546600446880 /* ImageTextFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTextFieldCell.swift; sourceTree = "<group>"; };
 		55EE74A120099C7C00446880 /* CustomAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertController.swift; sourceTree = "<group>"; };
-		55EFC84920042E80009620A4 /* InterBrowseWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterBrowseWindowController.swift; sourceTree = "<group>"; };
+		55EFC84920042E80009620A4 /* WotspotWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WotspotWindowController.swift; sourceTree = "<group>"; };
 		55F1D6A11FDB8DD7003B223F /* UIVisualEffectView+SwitchStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIVisualEffectView+SwitchStyle.swift"; sourceTree = "<group>"; };
 		55F1D6A41FDB90F1003B223F /* WebSessionDrawerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WebSessionDrawerViewController.xib; sourceTree = "<group>"; };
 		55F6CE641FFC0AD600D7E0B4 /* MainWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWebViewController.swift; sourceTree = "<group>"; };
@@ -171,7 +171,7 @@
 		5529A84C200B162D00869700 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				55EFC84920042E80009620A4 /* InterBrowseWindowController.swift */,
+				55EFC84920042E80009620A4 /* WotspotWindowController.swift */,
 				55F6CE641FFC0AD600D7E0B4 /* MainWebViewController.swift */,
 				553837802009C6A100E8C71E /* PreferencesViewController.swift */,
 			);
@@ -220,8 +220,8 @@
 		5546605D1FFC7E0E004FE348 /* PulleyViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				55CB1BF51FDA235200A1E377 /* HostInterBrowseSessionViewController.swift */,
-				55CB1C081FDA252000A1E377 /* UserInterBrowseSessionViewController.swift */,
+				55CB1BF51FDA235200A1E377 /* HostWotspotSessionViewController.swift */,
+				55CB1C081FDA252000A1E377 /* UserWotspotSessionViewController.swift */,
 			);
 			path = PulleyViewControllers;
 			sourceTree = "<group>";
@@ -294,8 +294,8 @@
 		55CB1BE71FDA235100A1E377 = {
 			isa = PBXGroup;
 			children = (
-				55CB1BF21FDA235100A1E377 /* InterBrowseMobile */,
-				55D208131FF49FC2009AF34F /* InterBrowseDesktop */,
+				55CB1BF21FDA235100A1E377 /* WotspotMobile */,
+				55D208131FF49FC2009AF34F /* WotspotDesktop */,
 				55CB1BF11FDA235100A1E377 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -309,7 +309,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		55CB1BF21FDA235100A1E377 /* InterBrowseMobile */ = {
+		55CB1BF21FDA235100A1E377 /* WotspotMobile */ = {
 			isa = PBXGroup;
 			children = (
 				5546605F1FFC7E3B004FE348 /* HomeScreenViewController */,
@@ -325,7 +325,7 @@
 				55CB1BFD1FDA235200A1E377 /* Assets.xcassets */,
 				55529BB11FE98D3D0077A520 /* Supporting Files */,
 			);
-			name = InterBrowseMobile;
+			name = WotspotMobile;
 			path = "Web Connect";
 			sourceTree = "<group>";
 		};
@@ -340,10 +340,10 @@
 			path = Pulley;
 			sourceTree = "<group>";
 		};
-		55D208131FF49FC2009AF34F /* InterBrowseDesktop */ = {
+		55D208131FF49FC2009AF34F /* WotspotDesktop */ = {
 			isa = PBXGroup;
 			children = (
-				55E4A8821FFC17790076E7AD /* InterBrowse.entitlements */,
+				55E4A8821FFC17790076E7AD /* Wotspot.entitlements */,
 				5529A84C200B162D00869700 /* Controllers */,
 				5529A84E200B165000869700 /* Extensions */,
 				5529A84D200B164300869700 /* CustomViews */,
@@ -353,7 +353,7 @@
 				55D208201FF49FC2009AF34F /* Info.plist */,
 				5529A850200B168500869700 /* Supporting Files */,
 			);
-			path = InterBrowseDesktop;
+			path = WotspotDesktop;
 			sourceTree = "<group>";
 		};
 		55F1D6A71FDB92A6003B223F /* DrawerViewController */ = {
@@ -507,7 +507,7 @@
 				55CB1C0B1FDA257500A1E377 /* DataStructures.swift in Sources */,
 				5524A6861FEEF87900EA7D2C /* ProfileManagementView.swift in Sources */,
 				550AFE701FDC48CA000CFAED /* HomeViewController.swift in Sources */,
-				55CB1C091FDA252000A1E377 /* UserInterBrowseSessionViewController.swift in Sources */,
+				55CB1C091FDA252000A1E377 /* UserWotspotSessionViewController.swift in Sources */,
 				5500AC94200BA6D800594E4F /* WKNavigationType+Matches.swift in Sources */,
 				55CB1C131FDA25E800A1E377 /* PulleyViewController+Nested.swift in Sources */,
 				5514517D1FEDB010000F74CD /* DeletionView.swift in Sources */,
@@ -517,7 +517,7 @@
 				557A6CCE1FF3FE290030F88A /* UIColor+ColorSet.swift in Sources */,
 				55D016A91FF841F4001D71D3 /* NoBookmarksCollectionViewCell.swift in Sources */,
 				550DF51C1FF82400000268A5 /* MCPeerID+Default.swift in Sources */,
-				55CB1BF61FDA235200A1E377 /* HostInterBrowseSessionViewController.swift in Sources */,
+				55CB1BF61FDA235200A1E377 /* HostWotspotSessionViewController.swift in Sources */,
 				55C9DCEB1FF7517D00F0C02B /* Reachability.swift in Sources */,
 				5514517F1FEDCB5D000F74CD /* NotificationName+Custom.swift in Sources */,
 				559872AE1FF6BEC900A726D9 /* String+NilIfEmpty.swift in Sources */,
@@ -547,7 +547,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				55EE749E2009546600446880 /* ImageTextFieldCell.swift in Sources */,
-				55EFC84A20042E80009620A4 /* InterBrowseWindowController.swift in Sources */,
+				55EFC84A20042E80009620A4 /* WotspotWindowController.swift in Sources */,
 				553837812009C6A100E8C71E /* PreferencesViewController.swift in Sources */,
 				55654C6F2002F65700090797 /* PiChartView.swift in Sources */,
 				5529A849200AE9D800869700 /* DeletionView.swift in Sources */,
@@ -727,12 +727,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = MacAppIcon;
-				CODE_SIGN_ENTITLEMENTS = InterBrowseDesktop/InterBrowse.entitlements;
+				CODE_SIGN_ENTITLEMENTS = WotspotDesktop/Wotspot.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = ZYV5DKZMAY;
-				INFOPLIST_FILE = "$(SRCROOT)/InterBrowseDesktop/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/WotspotDesktop/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = com.CelebrityGames.InterBrowse;
@@ -746,12 +746,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = MacAppIcon;
-				CODE_SIGN_ENTITLEMENTS = InterBrowseDesktop/InterBrowse.entitlements;
+				CODE_SIGN_ENTITLEMENTS = WotspotDesktop/Wotspot.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = ZYV5DKZMAY;
-				INFOPLIST_FILE = "$(SRCROOT)/InterBrowseDesktop/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/WotspotDesktop/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = com.CelebrityGames.InterBrowse;

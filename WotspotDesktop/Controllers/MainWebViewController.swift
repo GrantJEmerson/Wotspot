@@ -1,6 +1,6 @@
 //
 //  MainWebViewController.swift
-//  InterBrowse
+//  Wotspot
 //
 //  Created by Grant Emerson on 1/2/18.
 //  Copyright © 2018 Grant Emerson. All rights reserved.
@@ -42,7 +42,7 @@ class MainWebViewController: NSViewController {
     }()
     
     private lazy var assistant: MCAdvertiserAssistant = {
-        let assistant = MCAdvertiserAssistant(serviceType: "InterBrowse", discoveryInfo: nil, session: session)
+        let assistant = MCAdvertiserAssistant(serviceType: "Wotspot", discoveryInfo: nil, session: session)
         return assistant
     }()
     
@@ -86,7 +86,7 @@ class MainWebViewController: NSViewController {
     private lazy var disconnectedAlert: NSAlert = {
         let alert = NSAlert()
         alert.messageText = "Disconnected"
-        alert.informativeText = "You have been removed from the current InterBrowse session."
+        alert.informativeText = "You have been removed from the current Wotspot session."
         alert.alertStyle = .informational
         alert.addButton(withTitle: "OK")
         return alert

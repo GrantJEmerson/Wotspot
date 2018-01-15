@@ -1,6 +1,6 @@
 //
-//  InterBrowseSessionDrawerViewController.swift
-//  InterBrowse
+//  WebSessionDrawerViewController.swift
+//  Wotspot
 //
 //  Created by Grant Emerson on 12/8/17.
 //  Copyright © 2017 Grant Emerson. All rights reserved.
@@ -30,7 +30,7 @@ import MultipeerConnectivity
     func setPulleyPosition(_ pulleyPosition: Int)
 }
 
-protocol InterBrowseSessionDrawerDelegate: class {
+protocol WotspotSessionDrawerDelegate: class {
     func endEditing()
     func updateBookmarkIconFor(_ url: URL)
     func updateDataUsageGraph(dataSet: DataSet)
@@ -347,7 +347,7 @@ extension WebSessionDrawerViewController: UISearchBarDelegate {
 
 // MARK: Implementation of Custom Delegates
 
-extension WebSessionDrawerViewController: InterBrowseSessionDrawerDelegate {
+extension WebSessionDrawerViewController: WotspotSessionDrawerDelegate {
     
     func updateUsers(_ users: [User]) {
         userManagementView.users = users

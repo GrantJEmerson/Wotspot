@@ -11,11 +11,11 @@
                 <application id="hnw-xV-0zn" sceneMemberID="viewController">
                     <menu key="mainMenu" title="Main Menu" systemMenu="main" autoenablesItems="NO" id="AYu-sK-qS6">
                         <items>
-                            <menuItem title="InterBrowse" id="1Xt-HY-uBw">
+                            <menuItem title="Wotspot" id="1Xt-HY-uBw">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="InterBrowse" systemMenu="apple" id="uQy-DD-JDr">
+                                <menu key="submenu" title="Wotspot" systemMenu="apple" id="uQy-DD-JDr">
                                     <items>
-                                        <menuItem title="About InterBrowse" id="5kV-Vb-QxS">
+                                        <menuItem title="About Wotspot" id="5kV-Vb-QxS">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="orderFrontStandardAboutPanel:" target="Ady-hI-5gd" id="Exp-CZ-Vem"/>
@@ -28,7 +28,7 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="wFC-TO-SCJ"/>
-                                        <menuItem title="Hide InterBrowse" keyEquivalent="h" id="Olw-nP-bQN">
+                                        <menuItem title="Hide Wotspot" keyEquivalent="h" id="Olw-nP-bQN">
                                             <connections>
                                                 <action selector="hide:" target="Ady-hI-5gd" id="PnN-Uc-m68"/>
                                             </connections>
@@ -46,7 +46,7 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="kCx-OE-vgT"/>
-                                        <menuItem title="Quit InterBrowse" keyEquivalent="q" id="4sb-4s-VLi">
+                                        <menuItem title="Quit Wotspot" keyEquivalent="q" id="4sb-4s-VLi">
                                             <connections>
                                                 <action selector="terminate:" target="Ady-hI-5gd" id="Te7-pn-YzF"/>
                                             </connections>
@@ -366,7 +366,7 @@
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Web_Share" customModuleProvider="target"/>
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="InterBrowseDesktop" customModuleProvider="target"/>
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -375,7 +375,7 @@
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
             <objects>
-                <windowController id="B8D-0N-5wS" customClass="InterBrowseWindowController" customModule="Web_Share" customModuleProvider="target" sceneMemberID="viewController">
+                <windowController id="B8D-0N-5wS" customClass="WotspotWindowController" customModule="InterBrowseDesktop" customModuleProvider="target" sceneMemberID="viewController">
                     <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" titleVisibility="hidden" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <rect key="contentRect" x="196" y="240" width="620" height="270"/>
@@ -390,7 +390,7 @@
                                     <textField key="view" verticalHuggingPriority="750" id="juI-BK-Lr1">
                                         <rect key="frame" x="0.0" y="14" width="240" height="22"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Search or enter website name" usesSingleLineMode="YES" bezelStyle="round" id="l1w-28-xwG" customClass="ImageTextFieldCell" customModule="Web_Share" customModuleProvider="target">
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Search or enter website name" usesSingleLineMode="YES" bezelStyle="round" id="l1w-28-xwG" customClass="ImageTextFieldCell" customModule="InterBrowseDesktop" customModuleProvider="target">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -440,7 +440,7 @@
                                     <nil key="toolTip"/>
                                     <size key="minSize" width="70" height="32"/>
                                     <size key="maxSize" width="70" height="32"/>
-                                    <customView key="view" id="32P-v8-bup" customClass="PiChartView" customModule="Web_Share" customModuleProvider="target">
+                                    <customView key="view" id="32P-v8-bup" customClass="PiChartView" customModule="InterBrowseDesktop" customModuleProvider="target">
                                         <rect key="frame" x="1" y="14" width="70" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     </customView>
@@ -449,7 +449,7 @@
                                     <nil key="toolTip"/>
                                     <size key="minSize" width="8" height="8"/>
                                     <size key="maxSize" width="8" height="11"/>
-                                    <customView key="view" id="sUJ-Yc-tem" customClass="StatusIndicatorView" customModule="Web_Share" customModuleProvider="target">
+                                    <customView key="view" id="sUJ-Yc-tem" customClass="StatusIndicatorView" customModule="InterBrowseDesktop" customModuleProvider="target">
                                         <rect key="frame" x="56" y="14" width="8" height="8"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     </customView>
@@ -509,7 +509,7 @@
         <!--Main Web View Controller-->
         <scene sceneID="wOw-Bp-S26">
             <objects>
-                <viewController id="7jR-kO-ui6" customClass="MainWebViewController" customModule="Web_Share" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="7jR-kO-ui6" customClass="MainWebViewController" customModule="InterBrowseDesktop" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="6Pz-9j-MyH">
                         <rect key="frame" x="0.0" y="0.0" width="620" height="504"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -543,7 +543,7 @@
                                                             </textFieldCell>
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
-                                                                <tableCellView identifier="bookmarkCellID" id="PZo-Or-WI7" customClass="BookmarkTableViewCell" customModule="Web_Share" customModuleProvider="target">
+                                                                <tableCellView identifier="bookmarkCellID" id="PZo-Or-WI7" customClass="BookmarkTableViewCell" customModule="InterBrowseDesktop" customModuleProvider="target">
                                                                     <rect key="frame" x="1" y="1" width="197" height="136"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
@@ -562,7 +562,7 @@
                                                                             <rect key="frame" x="5" y="26" width="187" height="105"/>
                                                                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="dqV-is-zKb"/>
                                                                         </imageView>
-                                                                        <customView hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yj9-J3-G9F" customClass="DeletionView" customModule="Web_Share" customModuleProvider="target">
+                                                                        <customView hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yj9-J3-G9F" customClass="DeletionView" customModule="InterBrowseDesktop" customModuleProvider="target">
                                                                             <rect key="frame" x="0.0" y="0.0" width="197" height="136"/>
                                                                         </customView>
                                                                     </subviews>
@@ -614,7 +614,7 @@
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="ERt-lG-BK1" customClass="SeperatorView" customModule="Web_Share" customModuleProvider="target">
+                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="ERt-lG-BK1" customClass="SeperatorView" customModule="InterBrowseDesktop" customModuleProvider="target">
                                         <rect key="frame" x="20" y="455" width="170" height="2"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="2" id="ROz-Ze-9UK"/>
@@ -667,7 +667,7 @@
         <!--Interface Preferences-->
         <scene sceneID="E9c-Q3-VuU">
             <objects>
-                <viewController title="Interface Preferences" id="p7y-CT-Bbp" customClass="PreferencesViewController" customModule="Web_Share" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Interface Preferences" id="p7y-CT-Bbp" customClass="PreferencesViewController" customModule="InterBrowseDesktop" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="3pW-66-3rL">
                         <rect key="frame" x="0.0" y="0.0" width="370" height="150"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -699,7 +699,7 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="GiC-TJ-DJc" customClass="SeperatorView" customModule="Web_Share" customModuleProvider="target">
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="GiC-TJ-DJc" customClass="SeperatorView" customModule="InterBrowseDesktop" customModuleProvider="target">
                                 <rect key="frame" x="20" y="98" width="330" height="2"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="2" id="Ei7-Wf-2JX"/>
@@ -708,7 +708,7 @@
                             </customView>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Hi8-Jc-WMs">
                                 <rect key="frame" x="45" y="42" width="280" height="22"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Enter a Username for InterBrowse Sessions" bezelStyle="round" id="lKc-YE-KVM">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Enter a Username for Wotspot Sessions" bezelStyle="round" id="lKc-YE-KVM">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>

@@ -1,6 +1,6 @@
 //
 //  HomeViewController.swift
-//  InterBrowse
+//  Wotspot
 //
 //  Created by Grant Emerson on 12/9/17.
 //  Copyright © 2017 Grant Emerson. All rights reserved.
@@ -44,7 +44,7 @@ class HomeViewController: UIViewController {
     private lazy var hostSessionButton: UIButton = {
         let button = HomePageButton()
         button.isEnabled = Reachability.isConnectedToNetwork()
-        let host = NSLocalizedString("Host", comment: "Title of Button to host a new InterBrowse Session")
+        let host = NSLocalizedString("Host", comment: "Title of Button to host a new Wotspot Session")
         button.setTitle(host, for: .normal)
         button.addTarget(self, action: #selector(startHostingSessionTapped), for: .touchUpInside)
         return button
@@ -52,7 +52,7 @@ class HomeViewController: UIViewController {
     
     private lazy var joinSessionButton: UIButton = {
         let button = HomePageButton()
-        let join = NSLocalizedString("Join", comment: "Title of Button to join a InterBrowse Session")
+        let join = NSLocalizedString("Join", comment: "Title of Button to join a Wotspot Session")
         button.setTitle(join, for: .normal)
         button.addTarget(self, action: #selector(joinAvailableSessionTapped), for: .touchUpInside)
         return button
@@ -125,7 +125,7 @@ class HomeViewController: UIViewController {
     private func presentHostSessionVC() {
         let webBrowserVC = WebBrowserViewController(isHost: true)
         let sesionDrawerVC = WebSessionDrawerViewController(isHost: true)
-        let hostSessionVC = HostInterBrowseSessionViewController(contentViewController: webBrowserVC,
+        let hostSessionVC = HostWotspotSessionViewController(contentViewController: webBrowserVC,
                                                             drawerViewController: sesionDrawerVC)
         hostSessionVC.webView = webBrowserVC.webView
         hostSessionVC.drawerDelegate = sesionDrawerVC
@@ -137,7 +137,7 @@ class HomeViewController: UIViewController {
     private func presentUserSessionVC() {
         let webBrowserVC = WebBrowserViewController(isHost: false)
         let sesionDrawerVC = WebSessionDrawerViewController(isHost: false)
-        let userSessionVC = UserInterBrowseSessionViewController(contentViewController: webBrowserVC,
+        let userSessionVC = UserWotspotSessionViewController(contentViewController: webBrowserVC,
                                                             drawerViewController: sesionDrawerVC)
         userSessionVC.webView = webBrowserVC.webView
         userSessionVC.drawerDelegate = sesionDrawerVC

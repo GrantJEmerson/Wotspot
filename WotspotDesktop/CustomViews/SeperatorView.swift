@@ -1,6 +1,6 @@
 //
 //  SeperatorView.swift
-//  InterBrowse
+//  Wotspot
 //
 //  Created by Grant Emerson on 1/13/18.
 //  Copyright © 2018 Grant Emerson. All rights reserved.
