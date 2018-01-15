@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "55CB1BEF1FDA235100A1E377"
-               BuildableName = "InterBrowseMobile.app"
-               BlueprintName = "InterBrowseMobile"
+               BuildableName = "WotspotMobile.app"
+               BlueprintName = "WotspotMobile"
                ReferencedContainer = "container:Wotspot.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -34,8 +34,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "55CB1BEF1FDA235100A1E377"
-            BuildableName = "InterBrowseMobile.app"
-            BlueprintName = "InterBrowseMobile"
+            BuildableName = "WotspotMobile.app"
+            BlueprintName = "WotspotMobile"
             ReferencedContainer = "container:Wotspot.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -59,8 +59,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "55CB1BEF1FDA235100A1E377"
-            BuildableName = "InterBrowseMobile.app"
-            BlueprintName = "InterBrowseMobile"
+            BuildableName = "WotspotMobile.app"
+            BlueprintName = "WotspotMobile"
             ReferencedContainer = "container:Wotspot.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -78,8 +78,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "55CB1BEF1FDA235100A1E377"
-            BuildableName = "InterBrowseMobile.app"
-            BlueprintName = "InterBrowseMobile"
+            BuildableName = "WotspotMobile.app"
+            BlueprintName = "WotspotMobile"
             ReferencedContainer = "container:Wotspot.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

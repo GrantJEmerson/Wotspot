@@ -39,7 +39,7 @@ protocol InterBrowseSessionDrawerDelegate: class {
     func prepareForSearch()
 }
 
-class InterBrowseSessionDrawerViewController: UIViewController {
+class WebSessionDrawerViewController: UIViewController {
     
     // MARK: Properties
     
@@ -272,7 +272,7 @@ class InterBrowseSessionDrawerViewController: UIViewController {
 
 // MARK: Implementation Of Delegates
 
-extension InterBrowseSessionDrawerViewController: UICollectionViewDataSource {
+extension WebSessionDrawerViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard !bookmarks.isEmpty else {
@@ -296,7 +296,7 @@ extension InterBrowseSessionDrawerViewController: UICollectionViewDataSource {
     }
 }
 
-extension InterBrowseSessionDrawerViewController: UICollectionViewDelegate {
+extension WebSessionDrawerViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard !bookmarks.isEmpty else { return 1 }
@@ -304,7 +304,7 @@ extension InterBrowseSessionDrawerViewController: UICollectionViewDelegate {
     }
 }
 
-extension InterBrowseSessionDrawerViewController: UICollectionViewDelegateFlowLayout {
+extension WebSessionDrawerViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let height = collectionView.bounds.height
@@ -314,7 +314,7 @@ extension InterBrowseSessionDrawerViewController: UICollectionViewDelegateFlowLa
     }
 }
 
-extension InterBrowseSessionDrawerViewController: UISearchBarDelegate {
+extension WebSessionDrawerViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let text = searchBar.text else { return }
@@ -350,7 +350,7 @@ extension InterBrowseSessionDrawerViewController: UISearchBarDelegate {
 
 // MARK: Implementation of Custom Delegates
 
-extension InterBrowseSessionDrawerViewController: InterBrowseSessionDrawerDelegate {
+extension WebSessionDrawerViewController: InterBrowseSessionDrawerDelegate {
     
     func updateUsers(_ users: [User]) {
         userManagementView.users = users
@@ -385,7 +385,7 @@ extension InterBrowseSessionDrawerViewController: InterBrowseSessionDrawerDelega
     }
 }
 
-extension InterBrowseSessionDrawerViewController: BookMarkCellDelegate {
+extension WebSessionDrawerViewController: BookMarkCellDelegate {
     
     func deleteCell(_ cell: UICollectionViewCell) {
         guard let indexPath = collectionView.indexPath(for: cell) else { return }
@@ -406,7 +406,7 @@ extension InterBrowseSessionDrawerViewController: BookMarkCellDelegate {
     }
 }
 
-extension InterBrowseSessionDrawerViewController: UserManagementViewDelegate {
+extension WebSessionDrawerViewController: UserManagementViewDelegate {
     
     func addDataForPeer(_ peerID: MCPeerID) {
         delegate?.addDataForPeer!(peerID)
@@ -425,7 +425,7 @@ extension InterBrowseSessionDrawerViewController: UserManagementViewDelegate {
     }
 }
 
-extension InterBrowseSessionDrawerViewController: ProfileManagementViewDelegate {
+extension WebSessionDrawerViewController: ProfileManagementViewDelegate {
     
     func setPeerIDTo(_ displayName: String) {
         delegate?.setPeerIDTo!(displayName)
@@ -450,7 +450,7 @@ extension InterBrowseSessionDrawerViewController: ProfileManagementViewDelegate 
     }
 }
 
-extension InterBrowseSessionDrawerViewController: PulleyDrawerViewControllerDelegate {
+extension WebSessionDrawerViewController: PulleyDrawerViewControllerDelegate {
     
     func drawerDisplayModeDidChange(drawer: PulleyViewController) {
         gripperTopConstraint.isActive = drawer.currentDisplayMode != .leftSide

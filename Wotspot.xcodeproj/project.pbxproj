@@ -132,7 +132,7 @@
 		55D1B7681FF18E4000379E34 /* DataUsageGraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataUsageGraphView.swift; sourceTree = "<group>"; };
 		55D208061FF49924009AF34F /* SeperatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeperatorView.swift; sourceTree = "<group>"; };
 		55D2080C1FF49A98009AF34F /* UserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
-		55D208121FF49FC2009AF34F /* InterBrowseDesktop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InterBrowseDesktop.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		55D208121FF49FC2009AF34F /* WotspotDesktop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WotspotDesktop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		55D208141FF49FC2009AF34F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		55D208191FF49FC2009AF34F /* Web_Share.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Web_Share.xcdatamodel; sourceTree = "<group>"; };
 		55D2081B1FF49FC2009AF34F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -304,7 +304,7 @@
 			isa = PBXGroup;
 			children = (
 				55CB1BF01FDA235100A1E377 /* Web Connect.app */,
-				55D208121FF49FC2009AF34F /* InterBrowseDesktop.app */,
+				55D208121FF49FC2009AF34F /* WotspotDesktop.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -390,9 +390,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		55CB1BEF1FDA235100A1E377 /* InterBrowseMobile */ = {
+		55CB1BEF1FDA235100A1E377 /* WotspotMobile */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 55CB1C051FDA235200A1E377 /* Build configuration list for PBXNativeTarget "InterBrowseMobile" */;
+			buildConfigurationList = 55CB1C051FDA235200A1E377 /* Build configuration list for PBXNativeTarget "WotspotMobile" */;
 			buildPhases = (
 				55CB1BEC1FDA235100A1E377 /* Sources */,
 				55CB1BED1FDA235100A1E377 /* Frameworks */,
@@ -402,14 +402,14 @@
 			);
 			dependencies = (
 			);
-			name = InterBrowseMobile;
+			name = WotspotMobile;
 			productName = "Web Connect";
 			productReference = 55CB1BF01FDA235100A1E377 /* Web Connect.app */;
 			productType = "com.apple.product-type.application";
 		};
-		55D208111FF49FC2009AF34F /* InterBrowseDesktop */ = {
+		55D208111FF49FC2009AF34F /* WotspotDesktop */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 55D208221FF49FC2009AF34F /* Build configuration list for PBXNativeTarget "InterBrowseDesktop" */;
+			buildConfigurationList = 55D208221FF49FC2009AF34F /* Build configuration list for PBXNativeTarget "WotspotDesktop" */;
 			buildPhases = (
 				55D2080E1FF49FC2009AF34F /* Sources */,
 				55D2080F1FF49FC2009AF34F /* Frameworks */,
@@ -419,9 +419,9 @@
 			);
 			dependencies = (
 			);
-			name = InterBrowseDesktop;
+			name = WotspotDesktop;
 			productName = "Web Share";
-			productReference = 55D208121FF49FC2009AF34F /* InterBrowseDesktop.app */;
+			productReference = 55D208121FF49FC2009AF34F /* WotspotDesktop.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -462,8 +462,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				55CB1BEF1FDA235100A1E377 /* InterBrowseMobile */,
-				55D208111FF49FC2009AF34F /* InterBrowseDesktop */,
+				55CB1BEF1FDA235100A1E377 /* WotspotMobile */,
+				55D208111FF49FC2009AF34F /* WotspotDesktop */,
 			);
 		};
 /* End PBXProject section */
@@ -773,7 +773,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		55CB1C051FDA235200A1E377 /* Build configuration list for PBXNativeTarget "InterBrowseMobile" */ = {
+		55CB1C051FDA235200A1E377 /* Build configuration list for PBXNativeTarget "WotspotMobile" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				55CB1C061FDA235200A1E377 /* Debug */,
@@ -782,7 +782,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		55D208221FF49FC2009AF34F /* Build configuration list for PBXNativeTarget "InterBrowseDesktop" */ = {
+		55D208221FF49FC2009AF34F /* Build configuration list for PBXNativeTarget "WotspotDesktop" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				55D208231FF49FC2009AF34F /* Debug */,
