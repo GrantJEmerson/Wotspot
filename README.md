@@ -15,7 +15,23 @@
 </p>
 
 ## About
-Textor is a plain text editor for iOS. 
+Wotspot is Hotspot without the fees. Wotspot allows any iOS device to host a session and share their mobile data. It works just like a regular hotspot, accept there is no monthly fee and all tasks are limited to the Wotspot browser. Up to 7 devices can connect to the host and use their data to surf the web.
+
+Setting Up a Session:
+- Creating a new Wotspot session is as easy as pressing "Host" on the home screen.
+- Data caps allow you to keep track of the data users have consumed and limit them to a set amount.
+- Once the session is set up you can continue surfing the web on the host device too.
+
+Joining a Session:
+- Joining a session is just involves accepting a host's invitation to join the session.
+- Data graphs keep you up to date with the amount of data you have remaining.
+- Usernames are initially set to the name of your device, but they are editable 
+- Whenever you gain a signal again, you can leave the session by the tap of a button
+
+Features:
+- Night mode allows you to continue browsing late at night or in dimly lit areas
+- Bookmarks allow you to store the websites you visit during the session and visit them later
+- Switch between mobile and desktop mode to obtain the best browsing experience
 
 ## Running
 Open `Textor.xcworkspace`, change the bundle identifier to an identifier linked to your Apple developer account in order to run. Build using the `Textor` scheme. 
