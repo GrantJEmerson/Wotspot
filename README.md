@@ -5,7 +5,7 @@
 <h1 align="center">Textor</h1>
 
 <p align="center">
-<a href="https://itunes.apple.com/app/textor/id1330406995?mt=8&at=1010lII4"><img src="readme-resources/app_store_badge.svg" alt="Download on the App Store"/></a>
+<a href="https://itunes.apple.com/app/textor/id1330406995?mt=8&at=1010lII4"><img src="readme-resources/Download_on_the_App_Store_Badge_US.svg" alt="Download on the App Store"/></a>
 </p>
 
 <p align="center">
