@@ -1,5 +1,5 @@
 <p align="center">
-<img src="readme-resources/hero.png" alt="Textor for iOS">
+<img src="readme-resources/Hero.png" alt="Textor for iOS">
 </p>
 
 <h1 align="center">Textor</h1>
