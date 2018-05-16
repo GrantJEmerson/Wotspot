@@ -1,12 +1,8 @@
 <p align="center">
-<img src="readme-resources/Hero.png" alt="Textor for iOS">
+<img src="Readme%20Resources/Hero.png" alt="Wotspot">
 </p>
 
-<h1 align="center">Textor</h1>
-
-<p align="center">
-<a href="https://itunes.apple.com/app/textor/id1330406995?mt=8&at=1010lII4"><img src="Readme%20Resources/Download_on_the_App_Store_Badge_US.svg" alt="Download on the App Store"/></a>
-</p>
+<h1 align="center">Wotspot</h1>
 
 <p align="center">
 <a href="https://developer.apple.com/swift/"><img src="https://img.shields.io/badge/Swift-4.1-orange.svg?style=flat" alt="Swift"/></a>
