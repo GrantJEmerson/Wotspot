@@ -1,5 +1,5 @@
 <p align="center">
-<img src="Readme%20Resources/hero.png" alt="Wotspot" height="100" width="100" style="border-radius: 25px;">
+<img src="Readme%20Resources/hero.png" alt="Wotspot" height="100" width="100">
 </p>
 
 <h1 align="center">Wotspot</h1>
