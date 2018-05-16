@@ -15,7 +15,7 @@
 </p>
 
 ## About
-Wotspot is Hotspot without the fees. Wotspot allows any iOS device to host a session and share their mobile data. It works just like a regular hotspot, accept there is no monthly fee and all tasks are limited to the Wotspot browser. Up to 7 devices can connect to the host and use their data to surf the web.
+Wotspot is a hotspot without the fees. Wotspot allows any iOS device to host a session and share their mobile data. It works just like a regular hotspot, accept there is no monthly fee and all tasks are limited to the Wotspot browser. Up to 7 devices can connect to the host and use their data to surf the web.
 
 Setting Up a Session:
 - Creating a new Wotspot session is as easy as pressing "Host" on the home screen.
