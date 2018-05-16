@@ -1,5 +1,5 @@
 <p align="center">
-<img src="Readme%20Resources/Hero.png" alt="Wotspot">
+<img src="Readme%20Resources/Hero.png" alt="Wotspot" height="42" width="42">
 </p>
 
 <h1 align="center">Wotspot</h1>
