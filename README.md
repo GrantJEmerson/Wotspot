@@ -14,6 +14,10 @@
 <a href="https://www.paypal.me/GrantJEmerson"><img src="https://img.shields.io/badge/Donate-PayPal-green.svg?style=flat" alt="Donate via PayPal"/></a>
 </p>
 
+<img src="Readme%20Resources/WotspotMobileScreenshots.png" alt="iPhone Screenshots">
+<img src="Readme%20Resources/WotspotiPadScreenshots.png" alt="iPad Screenshots">
+<img src="Readme%20Resources/WotspotDesktopScreenshots.png" alt="Mac Screenshots">
+
 ## About
 Wotspot is a hotspot without the fees. Wotspot allows any iOS device to host a session and share their mobile data. It works just like a regular hotspot, accept there is no monthly fee and all tasks are limited to the Wotspot browser. Up to 7 devices can connect to the host and use their data to surf the web.
 
