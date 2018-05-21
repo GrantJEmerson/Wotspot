@@ -113,7 +113,7 @@
 		55C0DFE51FFD7C5B00A03B91 /* OfflineErrorPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineErrorPage.swift; sourceTree = "<group>"; };
 		55C0DFE71FFD8ED700A03B91 /* HTMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLParser.swift; sourceTree = "<group>"; };
 		55C9DCEA1FF7517D00F0C02B /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
-		55CB1BF01FDA235100A1E377 /* Web Connect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "Web Connect.app"; path = InterBrowseMobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		55CB1BF01FDA235100A1E377 /* Wotspot Mobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Wotspot Mobile.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		55CB1BF31FDA235100A1E377 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		55CB1BF51FDA235200A1E377 /* HostWotspotSessionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostWotspotSessionViewController.swift; sourceTree = "<group>"; };
 		55CB1BFB1FDA235200A1E377 /* Web_Connect.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Web_Connect.xcdatamodel; sourceTree = "<group>"; };
@@ -132,7 +132,7 @@
 		55D1B7681FF18E4000379E34 /* DataUsageGraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataUsageGraphView.swift; sourceTree = "<group>"; };
 		55D208061FF49924009AF34F /* SeperatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeperatorView.swift; sourceTree = "<group>"; };
 		55D2080C1FF49A98009AF34F /* UserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
-		55D208121FF49FC2009AF34F /* WotspotDesktop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WotspotDesktop.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		55D208121FF49FC2009AF34F /* Wotspot Desktop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Wotspot Desktop.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		55D208141FF49FC2009AF34F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		55D208191FF49FC2009AF34F /* Web_Share.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Web_Share.xcdatamodel; sourceTree = "<group>"; };
 		55D2081B1FF49FC2009AF34F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -294,8 +294,8 @@
 		55CB1BE71FDA235100A1E377 = {
 			isa = PBXGroup;
 			children = (
-				55CB1BF21FDA235100A1E377 /* WotspotMobile */,
-				55D208131FF49FC2009AF34F /* WotspotDesktop */,
+				55CB1BF21FDA235100A1E377 /* Wotspot Mobile */,
+				55D208131FF49FC2009AF34F /* Wotspot Desktop */,
 				55CB1BF11FDA235100A1E377 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -303,13 +303,13 @@
 		55CB1BF11FDA235100A1E377 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				55CB1BF01FDA235100A1E377 /* Web Connect.app */,
-				55D208121FF49FC2009AF34F /* WotspotDesktop.app */,
+				55CB1BF01FDA235100A1E377 /* Wotspot Mobile.app */,
+				55D208121FF49FC2009AF34F /* Wotspot Desktop.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		55CB1BF21FDA235100A1E377 /* WotspotMobile */ = {
+		55CB1BF21FDA235100A1E377 /* Wotspot Mobile */ = {
 			isa = PBXGroup;
 			children = (
 				5546605F1FFC7E3B004FE348 /* HomeScreenViewController */,
@@ -325,8 +325,7 @@
 				55CB1BFD1FDA235200A1E377 /* Assets.xcassets */,
 				55529BB11FE98D3D0077A520 /* Supporting Files */,
 			);
-			name = WotspotMobile;
-			path = "Web Connect";
+			path = "Wotspot Mobile";
 			sourceTree = "<group>";
 		};
 		55CB1C161FDA263A00A1E377 /* Pulley */ = {
@@ -340,7 +339,7 @@
 			path = Pulley;
 			sourceTree = "<group>";
 		};
-		55D208131FF49FC2009AF34F /* WotspotDesktop */ = {
+		55D208131FF49FC2009AF34F /* Wotspot Desktop */ = {
 			isa = PBXGroup;
 			children = (
 				55E4A8821FFC17790076E7AD /* Wotspot.entitlements */,
@@ -353,7 +352,7 @@
 				55D208201FF49FC2009AF34F /* Info.plist */,
 				5529A850200B168500869700 /* Supporting Files */,
 			);
-			path = WotspotDesktop;
+			path = "Wotspot Desktop";
 			sourceTree = "<group>";
 		};
 		55F1D6A71FDB92A6003B223F /* DrawerViewController */ = {
@@ -390,9 +389,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		55CB1BEF1FDA235100A1E377 /* WotspotMobile */ = {
+		55CB1BEF1FDA235100A1E377 /* Wotspot Mobile */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 55CB1C051FDA235200A1E377 /* Build configuration list for PBXNativeTarget "WotspotMobile" */;
+			buildConfigurationList = 55CB1C051FDA235200A1E377 /* Build configuration list for PBXNativeTarget "Wotspot Mobile" */;
 			buildPhases = (
 				55CB1BEC1FDA235100A1E377 /* Sources */,
 				55CB1BED1FDA235100A1E377 /* Frameworks */,
@@ -402,14 +401,14 @@
 			);
 			dependencies = (
 			);
-			name = WotspotMobile;
+			name = "Wotspot Mobile";
 			productName = "Web Connect";
-			productReference = 55CB1BF01FDA235100A1E377 /* Web Connect.app */;
+			productReference = 55CB1BF01FDA235100A1E377 /* Wotspot Mobile.app */;
 			productType = "com.apple.product-type.application";
 		};
-		55D208111FF49FC2009AF34F /* WotspotDesktop */ = {
+		55D208111FF49FC2009AF34F /* Wotspot Desktop */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 55D208221FF49FC2009AF34F /* Build configuration list for PBXNativeTarget "WotspotDesktop" */;
+			buildConfigurationList = 55D208221FF49FC2009AF34F /* Build configuration list for PBXNativeTarget "Wotspot Desktop" */;
 			buildPhases = (
 				55D2080E1FF49FC2009AF34F /* Sources */,
 				55D2080F1FF49FC2009AF34F /* Frameworks */,
@@ -419,9 +418,9 @@
 			);
 			dependencies = (
 			);
-			name = WotspotDesktop;
+			name = "Wotspot Desktop";
 			productName = "Web Share";
-			productReference = 55D208121FF49FC2009AF34F /* WotspotDesktop.app */;
+			productReference = 55D208121FF49FC2009AF34F /* Wotspot Desktop.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -431,7 +430,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0910;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Grant Emerson";
 				TargetAttributes = {
 					55CB1BEF1FDA235100A1E377 = {
@@ -462,8 +461,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				55CB1BEF1FDA235100A1E377 /* WotspotMobile */,
-				55D208111FF49FC2009AF34F /* WotspotDesktop */,
+				55CB1BEF1FDA235100A1E377 /* Wotspot Mobile */,
+				55D208111FF49FC2009AF34F /* Wotspot Desktop */,
 			);
 		};
 /* End PBXProject section */
@@ -598,6 +597,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -605,6 +605,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -655,6 +656,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -662,6 +664,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -697,10 +700,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZYV5DKZMAY;
-				INFOPLIST_FILE = "$(SRCROOT)/Web Connect/Supporting Files/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Wotspot Mobile/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.CelebrityGames.WebShare;
+				PRODUCT_BUNDLE_IDENTIFIER = com.CelebrityGames.Wotspot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -713,10 +716,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZYV5DKZMAY;
-				INFOPLIST_FILE = "$(SRCROOT)/Web Connect/Supporting Files/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Wotspot Mobile/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.CelebrityGames.WebShare;
+				PRODUCT_BUNDLE_IDENTIFIER = com.CelebrityGames.Wotspot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -727,12 +730,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = MacAppIcon;
-				CODE_SIGN_ENTITLEMENTS = WotspotDesktop/Wotspot.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "Wotspot Desktop/Wotspot.entitlements";
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = ZYV5DKZMAY;
-				INFOPLIST_FILE = "$(SRCROOT)/WotspotDesktop/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Wotspot Desktop/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = com.CelebrityGames.InterBrowse;
@@ -746,12 +749,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = MacAppIcon;
-				CODE_SIGN_ENTITLEMENTS = WotspotDesktop/Wotspot.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "Wotspot Desktop/Wotspot.entitlements";
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = ZYV5DKZMAY;
-				INFOPLIST_FILE = "$(SRCROOT)/WotspotDesktop/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Wotspot Desktop/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = com.CelebrityGames.InterBrowse;
@@ -773,7 +776,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		55CB1C051FDA235200A1E377 /* Build configuration list for PBXNativeTarget "WotspotMobile" */ = {
+		55CB1C051FDA235200A1E377 /* Build configuration list for PBXNativeTarget "Wotspot Mobile" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				55CB1C061FDA235200A1E377 /* Debug */,
@@ -782,7 +785,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		55D208221FF49FC2009AF34F /* Build configuration list for PBXNativeTarget "WotspotDesktop" */ = {
+		55D208221FF49FC2009AF34F /* Build configuration list for PBXNativeTarget "Wotspot Desktop" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				55D208231FF49FC2009AF34F /* Debug */,
