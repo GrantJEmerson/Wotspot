@@ -82,6 +82,8 @@ class DataUsageGraphView: UIView {
         let view = UIView()
         view.layer.borderWidth = 3
         view.layer.borderColor = UIColor.darkGray.cgColor
+        view.layer.cornerRadius = 5
+        view.clipsToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()

@@ -161,20 +161,19 @@ import UIKit
 			let colorSpace = CGColorSpaceCreateDeviceRGB()
 			let colorSpaceModel = colorSpace.model
 
-			let gradientColors = colors.map { (color: UIColor) -> AnyObject! in
+            let gradientColors = colors.map { (color: UIColor) -> AnyObject? in
 				let cgColor = color.cgColor
 				let cgColorSpace = cgColor.colorSpace ?? colorSpace
 
 				if cgColorSpace.model == colorSpaceModel {
-					return cgColor as AnyObject!
+                    return cgColor as AnyObject?
 				}
 
 				var red: CGFloat = 0
 				var blue: CGFloat = 0
 				var green: CGFloat = 0
 				var alpha: CGFloat = 0
-				color.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
-				return UIColor(red: red, green: green, blue: blue, alpha: alpha).cgColor as AnyObject!
+                return color.getRed(&red, green: &green, blue: &blue, alpha: &alpha) as AnyObject
 			} as NSArray
 
 			gradient = CGGradient(colorsSpace: colorSpace, colors: gradientColors, locations: locations)

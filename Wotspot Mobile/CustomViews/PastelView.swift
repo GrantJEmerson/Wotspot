@@ -24,7 +24,7 @@ class PastelView: UIView {
     
     fileprivate let gradient = CAGradientLayer()
     private var currentGradient: Int = 0
-    private var colors: [UIColor] = [#colorLiteral(red: 0.1867344057, green: 0.3948664823, blue: 0.5, alpha: 1), #colorLiteral(red: 0.2641793575, green: 0.5471587531, blue: 0.6843655133, alpha: 1), #colorLiteral(red: 0.4862745098, green: 0.7176470588, blue: 0.8588235294, alpha: 1), #colorLiteral(red: 0.6832255996, green: 0.8848978597, blue: 1, alpha: 1), #colorLiteral(red: 0.9667274747, green: 0.9667274747, blue: 0.9667274747, alpha: 1)]
+    private var colors: [UIColor] = [#colorLiteral(red: 0.1867344057, green: 0.3948664823, blue: 0.5, alpha: 1), #colorLiteral(red: 0.262745098, green: 0.5490196078, blue: 0.6862745098, alpha: 1), #colorLiteral(red: 0.4862745098, green: 0.7176470588, blue: 0.8588235294, alpha: 1), #colorLiteral(red: 0.6832255996, green: 0.8848978597, blue: 1, alpha: 1), #colorLiteral(red: 0.9667274747, green: 0.9667274747, blue: 0.9667274747, alpha: 1)]
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
